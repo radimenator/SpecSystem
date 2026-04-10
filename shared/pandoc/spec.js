@@ -1,0 +1,60 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const blocks = document.querySelectorAll("pre, div.sourceCode");
+
+  blocks.forEach((block) => {
+    if (block.closest(".code-block")) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-block";
+
+    const toolbar = document.createElement("div");
+    toolbar.className = "code-toolbar";
+
+    const label = document.createElement("span");
+    label.className = "code-label";
+
+    const codeEl = block.querySelector("code");
+    let lang = "CODE";
+
+    if (codeEl) {
+      const classes = Array.from(codeEl.classList);
+      const langClass = classes.find((c) => c.startsWith("language-"));
+      if (langClass) {
+        lang = langClass.replace("language-", "").toUpperCase();
+      }
+    }
+
+    label.textContent = lang;
+
+    const button = document.createElement("button");
+    button.className = "copy-button";
+    button.type = "button";
+    button.textContent = "Kopírovat";
+
+    button.addEventListener("click", async () => {
+      const text = codeEl ? codeEl.innerText : block.innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Zkopírováno";
+        button.classList.add("copied");
+        setTimeout(() => {
+          button.textContent = "Kopírovat";
+          button.classList.remove("copied");
+        }, 1600);
+      } catch {
+        button.textContent = "Chyba";
+        setTimeout(() => {
+          button.textContent = "Kopírovat";
+        }, 1600);
+      }
+    });
+
+    toolbar.appendChild(label);
+    toolbar.appendChild(button);
+
+    const parent = block.parentNode;
+    parent.insertBefore(wrapper, block);
+    wrapper.appendChild(toolbar);
+    wrapper.appendChild(block);
+  });
+});

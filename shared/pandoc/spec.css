@@ -1,0 +1,263 @@
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --text: #1f2937;
+  --muted: #667085;
+  --border: #e5e7eb;
+  --code-bg: #f3f4f6;
+  --code-top: #eceff3;
+  --accent: #111827;
+  --link: #2563eb;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.7;
+}
+
+body > * {
+  box-sizing: border-box;
+}
+
+main,
+body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 72px;
+}
+
+h1, h2, h3, h4 {
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin: 0 0 0.4rem;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-top: 2.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 1.6rem;
+}
+
+p, ul, ol, blockquote, table {
+  max-width: 820px;
+}
+
+p {
+  margin: 0.8rem 0;
+}
+
+ul, ol {
+  margin: 0.6rem 0 1rem 1.4rem;
+}
+
+li {
+  margin: 0.28rem 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+blockquote {
+  margin: 1.2rem 0;
+  padding: 1rem 1.1rem;
+  background: #eef6ff;
+  border: 1px solid #dbeafe;
+  border-left: 4px solid #60a5fa;
+  border-radius: 14px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+code {
+  font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: #eef2f7;
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+}
+
+pre {
+  margin: 0;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  overflow: auto;
+  box-shadow: none;
+}
+
+pre code {
+  display: block;
+  background: transparent;
+  padding: 20px;
+  border-radius: 0 0 18px 18px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+div.sourceCode,
+pre {
+  margin: 1rem 0 1.5rem;
+}
+
+/* Wrapper, který doplní JS */
+.code-block {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin: 1rem 0 1.6rem;
+  max-width: 980px;
+}
+
+.code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--code-top);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+}
+
+.code-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #475467;
+  text-transform: uppercase;
+}
+
+.copy-button {
+  border: 1px solid #d0d5dd;
+  background: white;
+  color: #344054;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  background: #f9fafb;
+}
+
+.copy-button.copied {
+  background: #ecfdf3;
+  border-color: #abefc6;
+  color: #067647;
+}
+
+.code-block pre,
+.code-block div.sourceCode {
+  margin: 0;
+  background: var(--code-bg);
+}
+
+.code-block pre code {
+  background: transparent;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 1rem 0 1.5rem;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--surface-2);
+}
+
+nav#TOC,
+nav[role="doc-toc"] {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  margin: 1.5rem 0 2rem;
+  max-width: 820px;
+}
+
+.title {
+  margin-bottom: 0.2rem;
+}
+
+.date {
+  color: var(--muted);
+  margin-top: 0;
+  margin-bottom: 1.8rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 20px;
+    max-width: none;
+  }
+
+  .copy-button {
+    display: none;
+  }
+
+  .code-block {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  nav#TOC,
+  nav[role="doc-toc"],
+  table,
+  blockquote {
+    box-shadow: none;
+  }
+}
