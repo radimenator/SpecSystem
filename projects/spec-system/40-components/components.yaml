@@ -1,0 +1,28 @@
+components:
+  - id: spec_root
+    name: Root specifikace
+    purpose: Vstupní bod pro pochopení projektu
+
+  - id: motivation_layer
+    name: Motivační vrstva
+    purpose: Zachycení důvodů, cílů, omezení a požadavků
+
+  - id: architecture_view
+    name: Architektonický pohled
+    purpose: Globální porozumění systému jako celku
+
+  - id: component_catalog
+    name: Katalog komponent
+    purpose: Rozpad systému na pochopitelné a regenerovatelné části
+
+  - id: decisions_log
+    name: Log rozhodnutí
+    purpose: Uchování důvodů zásadních návrhových voleb
+
+  - id: regeneration_description
+    name: Popis regenerace
+    purpose: Vymezení toho, jak lze systém znovu vytvořit
+
+  - id: publication_layer
+    name: Publikační vrstva
+    purpose: Generování čitelného dokumentu ze specifikace

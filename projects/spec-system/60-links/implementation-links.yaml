@@ -1,0 +1,17 @@
+links:
+  roam:
+    project_page: "PO/Uložiště specifikací"
+
+  local_paths:
+    spec_root: "~/SpecSystem/projects/spec-system"
+    projects_root: "~/Projects"
+
+  related_projects: []
+
+  related_tools:
+    - Roam Research
+    - VS Code
+    - iTerm2
+    - Git
+    - Pandoc
+    - ArchiMate Tool

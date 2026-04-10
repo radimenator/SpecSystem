@@ -1,0 +1,14 @@
+meta:
+  id: spec-system
+  name: Uložiště specifikací
+  type: system
+  status: active
+  owner: Radim
+  canonical_version: 0.1
+  created: 2026-04-10
+  updated: 2026-04-10
+
+links:
+  roam_project: "PO/Uložiště specifikací"
+  code_repositories: []
+  related_specs: []

@@ -1,0 +1,59 @@
+stakeholders:
+  - id: radim
+    name: Radim
+    role: autor, architekt, uživatel systému
+  - id: franta_strukturak
+    name: Franta strukturák
+    role: analytický a návrhový partner
+  - id: openclaw_arch
+    name: OpenClaw/Architecture-team
+    role: architektonická podpora
+  - id: openclaw_dev
+    name: OpenClaw/Dev-team
+    role: vývojová podpora
+  - id: openclaw_infra
+    name: OpenClaw/Infra-team
+    role: infrastrukturní podpora
+
+drivers:
+  - potřeba evidovat specifikace napříč projekty
+  - potřeba verzovat změny specifikací
+  - potřeba udržet původní záměr řešení
+  - potřeba porozumět aplikaci jako celku
+  - potřeba regenerovat kód ze specifikací
+
+assessment:
+  - specifikace dnes existují roztříštěně
+  - historie změn specifikací není dostatečně řízená
+  - není jasné, která specifikace je platná
+  - není snadné dohledat vazbu mezi specifikací a výsledným kódem
+  - globální porozumění aplikaci se ztrácí v množství generovaného kódu
+
+goals:
+  - mít jednoznačně evidované specifikace projektů
+  - mít historii a verze specifikací
+  - mít možnost pochopit aplikaci na úrovni celku
+  - mít možnost použít specifikaci jako vstup pro regeneraci kódu
+  - oddělit pracovní poznámky od kanonické specifikace
+
+constraints:
+  - systém musí být použitelný jedním člověkem bez vysoké režie
+  - systém musí fungovat v kombinaci s existujícím osobním toolstackem
+  - systém nesmí být složitější než hodnota, kterou přinese
+  - systém musí podporovat jak lidské čtení, tak strojové zpracování
+
+principles:
+  - uložiště specifikací je systém
+  - specifikace jsou primární znalostní artefakty
+  - poznámky nejsou totéž co kanonická specifikace
+  - každá specifikace musí být dohledatelná a srozumitelná
+  - každá významná změna specifikace musí být rekonstruovatelná
+  - specifikace má podporovat porozumění i regeneraci
+
+requirements:
+  - evidovat specifikace po projektech
+  - rozlišovat pracovní poznámky a platnou specifikaci
+  - podporovat historii a verze
+  - umožnit vazbu specifikace na kód a architekturu
+  - umožnit vyhledání aktuální i předchozí verze specifikace
+  - podporovat globální pohled na aplikaci
