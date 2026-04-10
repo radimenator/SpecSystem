@@ -2,54 +2,75 @@
 
 set -euo pipefail
 
-if [ $# -ne 1 ]; then
-  echo "Použití: $0 <project-id>"
+if [ $# -lt 1 ]; then
+  echo "Použití: $0 <project-id> [human-readable-name]"
   echo "Příklad: $0 tech-radar"
+  echo "Příklad: $0 tech-radar \"Tech Radar\""
   exit 1
 fi
 
 PROJECT_ID="$1"
-BASE_DIR="$HOME/SpecSystem/projects/$PROJECT_ID"
+PROJECT_NAME="${2:-$1}"
 
-if [ -e "$BASE_DIR" ]; then
-  echo "Chyba: adresář už existuje: $BASE_DIR"
+if [[ ! "$PROJECT_ID" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+  echo "Chyba: project-id musí být v kebab-case, např. tech-radar"
   exit 1
 fi
 
-echo "Zakládám strukturu pro projekt: $PROJECT_ID"
-mkdir -p "$BASE_DIR"/{00-meta,10-motivation,20-scope,30-architecture,40-components,50-decisions,60-links,70-regeneration,80-history}
+TEMPLATE_DIR="$HOME/SpecSystem/templates/project-spec"
+TARGET_DIR="$HOME/SpecSystem/projects/$PROJECT_ID"
+TODAY="$(date +%F)"
 
-cat > "$BASE_DIR/00-meta/spec.yaml" <<EOF
-meta:
-  id: $PROJECT_ID
-  name: $PROJECT_ID
-  type: project
-  status: draft
-  owner: Radim
-  canonical_version: 0.1
-  created: $(date +%F)
-  updated: $(date +%F)
+if [ ! -d "$TEMPLATE_DIR" ]; then
+  echo "Chyba: template neexistuje: $TEMPLATE_DIR"
+  exit 1
+fi
 
-links:
-  roam_project: ""
-  code_repositories: []
-  related_specs: []
-EOF
+if [ -e "$TARGET_DIR" ]; then
+  echo "Chyba: cílový adresář už existuje: $TARGET_DIR"
+  exit 1
+fi
 
-touch "$BASE_DIR/10-motivation/motivation.yaml"
-touch "$BASE_DIR/20-scope/scope.md"
-touch "$BASE_DIR/30-architecture/architecture.md"
-touch "$BASE_DIR/40-components/components.yaml"
-touch "$BASE_DIR/50-decisions/decisions.md"
-touch "$BASE_DIR/60-links/implementation-links.yaml"
-touch "$BASE_DIR/70-regeneration/regeneration.md"
-touch "$BASE_DIR/80-history/history.md"
+cp -R "$TEMPLATE_DIR" "$TARGET_DIR"
 
-echo "# $PROJECT_ID" > "$BASE_DIR/20-scope/scope.md"
-echo "# Architektura" > "$BASE_DIR/30-architecture/architecture.md"
-echo "# Rozhodnutí" > "$BASE_DIR/50-decisions/decisions.md"
-echo "# Regenerace" > "$BASE_DIR/70-regeneration/regeneration.md"
-echo "# Historie" > "$BASE_DIR/80-history/history.md"
+SPEC_FILE="$TARGET_DIR/00-meta/spec.yaml"
+LINKS_FILE="$TARGET_DIR/60-links/implementation-links.yaml"
 
-echo "Hotovo:"
-echo "  $BASE_DIR"
+if [ ! -f "$SPEC_FILE" ]; then
+  echo "Chyba: chybí soubor $SPEC_FILE"
+  exit 1
+fi
+
+if [ ! -f "$LINKS_FILE" ]; then
+  echo "Chyba: chybí soubor $LINKS_FILE"
+  exit 1
+fi
+
+python3 <<PY
+from pathlib import Path
+
+spec_file = Path("$SPEC_FILE")
+links_file = Path("$LINKS_FILE")
+
+spec_text = spec_file.read_text(encoding="utf-8")
+spec_text = spec_text.replace("<project-id>", "$PROJECT_ID")
+spec_text = spec_text.replace("<human-readable-name>", "$PROJECT_NAME")
+spec_text = spec_text.replace("YYYY-MM-DD", "$TODAY", 2)
+spec_text = spec_text.replace("<owner>", "Radim")
+spec_file.write_text(spec_text, encoding="utf-8")
+
+links_text = links_file.read_text(encoding="utf-8")
+links_text = links_text.replace("<project>", "$PROJECT_ID")
+links_file.write_text(links_text, encoding="utf-8")
+PY
+
+mkdir -p "$TARGET_DIR/dist"
+
+echo "Projektová specifikace vytvořena:"
+echo "  $TARGET_DIR"
+echo
+echo "Další kroky:"
+echo "  1. doplň Roam project v 00-meta/spec.yaml"
+echo "  2. doplň motivation, scope a architecture"
+echo "  3. vygeneruj view dokument:"
+echo "     ~/SpecSystem/build-spec-doc.sh $PROJECT_ID html"

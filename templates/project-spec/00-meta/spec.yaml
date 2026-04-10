@@ -1,15 +1,15 @@
 meta:
-  id: tech-radar
-  name: tech-radar
+  id: <project-id>
+  name: <human-readable-name>
 
   type: system # system | feature | tool
   status: draft # draft | active | archived
 
-  owner: Radim
+  owner: <owner>
   canonical_version: 0.1
 
-  created: 2026-04-10
-  updated: 2026-04-10
+  created: YYYY-MM-DD
+  updated: YYYY-MM-DD
 
 links:
   roam_project: "PO/..."

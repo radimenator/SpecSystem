@@ -3,8 +3,8 @@ links:
     project_page: "PO/..."
 
   local_paths:
-    project_root: "~/Projects/tech-radar"
-    spec_root: "~/SpecSystem/projects/tech-radar"
+    project_root: "~/Projects/<project>"
+    spec_root: "~/SpecSystem/projects/<project>"
 
   repositories:
     - url: https://github.com/...
