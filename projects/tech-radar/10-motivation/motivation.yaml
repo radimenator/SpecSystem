@@ -1,22 +1,38 @@
 motivation:
   stakeholders:
-    - name: <name>
-      role: <role>
+    - name: Radim
+      role: jediný uživatel a administrátor systému
 
   drivers:
-    - potřeba / tlak
+    - Chybí osobní radar pro technologické novinky vedoucí k vlastním projektům a bastlení.
+    - Běžné informační zdroje přinášejí inspiraci, ale nejsou filtrovány podle osobní relevance.
+    - Je potřeba zachytit aha momenty a převést je do další práce v osobním PKM workflow.
 
   assessment:
-    - problém / současný stav
+    - Relevantní novinky jsou rozptýlené napříč technologickými weby a feedy.
+    - Bez filtrace a scoringu vzniká informační šum místo použitelné inspirace.
+    - Současný stav nepodporuje systematický převod článků do Roam Research jako zdrojových poznámek.
 
   goals:
-    - cílový stav
+    - Pravidelně dodávat kurátorované technologické novinky s vysokou relevancí pro osobní projekty.
+    - Podporovat vznik osobních projektů nebo rozhodnutí o pořízení užitečných nástrojů.
+    - Poskytovat stručný, přehledný a nezahlcující přehled článků připravených k dalšímu zpracování.
 
   constraints:
-    - omezení systému
+    - Systém je čistě osobní a neveřejný.
+    - Přístup je pouze přes Tailscale nebo VPN, bez aplikačního přihlášení.
+    - Datový model v SQLite a business logika pipeline jsou stabilní a neregenerují se.
+    - Staré články není nutné reanalyzovat, retence je omezena na posledních 30 dní.
 
   principles:
-    - princip návrhu
+    - Upřednostnit inspiraci pro projekty před obecným technologickým přehledem.
+    - Systém má inspirovat, ne nutit k akci ani zahlcovat.
+    - Používat malé, srozumitelné a oddělitelné části systému.
+    - Oddělit stabilní doménovou vrstvu od regenerovatelných UI a API kontraktů.
 
   requirements:
-    - požadavky na systém
+    - Sbírat články primárně z RSS zdrojů, výjimečně z vybraných jiných zdrojů.
+    - Pro každý článek ukládat metadata, shrnutí, vysvětlení relevance, section a score.
+    - Podporovat deduplikaci, filtrování, stav přečteno a uloženo, a export do Roam.
+    - Umožnit správu zdrojů včetně include/exclude keywords a enable/disable stavu.
+    - Používat OpenClaw agenty pro analýzu, scoring a filtraci článků.
