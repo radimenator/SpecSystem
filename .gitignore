@@ -3,3 +3,4 @@ dist/
 *.pdf
 *.docx
 *.html
+local/
