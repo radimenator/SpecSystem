@@ -1,23 +1,260 @@
 components:
-  - id: example_component
-    name: Example Component
+  - id: source_manager
+    name: Source Manager
 
-    type: application_component # application_component | data_object | service
-    layer: application # business | application | technology
+    type: application_component
+    layer: application
 
-    purpose: Popis účelu komponenty
+    purpose: Spravuje evidované zdroje článků a jejich lokální pravidla filtrace.
 
     responsibilities:
-      - odpovědnost 1
-      - odpovědnost 2
+      - vytvářet, upravovat, zapínat a vypínat zdroje
+      - ukládat include_topics a exclude_topics pro každý zdroj
+      - poskytovat seznam aktivních zdrojů ingestion workeru
 
     interfaces:
-      - api
+      - fastapi
+      - sqlite
+
+  - id: rss_ingestion_worker
+    name: RSS Ingestion Worker
+
+    type: application_component
+    layer: application
+
+    purpose: Cronem spouštěný worker, který načítá aktivní RSS zdroje a vytváří kandidátní články.
+
+    responsibilities:
+      - načítat aktivní zdroje ze storage
+      - stahovat RSS feedy a převádět itemy na kandidátní články
+      - předávat kandidátní články do analytické a deduplikační části pipeline
+
+    interfaces:
       - cli
+      - rss
+      - sqlite
+
+  - id: article_analyzer
+    name: Article Analyzer
+
+    type: application_component
+    layer: application
+
+    purpose: Používá OpenClaw agenty pro analýzu článků a vytvoření strukturovaného výstupu.
+
+    responsibilities:
+      - generovat summary_cz a why_matters_cz
+      - určovat section podle doménových kategorií
+      - určovat score v rozsahu 1 až 100, kde 100 je nejlepší
+
+    interfaces:
+      - openclaw
+      - internal_service
+
+  - id: deduplication_service
+    name: Deduplication Service
+
+    type: application_component
+    layer: application
+
+    purpose: Rozpoznává duplicity a rozhoduje o uložení nebo zahazování kandidátních článků.
+
+    responsibilities:
+      - porovnávat články podle URL
+      - porovnávat články podle podobnosti titulků nebo obsahu zdroje
+      - propouštět jen unikátní a relevantní články do persistence
+
+    interfaces:
+      - internal_service
+      - sqlite
+
+  - id: article_repository
+    name: Article Repository
+
+    type: application_component
+    layer: application
+
+    purpose: Zajišťuje přístup ke stabilnímu uložení článků a jejich stavů v SQLite.
+
+    responsibilities:
+      - ukládat články a jejich metadata
+      - ukládat uživatelský stav přečteno a uloženo
+      - poskytovat filtrování podle section, zdroje a stavu
+
+    interfaces:
+      - sqlite
+      - internal_service
+
+  - id: roam_exporter
+    name: Roam Exporter
+
+    type: application_component
+    layer: application
+
+    purpose: Sestavuje textový blok článku podle exportní šablony pro vložení do Roam Research.
+
+    responsibilities:
+      - převádět data článku do Roam formátu
+      - připravovat výstup vhodný pro clipboard copy
+      - držet exportní formát odděleně od persistence a pipeline
+
+    interfaces:
+      - fastapi
+      - internal_service
+
+  - id: articles_api
+    name: Articles API
+
+    type: application_component
+    layer: application
+
+    purpose: Zpřístupňuje články a uživatelské akce nad články přes FastAPI.
+
+    responsibilities:
+      - vracet seznam článků a detaily článku
+      - podporovat filtrování podle section, zdroje a stavu
+      - obsluhovat akce read, save a roam export
+
+    interfaces:
+      - http_json
+      - fastapi
+
+  - id: sources_api
+    name: Sources API
+
+    type: application_component
+    layer: application
+
+    purpose: Zpřístupňuje správu zdrojů přes FastAPI.
+
+    responsibilities:
+      - vracet seznam zdrojů
+      - obsluhovat create, update, enable a disable operace
+      - předávat změny do source_manageru
+
+    interfaces:
+      - http_json
+      - fastapi
+
+  - id: radar_ui
+    name: Radar UI
+
+    type: application_component
+    layer: application
+
+    purpose: Poskytuje osobní webové rozhraní pro práci s články a zdroji.
+
+    responsibilities:
+      - zobrazovat stránku článků s filtry a akcemi
+      - zobrazovat stránku správy zdrojů
+      - umožňovat zkopírování Roam exportu do clipboardu
+
+    interfaces:
+      - nextjs
+      - browser
+      - http_json
+
+  - id: sqlite_storage
+    name: SQLite Storage
+
+    type: data_object
+    layer: technology
+
+    purpose: Stabilní datové úložiště pro zdroje, články a uživatelský stav.
+
+    responsibilities:
+      - uchovávat tabulky sources, articles a article_state
+      - držet stabilní databázový model mimo regenerovatelnou vrstvu
+      - poskytovat perzistenci pro worker i backend
+
+    interfaces:
+      - sqlite
+
+  - id: openclaw_analysis_service
+    name: OpenClaw Analysis Service
+
+    type: service
+    layer: technology
+
+    purpose: Externě volaná analytická schopnost poskytovaná OpenClaw agenty.
+
+    responsibilities:
+      - analyzovat články podle zadaného promptu
+      - vracet strukturovaný výstup pro summary, relevance, section a score
+      - podporovat osobní filtrační logiku zaměřenou na projektovou inspiraci
+
+    interfaces:
+      - openclaw
 
 relations:
-  - source: example_component
-    target: another_component
+  - source: source_manager
+    target: sqlite_storage
 
-    type: association # association | flow | access | serving
-    description: vztah mezi komponentami
+    type: access
+    description: Spravuje a čte zdroje uložené ve SQLite.
+
+  - source: sources_api
+    target: source_manager
+
+    type: serving
+    description: API používá source manager pro správu zdrojů.
+
+  - source: radar_ui
+    target: sources_api
+
+    type: flow
+    description: UI volá Sources API pro zobrazení a úpravu zdrojů.
+
+  - source: rss_ingestion_worker
+    target: source_manager
+
+    type: flow
+    description: Worker získává seznam aktivních zdrojů a jejich pravidel.
+
+  - source: rss_ingestion_worker
+    target: article_analyzer
+
+    type: flow
+    description: Worker předává kandidátní články do analýzy.
+
+  - source: article_analyzer
+    target: openclaw_analysis_service
+
+    type: association
+    description: Analyzer používá OpenClaw agenty pro analýzu článků.
+
+  - source: article_analyzer
+    target: deduplication_service
+
+    type: flow
+    description: Výstup analýzy vstupuje do deduplikačního rozhodnutí.
+
+  - source: deduplication_service
+    target: article_repository
+
+    type: flow
+    description: Unikátní články předává do persistence.
+
+  - source: article_repository
+    target: sqlite_storage
+
+    type: access
+    description: Repository ukládá a čte články a jejich stavy ve SQLite.
+
+  - source: articles_api
+    target: article_repository
+
+    type: serving
+    description: Articles API používá repository pro čtení článků a změny stavu.
+
+  - source: articles_api
+    target: roam_exporter
+
+    type: serving
+    description: Articles API používá roam exporter pro přípravu exportu.
+
+  - source: radar_ui
+    target: articles_api
+
+    type: flow
+    description: UI volá Articles API pro seznam článků, filtry a akce.
