@@ -30,9 +30,9 @@ Architektura Tech-radaru odděluje stabilní doménovou vrstvu od regenerovateln
 - **ingestion pipeline**
   - cronem spouštěný worker, který načítá aktivní zdroje a vytváří kandidátní články z RSS itemů
 - **OpenClaw analysis**
-  - analýza článků pomocí agentů, generování summary_cz, why_matters_cz, section a score
+  - analýza článků pomocí agentů, generování summary_cz, why_matters_cz, section a normalizovaného score v rozsahu 0.0 až 1.0
 - **deduplication/scoring**
-  - kontrola duplicit podle URL a podobnosti, potvrzení nebo odmítnutí kandidátů pro uložení
+  - kontrola duplicit podle URL jako hard-duplicate pravidla a volitelně podle podobnosti jako soft-duplicate heuristiky, potvrzení nebo odmítnutí kandidátů pro uložení
 - **SQLite storage**
   - perzistence zdrojů, článků a uživatelského stavu jako stabilní doménové vrstvy
 - **FastAPI backend**
@@ -40,17 +40,17 @@ Architektura Tech-radaru odděluje stabilní doménovou vrstvu od regenerovateln
 - **Next.js UI**
   - dvě obrazovky: přehled článků a správa zdrojů
 - **Roam export**
-  - generování textového bloku pro clipboard podle stabilní exportní šablony
+  - backendové generování textového bloku podle stabilní exportní šablony, který UI kopíruje do clipboardu
 
 ## Hlavní vztahy
 - Source management udržuje seznam aktivních zdrojů a jejich filtračních pravidel ve SQLite.
 - Ingestion pipeline čte aktivní zdroje a vytváří vstupní sadu článků ke zpracování.
-- OpenClaw analysis zpracuje kandidátní články a vrací strukturované výstupy pro uložení.
-- Deduplication/scoring rozhoduje, zda článek uložit, aktualizovat nebo zahodit jako duplicitní.
+- OpenClaw analysis zpracuje kandidátní články a vrací strukturované výstupy pro uložení včetně normalizovaného score 0.0 až 1.0.
+- Deduplication/scoring rozhoduje, zda článek uložit, aktualizovat nebo zahodit jako duplicitní; shoda URL znamená hard duplicate, podobnost slouží pouze jako podpůrná soft-duplicate heuristika.
 - SQLite storage poskytuje stabilní perzistenci pro backend i worker.
 - FastAPI backend zpřístupňuje články, zdroje a uživatelské akce pro UI.
 - Next.js UI zobrazuje články, filtry a správu zdrojů nad API kontrakty backendu.
-- Roam export používá uložená data článku a vytváří kopírovatelný textový blok v UI.
+- Roam export používá uložená data článku, backendově vytváří exportní textový blok a UI jej nabízí ke zkopírování.
 
 ## ArchiMate model
 - nástroj: zatím neurčeno

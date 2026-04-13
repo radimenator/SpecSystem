@@ -45,7 +45,7 @@ components:
     responsibilities:
       - generovat summary_cz a why_matters_cz
       - určovat section podle doménových kategorií
-      - určovat score v rozsahu 1 až 100, kde 100 je nejlepší
+      - určovat normalizované score v rozsahu 0.0 až 1.0, kde 1.0 je nejlepší
 
     interfaces:
       - openclaw
@@ -60,9 +60,9 @@ components:
     purpose: Rozpoznává duplicity a rozhoduje o uložení nebo zahazování kandidátních článků.
 
     responsibilities:
-      - porovnávat články podle URL
-      - porovnávat články podle podobnosti titulků nebo obsahu zdroje
-      - propouštět jen unikátní a relevantní články do persistence
+      - porovnávat články podle URL jako hard-duplicate pravidla
+      - volitelně porovnávat články podle podobnosti titulků nebo zdrojového obsahu jako soft-duplicate heuristiku
+      - rozhodovat, zda kandidáta zahodit, aktualizovat nebo propustit do persistence
 
     interfaces:
       - internal_service
@@ -91,15 +91,14 @@ components:
     type: application_component
     layer: application
 
-    purpose: Sestavuje textový blok článku podle exportní šablony pro vložení do Roam Research.
+    purpose: Sestavuje na backendu textový blok článku podle exportní šablony pro vložení do Roam Research.
 
     responsibilities:
       - převádět data článku do Roam formátu
-      - připravovat výstup vhodný pro clipboard copy
+      - připravovat backendový výstup určený ke zkopírování v UI
       - držet exportní formát odděleně od persistence a pipeline
 
     interfaces:
-      - fastapi
       - internal_service
 
   - id: articles_api
@@ -113,7 +112,7 @@ components:
     responsibilities:
       - vracet seznam článků a detaily článku
       - podporovat filtrování podle section, zdroje a stavu
-      - obsluhovat akce read, save a roam export
+      - obsluhovat akce read, save a backendově sestavený roam export
 
     interfaces:
       - http_json
