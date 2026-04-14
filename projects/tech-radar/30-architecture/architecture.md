@@ -42,6 +42,33 @@ Architektura Tech-radaru odděluje stabilní doménovou vrstvu od regenerovateln
 - **Roam export**
   - backendové generování textového bloku podle stabilní exportní šablony, který UI kopíruje do clipboardu
 
+## API contract boundary
+Backend vystavuje interní HTTP JSON API. Cesta prefixu `/api` je kanonická pro regenerovatelné kontrakty UI ↔ backend.
+
+Minimální kanonické endpoint capability jsou:
+- články
+  - seznam článků s filtrem podle `section`, `source`, `read`, `saved`
+  - detail článku
+  - akce `read/unread`
+  - akce `save/unsave`
+  - akce `roam export`, která vrací backendem sestavený textový blok
+- zdroje
+  - seznam zdrojů
+  - create zdroje
+  - update zdroje
+  - enable zdroje
+  - disable zdroje
+- health endpoint pro základní provozní kontrolu
+
+SPEC na této úrovni fixuje capability a ownership kontraktu, ne konkrétní frameworkovou implementaci handlerů.
+
+## Stable vs heuristic behavior
+- Hard-duplicate rozhodnutí podle URL je stabilní pravidlo.
+- Soft-duplicate rozhodnutí podle podobnosti je heuristika a musí být implementováno odděleně od hard-duplicate pravidla.
+- Datový model SQLite je stabilní vrstva.
+- API shape, UI struktura a Roam export formát jsou regenerovatelné části, ale musí respektovat zde popsané capability a ownership.
+- Scoring algorithm a OpenClaw prompting jsou heuristické implementační detaily, pokud dodrží kanonický output contract.
+
 ## Hlavní vztahy
 - Source management udržuje seznam aktivních zdrojů a jejich filtračních pravidel ve SQLite.
 - Ingestion pipeline čte aktivní zdroje a vytváří vstupní sadu článků ke zpracování.
@@ -51,6 +78,7 @@ Architektura Tech-radaru odděluje stabilní doménovou vrstvu od regenerovateln
 - FastAPI backend zpřístupňuje články, zdroje a uživatelské akce pro UI.
 - Next.js UI zobrazuje články, filtry a správu zdrojů nad API kontrakty backendu.
 - Roam export používá uložená data článku, backendově vytváří exportní textový blok a UI jej nabízí ke zkopírování.
+- Worker odpovídá za retention cleanup dat starších než 30 dní; tato odpovědnost není v UI ani backendu primárně vlastněna.
 
 ## ArchiMate model
 - nástroj: zatím neurčeno

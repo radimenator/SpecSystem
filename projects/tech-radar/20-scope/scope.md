@@ -15,9 +15,17 @@ Tech-radar je osobní systém pro sběr a kuraci technologických článků, kte
 - Section jako doménový pojem pro kategorie, např. AI, infrastruktura, tooling, Apple/macOS, ostatní.
 - Filtrování článků podle section, zdroje a stavu přečteno/uloženo.
 - Uživatelské akce otevřít článek, označit jako přečtený, uložit/bookmark a exportovat do Roam.
-- Samostatná stránka pro správu zdrojů včetně include/exclude keywords a enable/disable stavu.
+- Samostatná stránka pro správu zdrojů včetně create, update, include/exclude keywords a enable/disable stavu.
 - Roam export jako backendem sestavený textový blok vracený přes interní API a připravený ke zkopírování do clipboardu v UI.
 - Retence dat za posledních 30 dní.
+
+## Canonical contracts in scope
+- Score je kanonicky normalizované číslo `0.0..1.0`; SPEC nedefinuje přesný výpočet score, pouze povinný rozsah a interpretační význam.
+- Section je kanonická textová kategorie; minimální očekávaná taxonomie pro MVP je `AI`, `infrastruktura`, `tooling`, `Apple/macOS`, `ostatní`.
+- URL je kanonický identifikátor hard-duplicate pravidla.
+- Soft-duplicate kontrola je heuristika a nesmí přebít hard-duplicate pravidlo podle URL.
+- Include/exclude keywords jsou lokální pravidla zdroje aplikovaná nad titulkem a dostupným feed summary/description textem.
+- Roam export vrací backend textový blok sestavený z minimálně: `title`, `url`, `source`, `section`, `score`, `published`, `summary_cz`, `why_matters_cz`.
 
 ## Out of scope
 - Veřejný informační web nebo sdílený systém pro více uživatelů.

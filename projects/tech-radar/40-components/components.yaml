@@ -9,7 +9,7 @@ components:
 
     responsibilities:
       - vytvářet, upravovat, zapínat a vypínat zdroje
-      - ukládat include_topics a exclude_topics pro každý zdroj
+      - ukládat include_keywords a exclude_keywords pro každý zdroj
       - poskytovat seznam aktivních zdrojů ingestion workeru
 
     interfaces:
@@ -27,7 +27,9 @@ components:
     responsibilities:
       - načítat aktivní zdroje ze storage
       - stahovat RSS feedy a převádět itemy na kandidátní články
+      - aplikovat include/exclude keywords nad titulkem a dostupným feed summary/description textem
       - předávat kandidátní články do analytické a deduplikační části pipeline
+      - provádět retention cleanup dat starších než 30 dní
 
     interfaces:
       - cli
@@ -46,6 +48,7 @@ components:
       - generovat summary_cz a why_matters_cz
       - určovat section podle doménových kategorií
       - určovat normalizované score v rozsahu 0.0 až 1.0, kde 1.0 je nejlepší
+      - vracet strukturovaný výstup obsahující minimálně `summary_cz`, `why_matters_cz`, `section`, `score`
 
     interfaces:
       - openclaw
@@ -63,6 +66,7 @@ components:
       - porovnávat články podle URL jako hard-duplicate pravidla
       - volitelně porovnávat články podle podobnosti titulků nebo zdrojového obsahu jako soft-duplicate heuristiku
       - rozhodovat, zda kandidáta zahodit, aktualizovat nebo propustit do persistence
+      - nikdy nepřebít hard-duplicate pravidlo podle URL soft-duplicate heuristikou
 
     interfaces:
       - internal_service
@@ -80,6 +84,7 @@ components:
       - ukládat články a jejich metadata
       - ukládat uživatelský stav přečteno a uloženo
       - poskytovat filtrování podle section, zdroje a stavu
+      - zachovávat stabilní mapování na tabulky `sources`, `articles` a `article_state`
 
     interfaces:
       - sqlite
@@ -97,6 +102,7 @@ components:
       - převádět data článku do Roam formátu
       - připravovat backendový výstup určený ke zkopírování v UI
       - držet exportní formát odděleně od persistence a pipeline
+      - používat minimálně pole `title`, `url`, `source`, `section`, `score`, `published`, `summary_cz`, `why_matters_cz`
 
     interfaces:
       - internal_service
@@ -112,7 +118,8 @@ components:
     responsibilities:
       - vracet seznam článků a detaily článku
       - podporovat filtrování podle section, zdroje a stavu
-      - obsluhovat akce read, save a backendově sestavený roam export
+      - obsluhovat akce read, unread, save, unsave a backendově sestavený roam export
+      - vystavovat interní HTTP JSON kontrakty pod prefixem `/api`
 
     interfaces:
       - http_json
@@ -130,6 +137,7 @@ components:
       - vracet seznam zdrojů
       - obsluhovat create, update, enable a disable operace
       - předávat změny do source_manageru
+      - vystavovat interní HTTP JSON kontrakty pod prefixem `/api`
 
     interfaces:
       - http_json
@@ -147,6 +155,7 @@ components:
       - zobrazovat stránku článků s filtry a akcemi
       - zobrazovat stránku správy zdrojů
       - umožňovat zkopírování Roam exportu do clipboardu
+      - poskytovat UI tok pro create a update zdrojů
 
     interfaces:
       - nextjs
@@ -162,9 +171,39 @@ components:
     purpose: Stabilní datové úložiště pro zdroje, články a uživatelský stav.
 
     responsibilities:
-      - uchovávat tabulky sources, articles a article_state
+      - uchovávat tabulky `sources`, `articles` a `article_state`
       - držet stabilní databázový model mimo regenerovatelnou vrstvu
       - poskytovat perzistenci pro worker i backend
+
+    schema:
+      sources:
+        - id
+        - name
+        - url
+        - kind
+        - include_keywords
+        - exclude_keywords
+        - priority
+        - enabled
+        - created_at
+        - updated_at
+      articles:
+        - id
+        - title
+        - url
+        - source_id
+        - source
+        - section
+        - summary_cz
+        - why_matters_cz
+        - published
+        - fetched_at
+        - score
+      article_state:
+        - article_id
+        - is_read
+        - is_saved
+        - updated_at
 
     interfaces:
       - sqlite
@@ -179,8 +218,9 @@ components:
 
     responsibilities:
       - analyzovat články podle zadaného promptu
-      - vracet strukturovaný výstup pro summary, relevance, section a score
+      - vracet strukturovaný výstup pro `summary_cz`, `why_matters_cz`, `section`, `score`
       - podporovat osobní filtrační logiku zaměřenou na projektovou inspiraci
+      - respektovat, že přesný prompt a scoring algorithm nejsou ve SPEC fixované a zůstávají heuristické
 
     interfaces:
       - openclaw
