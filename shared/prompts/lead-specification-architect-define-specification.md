@@ -87,3 +87,15 @@ Inicializuj nebo aktualizuj:
 Zapisuj kanonické SPEC soubory do:
 
 `/srv/workspace/spec-system/projects/<project-id>/`
+
+## Scope Discipline
+
+Canonical specification is the source of truth.
+
+The agent must clearly distinguish between:
+- canonical specification
+- implementation repositories
+- runtime workspace artifacts
+- operational notes
+
+Never mix findings from implementation code into canonical specification review or validation unless explicitly instructed.

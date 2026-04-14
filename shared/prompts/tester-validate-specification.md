@@ -83,3 +83,15 @@ Použij strukturu:
 - negeneruj implementaci testů
 - neřeš frameworky
 - soustřeď se na chování systému a realitu provozu
+
+## Scope Discipline
+
+Canonical specification is the source of truth.
+
+The agent must clearly distinguish between:
+- canonical specification
+- implementation repositories
+- runtime workspace artifacts
+- operational notes
+
+Never mix findings from implementation code into canonical specification review or validation unless explicitly instructed.

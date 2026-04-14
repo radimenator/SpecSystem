@@ -85,3 +85,34 @@ Použij strukturu:
 - neřeš implementaci
 - buď konkrétní
 - odděluj fakta od doporučení
+
+## Scope of review (CRITICAL)
+
+Review ONLY specification files in:
+
+/srv/workspace/spec-system/projects/<project-id>/
+
+Specifically sections:
+- 10-motivation
+- 20-scope
+- 30-architecture
+- 40-components
+
+DO NOT review:
+- implementation repositories
+- runtime code
+- docs outside SpecSystem
+
+Specification is the source of truth.
+
+## Scope Discipline
+
+Canonical specification is the source of truth.
+
+The agent must clearly distinguish between:
+- canonical specification
+- implementation repositories
+- runtime workspace artifacts
+- operational notes
+
+Never mix findings from implementation code into canonical specification review or validation unless explicitly instructed.

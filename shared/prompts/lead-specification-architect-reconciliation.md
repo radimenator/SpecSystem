@@ -69,3 +69,35 @@ Tvým cílem je:
 Zapiš aktualizované kanonické SPEC soubory do:
 
 `/srv/workspace/spec-system/projects/<project-id>/`
+
+## Guardrails (CRITICAL)
+
+Reconcile ONLY canonical SPEC in:
+
+`/srv/workspace/spec-system/projects/<project-id>/`
+
+Use ONLY these working inputs:
+- `/srv/workspace/tasks/<date>-<project-id>-spec-review.md`
+- `/srv/workspace/tasks/<date>-<project-id>-spec-test.md`
+
+Do NOT:
+- read or modify implementation repositories unless explicitly instructed
+- rewrite the entire SPEC if only part needs updating
+- blindly apply every reviewer or tester recommendation
+- change stable domain parts without explicit reason
+- generate implementation code
+
+Your job is to:
+- evaluate review findings
+- evaluate validation findings
+- update canonical SPEC carefully
+- preserve structure and traceability
+
+If review or test reports are missing:
+- stop
+- report which file is missing
+- do not guess
+
+If ACTIVE_PROFILE is not `lead-specification-architect`:
+- warn the user
+- continue only if explicitly instructed
