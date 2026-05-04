@@ -5,13 +5,50 @@ links:
   local_paths:
     spec_root: "~/SpecSystem/projects/spec-system"
     projects_root: "~/Projects"
+    sources_root: "~/SpecSystem/sources"
+    wiki_root: "~/SpecSystem/wiki"
+    models_root: "~/SpecSystem/models"
+    outputs_root: "~/SpecSystem/outputs"
 
   related_projects: []
 
   related_tools:
-    - Roam Research
-    - VS Code
-    - iTerm2
-    - Git
-    - Pandoc
-    - ArchiMate Tool
+    - name: Roam Research
+      purpose: myšlení, poznámky, projektový kontext
+
+    - name: Obsidian
+      purpose: LLM Wiki, znalostní báze, entity a syntézy
+
+    - name: VS Code
+      purpose: práce se specifikací a kódem
+
+    - name: iTerm2
+      purpose: shell a build skripty
+
+    - name: Git
+      purpose: verzování specifikací a artefaktů
+
+    - name: Pandoc
+      purpose: generování dokumentů (HTML, PDF, DOCX)
+
+    - name: ArchiMate Tool
+      purpose: práce s ArchiMate modely a Open Exchange
+
+  llm:
+    provider: local
+    runtime: ollama
+    models:
+      primary:
+        name: qwen3.5:14b
+        purpose: extrakce, strukturování, návrhy
+      experimental:
+        name: qwen3.5:35b-a3b-coding-nvfp4
+        purpose: pokročilé úlohy (pokud HW dovolí)
+      embeddings:
+        name: nomic-embed-text
+        purpose: RAG a vyhledávání
+
+    constraints:
+      - běh lokálně (bez cloudu)
+      - LLM není zdroj pravdy
+      - změny SPEC vyžadují potvrzení

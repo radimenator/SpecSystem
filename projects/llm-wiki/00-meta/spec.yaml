@@ -1,0 +1,18 @@
+meta:
+  id: llm-wiki
+  name: llm-wiki
+
+  type: system # system | feature | tool
+  status: draft # draft | active | archived
+
+  owner: Radim
+  canonical_version: 0.1
+
+  created: 2026-04-17
+  updated: 2026-04-17
+
+links:
+  roam_project: "PO/..."
+  code_repositories: []
+  related_specs: []
+  archimate_model: ""

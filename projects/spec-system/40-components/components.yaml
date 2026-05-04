@@ -1,7 +1,9 @@
 components:
+  # 🔴 CORE SPEC LAYER
+
   - id: spec_root
     name: Root specifikace
-    purpose: Vstupní bod pro pochopení projektu
+    purpose: Vstupní bod pro pochopení projektu a kanonická reprezentace systému
 
   - id: motivation_layer
     name: Motivační vrstva
@@ -17,12 +19,71 @@ components:
 
   - id: decisions_log
     name: Log rozhodnutí
-    purpose: Uchování důvodů zásadních návrhových voleb
+    purpose: Uchování důvodů zásadních návrhových voleb (ADR)
 
   - id: regeneration_description
     name: Popis regenerace
     purpose: Vymezení toho, jak lze systém znovu vytvořit
 
+  - id: validation_layer
+    name: Validační vrstva
+    purpose: Kontrola konzistence specifikace, modelu a vazeb
+
+  - id: agent_memory
+    name: Paměť agenta
+    purpose: Uchování naučených patternů, preferencí a oprav (mimo kanonickou
+      specifikaci)
+
+  # 🟡 INPUT / EVIDENCE LAYER
+
+  - id: source_evidence_repository
+    name: Source Evidence Repository
+    purpose: Uchování zdrojových dokumentů a modelů jako evidence (PDF, DOCX, CSV,
+      Open Exchange, OpenXML)
+
+  - id: source_processing
+    name: Zpracování zdrojů
+    purpose: Transformace dokumentů na text, strukturovaná data, chunky a
+      extrahované entity
+
+  # 🟢 KNOWLEDGE LAYER
+
+  - id: llm_wiki
+    name: Obsidian / LLM Wiki
+    purpose: Znalostní a interpretační vrstva pro entity, pojmy, syntézy a vazby
+
+  - id: rag_layer
+    name: RAG / Knowledge Retrieval
+    purpose: Vyhledávání relevantního kontextu napříč dokumenty, wiki a specifikací
+
+  # 🔵 MODEL LAYER
+
+  - id: archimate_repository
+    name: ArchiMate Model Repository
+    purpose: Formální reprezentace architektury pomocí prvků, vztahů a views
+
+  - id: model_validation
+    name: Validace modelu
+    purpose: Kontrola správnosti ArchiMate modelu a jeho vazby na specifikaci
+
+  # 🟣 OUTPUT LAYER
+
   - id: publication_layer
     name: Publikační vrstva
     purpose: Generování čitelného dokumentu ze specifikace
+
+  - id: document_generation
+    name: Generování výstupních dokumentů
+    purpose: Tvorba formálních dokumentů (OHA formulář, zadávací dokumentace,
+      architektonická dokumentace)
+
+  - id: template_engine
+    name: Šablonovací engine
+    purpose: Deterministická transformace specifikace a modelu do výstupních formátů
+      (HTML, DOCX, PDF)
+
+  # ⚙️ IMPLEMENTATION LINK
+
+  - id: implementation_link
+    name: Vazba na implementaci
+    purpose: Propojení specifikace a modelu s implementací v ~/Projects

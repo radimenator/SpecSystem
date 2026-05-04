@@ -56,28 +56,146 @@ Každá specifikace obsahuje:
 80-history         → historie změn
 
 ---
+## 🔄 Workflow (Spec Lifecycle)
 
-## 🔄 Workflow
+SpecSystem definuje řízený proces tvorby specifikace, který odděluje myšlení, formalizaci, validaci a implementaci.
 
-### 1. Myšlení (Roam)
+---
+
+### 1. INIT (Roam – myšlení)
+
 - nápady
 - problémy
 - návrhy
+- první definice:
+  - problém
+  - cíl
+  - kontext
+  - hrubý scope
 
-### 2. Formalizace (SpecSystem)
-- přepis do specifikace
-- strukturované artefakty
+Výstup:
+- projekt v Roam Research (neformální zadání)
 
-### 3. Implementace (Projects)
-- generování / úprava kódu
-- práce s AI agenty
-
-### 4. View dokument
-```bash
-~/SpecSystem/build-spec-doc.sh <project-id> html
 ```
-Výstup: dist/spec.html
+Roam Project
+```
 
+---
+
+### 2. FORMALIZACE (Lead Specification Architect)
+
+- přepis zadání do strukturované specifikace pomocí AI agenta
+- vstup:
+  - text z Roamu
+- výstup:
+  - `10-motivation`
+  - `20-scope`
+  - `30-architecture`
+  - `40-components`
+
+```
+Roam → Lead Spec Architect → SPEC (10–40)
+```
+
+---
+
+### 3. REVIEW (Specification Reviewer)
+
+- kontrola kvality specifikace
+- vstup:
+  - SPEC (`10–40`)
+- výstup:
+  - identifikace problémů, nejasností a rizik
+  - výstup uložen jako task
+
+```
+SPEC (10–40) → Reviewer → TASKS
+```
+
+---
+
+### 4. VALIDACE (Specification Test Agent)
+
+- převod SPEC na ověřitelné chování systému
+- vstup:
+  - SPEC (`10–40`)
+  - výstup z Revieweru
+- výstup:
+  - test scénáře
+  - acceptance criteria
+  - validace chování systému
+
+```
+SPEC + REVIEW → Test Agent → VALIDATION
+```
+
+---
+
+### 5. RECONCILIATION (Lead Specification Architect)
+
+- konsolidace SPEC na základě review a validace
+- vstup:
+  - výstup z Revieweru
+  - výstup z Test Agenta
+- výstup:
+  - finální SPEC (`00–80`)
+  - doplnění:
+    - `50-decisions`
+    - `60-links`
+    - `70-regeneration`
+    - `80-history`
+
+```
+Review + Test → Lead Architect → FINAL SPEC
+```
+
+---
+
+### 6. IMPLEMENTACE (AI / člověk)
+
+- generování nebo úprava kódu ze SPEC
+- ověření regenerovatelnosti
+
+```
+FINAL SPEC → Dev Team → CODE
+```
+
+---
+
+## 🔁 Celkový tok
+
+```
+Roam Project
+      ↓
+Lead Spec Architect
+      ↓
+motivation + scope + architecture + components
+      ↓
+Specification Reviewer
+      ↓
+opravy (tasks)
+      ↓
+Specification Test Agent
+      ↓
+validation + acceptance criteria
+      ↓
+Lead Architect (Reconciliation)
+      ↓
+FINAL SPEC
+      ↓
+Implementation (regen test)
+```
+
+---
+
+## 🧠 Principy workflow
+
+- SPEC je zdroj pravdy
+- Roam je pouze vstupní kontext
+- Reviewer hledá problémy, ne řešení
+- Test Agent definuje ověřitelnost systému
+- Lead Architect uzavírá cyklus a konsoliduje SPEC
+- Implementace je test kvality SPEC, ne primární artefakt
 ---
 
 ## 📄 View dokument

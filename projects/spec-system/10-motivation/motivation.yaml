@@ -14,6 +14,12 @@ stakeholders:
   - id: openclaw_infra
     name: OpenClaw/Infra-team
     role: infrastrukturní podpora
+  - id: llm_agent
+    name: Lokální LLM agent
+    role: asistovaná extrakce, syntéza, validace a návrh změn
+  - id: future_architect
+    name: Budoucí architekt / správce systému
+    role: čtenář specifikací, audit změn, rozvoj systému
 
 drivers:
   - potřeba evidovat specifikace napříč projekty
@@ -21,6 +27,14 @@ drivers:
   - potřeba udržet původní záměr řešení
   - potřeba porozumět aplikaci jako celku
   - potřeba regenerovat kód ze specifikací
+  - potřeba pracovat se zdrojovými dokumenty jako s dohledatelnou evidencí
+  - potřeba oddělit zdrojové podklady, interpretaci, model a kanonickou
+    specifikaci
+  - potřeba využít lokální LLM bez odesílání citlivých informací do cloudu
+  - potřeba generovat architektonické modely a výstupní dokumenty ze
+    strukturovaného základu
+  - potřeba propojit osobní znalostní systém, specifikace, ArchiMate modely a
+    implementaci
 
 assessment:
   - specifikace dnes existují roztříštěně
@@ -28,6 +42,11 @@ assessment:
   - není jasné, která specifikace je platná
   - není snadné dohledat vazbu mezi specifikací a výsledným kódem
   - globální porozumění aplikaci se ztrácí v množství generovaného kódu
+  - zdrojové dokumenty nejsou systematicky evidované jako evidence
+  - pracovní poznámky, rozhodnutí a kanonická specifikace se mohou míchat
+  - ArchiMate modely nejsou zatím systematicky odvozené ze specifikací
+  - výstupní dokumenty vznikají částečně ručně a nejsou plně regenerovatelné
+  - AI agenti nemají jednotný strukturovaný kontext pro bezpečnou práci
 
 goals:
   - mít jednoznačně evidované specifikace projektů
@@ -35,12 +54,29 @@ goals:
   - mít možnost pochopit aplikaci na úrovni celku
   - mít možnost použít specifikaci jako vstup pro regeneraci kódu
   - oddělit pracovní poznámky od kanonické specifikace
+  - zavést Source Evidence Repository pro PDF, DOCX, CSV, Markdown a modelové
+    exporty
+  - umožnit traceability od zdrojového dokumentu přes interpretaci až ke
+    specifikaci a modelu
+  - rozšířit SpecSystem o ArchiMate vrstvu jako formální architektonický model
+  - umožnit generování views, dokumentů a modelů ze schválené specifikace
+  - umožnit lokální AI asistenci nad specifikací, wiki, evidencí a modely
+  - zavést Obsidian / LLM Wiki jako formální znalostní a syntetickou vrstvu
+  - podporovat tvorbu výstupů typu OHA formulář, zadání veřejné zakázky nebo
+    specifikace IS
 
 constraints:
   - systém musí být použitelný jedním člověkem bez vysoké režie
   - systém musí fungovat v kombinaci s existujícím osobním toolstackem
   - systém nesmí být složitější než hodnota, kterou přinese
   - systém musí podporovat jak lidské čtení, tak strojové zpracování
+  - systém musí být provozovatelný lokálně
+  - systém musí respektovat omezení lokálního hardware
+  - LLM nesmí být jediným zdrojem pravdy
+  - kanonická specifikace musí být verzovaná v Gitu
+  - zdrojové dokumenty musí být dohledatelné a pokud možno neměnné
+  - automatické změny schválené specifikace musí vyžadovat lidské potvrzení
+  - generované výstupy musí být rekonstruovatelné ze specifikace a modelu
 
 principles:
   - uložiště specifikací je systém
@@ -49,6 +85,21 @@ principles:
   - každá specifikace musí být dohledatelná a srozumitelná
   - každá významná změna specifikace musí být rekonstruovatelná
   - specifikace má podporovat porozumění i regeneraci
+  - zdrojové dokumenty jsou evidence, nikoliv automaticky pravda
+  - Obsidian / LLM Wiki je interpretační a syntetická vrstva, nikoliv kanonická
+    specifikace
+  - ArchiMate model je formální projekce specifikace a architektonického
+    porozumění
+  - kód, dokumentace, views a exporty jsou odvozené artefakty
+  - LLM je asistent, ne autorita
+  - validace a exporty musí být deterministické
+  - lidské rozhodnutí má přednost před návrhem agenta
+  - traceability je důležitější než rychlá jednorázová generace
+  - systém má růst iterativně a zůstat prakticky použitelný
+  - systém je navržen jako local-first
+  - lokální prostředí je primární pracovní prostor
+  - vzdálené prostředí slouží pro sdílení a automatizaci
+  - systém musí být použitelný bez závislosti na VPS
 
 requirements:
   - evidovat specifikace po projektech
@@ -57,3 +108,27 @@ requirements:
   - umožnit vazbu specifikace na kód a architekturu
   - umožnit vyhledání aktuální i předchozí verze specifikace
   - podporovat globální pohled na aplikaci
+  - evidovat zdrojové PDF, DOCX, CSV, Markdown a modelové exporty v Source
+    Evidence Repository
+  - uchovávat metadata zdrojových dokumentů včetně původu, data, verze a hashe
+  - umožnit zpracování zdrojových dokumentů do textu, tabulek, chunků a
+    extrahovaných entit
+  - podporovat RAG nad zdrojovými dokumenty, wiki, specifikací a modely
+  - podporovat Obsidian / LLM Wiki jako znalostní vrstvu pro entity, pojmy,
+    systémy, procesy a rozhodnutí
+  - podporovat ArchiMate Model Repository pro prvky, vztahy, views a validační
+    reporty
+  - podporovat import a export ArchiMate Open Exchange formátu
+  - umožnit generování ArchiMate views ze specifikace a modelu
+  - umožnit kontrolu konzistence specifikace, wiki a ArchiMate modelu
+  - umožnit evidenci rozhodnutí v ADR formátu
+  - umožnit vazbu prvků modelu na zdrojovou evidenci
+  - umožnit vazbu komponent specifikace na implementaci v ~/Projects
+  - podporovat generování výstupních dokumentů ze schválené specifikace a modelu
+  - podporovat lokální LLM agenta pro návrhy, extrakci, sumarizaci a validaci
+  - ukládat agentní paměť, naučené patterny a opravy odděleně od kanonické
+    specifikace
+  - vyžadovat lidské potvrzení pro změny kanonické specifikace a schváleného
+    modelu
+  - umožnit audit změn specifikace, modelu a wiki s historií a zdroji
+  - podporovat iterativní rozvoj systému s důrazem na praktickou použitelnost

@@ -1,0 +1,22 @@
+motivation:
+  stakeholders:
+    - name: <name>
+      role: <role>
+
+  drivers:
+    - potřeba / tlak
+
+  assessment:
+    - problém / současný stav
+
+  goals:
+    - cílový stav
+
+  constraints:
+    - omezení systému
+
+  principles:
+    - princip návrhu
+
+  requirements:
+    - požadavky na systém
