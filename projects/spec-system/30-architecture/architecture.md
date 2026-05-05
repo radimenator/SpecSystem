@@ -4,10 +4,6 @@
 Uložiště specifikací slouží jako kanonický zdroj pravdy pro specifikace projektů.
 
 ## Hlavní oddělení
-- Roam Research: projektový kontext, pracovní poznámky, aktivity
-- SpecSystem: kanonická specifikace
-- ~/Projects: implementace a kód
-
 - Roam Research: projektový kontext, pracovní poznámky, aktivity, myšlení
 - Source Evidence Repository: zdrojové dokumenty a modely (PDF, DOCX, CSV, Open Exchange, OpenXML)
 - Obsidian / LLM Wiki: znalostní a interpretační vrstva (entity, pojmy, syntézy)
@@ -216,13 +212,17 @@ Zde běží:
 
 - `/Users/radimpokorny/SpecSystem/projects/<project-id>/sources/`
 
-## Wiki (MacBook)= společná znalostní báze napříč projekty
+## Wiki (MacBook)= společný znalostní báze napříč projekty
 
-- `/Users/radimpokorny/SpecSystem/projects/<project-id>/wiki/`
+- `/Users/radimpokorny/SpecSystem/shared/wiki/projects/<project-id>/`
 
 ## ArchiMate modely (MacBook)= společný modelovací prostor napříč projekty
 
-- `/Users/radimpokorny/SpecSystem/projects/<project-id>/models/`
+- `/Users/radimpokorny/SpecSystem/shared/models/archimate/global`
+
+## ArchiMate modely (MacBook)= projektový modelovací prostor
+
+- `/Users/radimpokorny/SpecSystem/shared/models/archimate/projects/<project-id>`
 
 ## Výstupní dokumentace= výstupy konkrétní specifikace projektu
 
@@ -308,13 +308,8 @@ shared
     │   └── tester-validate-specification.md
     ├── scripts
     ├── schemas
-    ├── sources
-    │   └── project-id
-    │       ├── index.yaml
-    │       ├── processed
-    │       └── raw
     ├── templates
-    │   └── project-id
+    │   └── project-spec
     │       ├── 00-meta/
     │       │   └── spec.yaml
     │       ├── 10-motivation/
@@ -380,10 +375,12 @@ shared
 ### Význam hlavních adresářů
 
 - `projects/` obsahuje kanonické specifikace projektů.
-- `sources/` obsahuje zdrojovou evidenci, tedy vstupní dokumenty a importované modely.
-- `wiki/` obsahuje znalostní a interpretační vrstvu pro Obsidian / LLM Wiki.
-- `models/` obsahuje formální ArchiMate modely, views, validace a exporty.
-- `outputs/` obsahuje odvozené výstupní dokumenty, například OHA formulář, zadávací dokumentaci, architektonickou dokumentaci a PDF exporty.
+- `projects/<project-id>/sources/` obsahuje zdrojovou evidenci konkrétního projektu.
+- `shared/wiki/` obsahuje společnou znalostní a interpretační vrstvu pro Obsidian / LLM Wiki.
+- `shared/wiki/projects/<project-id>/` obsahuje projektový prostor ve společné wiki.
+- `shared/models/archimate/global/` obsahuje globální ArchiMate pohled napříč projekty.
+- `shared/models/archimate/projects/<project-id>/` obsahuje ArchiMate model konkrétního projektu.
+- `projects/<project-id>/outputs/` obsahuje odvozené výstupní dokumenty konkrétního projektu.dokumentaci a PDF exporty.
 
 ----
 ## Závislosti souborů pro SpecSystem
