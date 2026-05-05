@@ -212,26 +212,28 @@ Zde běží:
 
 - `/srv/workspace/spec-system/templates/project-spec/`
 
-## Zdrojová evidence (MacBook)
+## Zdrojová evidence (MacBook) = vstupní evidence konkrétního projektu
 
 - `/Users/radimpokorny/SpecSystem/projects/<project-id>/sources/`
 
-## Wiki (MacBook)
+## Wiki (MacBook)= společná znalostní báze napříč projekty
 
 - `/Users/radimpokorny/SpecSystem/projects/<project-id>/wiki/`
 
-## ArchiMate modely (MacBook)
+## ArchiMate modely (MacBook)= společný modelovací prostor napříč projekty
 
 - `/Users/radimpokorny/SpecSystem/projects/<project-id>/models/`
 
-## Výstupní dokumentace
+## Výstupní dokumentace= výstupy konkrétní specifikace projektu
 
 - `/Users/radimpokorny/SpecSystem/projects/<project-id>/outputs/`
 
 ## Fyzická adresářová struktura (MacBook)
 
+### Projektově závislé adresářové struktury
+
 ```text
-/Users/radimpokorny/SpecSystem/projects/spec-system/
+/Users/radimpokorny/SpecSystem/projects/<project-id>/
 ├── 00-meta/
 │   └── spec.yaml
 ├── 10-motivation/
@@ -262,53 +264,119 @@ Zde běží:
 ├── 90-validation/
 │   ├── consistency-rules.yaml
 │   └── validation-report.md
-├── sources/
-│   ├── raw/
-│   │   ├── pdf/
-│   │   ├── docx/
-│   │   ├── csv/
-│   │   ├── md/
-│   │   ├── open-exchange/
-│   │   └── openxml/
-│   ├── processed/
-│   │   ├── text/
-│   │   ├── tables/
-│   │   ├── chunks/
-│   │   └── extracted-entities/
-│   └── index.yaml
-├── wiki/
-│   ├── entities/
-│   ├── concepts/
-│   ├── systems/
-│   ├── processes/
-│   ├── applications/
-│   ├── decisions/
-│   └── generated-documents/
-├── models/
-│   └── archimate/
-│       ├── graph.json
-│       ├── elements.yaml
-│       ├── relationships.yaml
-│       ├── views.yaml
-│       ├── open-exchange.xml
-│       └── validation-report.md
-├── outputs/
-│   ├── oha/
-│   │   ├── oha-form.html
-│   │   └── oha-form.docx
-│   ├── procurement/
-│   │   └── zadavaci-dokumentace.docx
-│   ├── architecture/
-│   │   └── arch-doc.html
-│   └── exports/
-│       └── full-spec.pdf
-└── dist/
-    ├── spec.md
-    ├── spec.html
-    ├── spec.docx
-    └── spec.pdf
+└── outputs/
+    ├── spec/
+    │   ├── spec.md
+    │   ├── spec.html
+    │   ├── spec.pdf
+    │   └── spec.docx
+    ├── oha/
+    │   ├── oha-form.html
+    │   └── oha-form.docx
+    ├── procurement/
+    │   └── zadavaci-dokumentace.docx
+    ├── architecture/
+    │   └── arch-doc.html
+    └── exports/
+        └── full-spec.pdf
 
 ```
+
+### Všemi projekty sdílené adresáře 
+
+```text
+/Users/radimpokorny/SpecSystem
+
+shared
+    ├── assets
+    ├── models
+    │   └── archimate
+    │       ├── elements.yaml
+    │       ├── graph.json
+    │       ├── open-exchange.xml
+    │       ├── relationships.yaml
+    │       ├── validation-report.md
+    │       └── views.yaml
+    ├── pandoc
+    │   ├── spec-header.html
+    │   ├── spec.css
+    │   └── spec.js
+    ├── prompts
+    │   ├── lead-specification-architect-define-specification.md
+    │   ├── lead-specification-architect-reconciliation.md
+    │   ├── reviewer-review-specification.md
+    │   └── tester-validate-specification.md
+    ├── scripts
+    ├── schemas
+    ├── sources
+    │   └── project-id
+    │       ├── index.yaml
+    │       ├── processed
+    │       └── raw
+    ├── templates
+    │   └── project-id
+    │       ├── 00-meta/
+    │       │   └── spec.yaml
+    │       ├── 10-motivation/
+    │       │   └── motivation.yaml
+    │       ├── 20-scope/
+    │       │   └── scope.md
+    │       ├── 30-architecture/
+    │       │   └── architecture.md
+    │       ├── 35-archimate/
+    │       │   ├── metamodel.md
+    │       │   ├── mapping.md
+    │       │   ├── modeling-rules.md
+    │       │   └── views.md
+    │       ├── 40-components/
+    │       │   └── components.yaml
+    │       ├── 50-decisions/
+    │       │   └── decisions.md
+    │       ├── 60-links/
+    │       │   └── implementation-links.yaml
+    │       ├── 70-regeneration/
+    │       │   └── regeneration.md
+    │       ├── 75-agent-memory/
+    │       │   ├── skills.yaml
+    │       │   ├── preferences.md
+    │       │   └── correction-log.md
+    │       ├── 80-history/
+    │       │   └── history.md
+    │       ├── 90-validation/
+    │       │   ├── consistency-rules.yaml
+    │       │   └── validation-report.md
+    │       └── outputs/
+    │           ├── spec/
+    │           │   ├── spec.md
+    │           │   ├── spec.html
+    │           │   ├── spec.pdf
+    │           │   └── spec.docx
+    │           ├── oha/
+    │           │   ├── oha-form.html
+    │           │   └── oha-form.docx
+    │           ├── procurement/
+    │           │   └── zadavaci-dokumentace.docx
+    │           ├── architecture/
+    │           │   └── arch-doc.html
+    │           └── exports/
+    │               └── full-spec.pdf
+    └── wiki
+        ├── applications
+        ├── concepts
+        ├── data
+        ├── entities
+        ├── glossary.md
+        ├── index.md
+        ├── log.md
+        ├── processes
+        ├── projects
+        │   └── project-id
+        ├── systems
+        └── technologies
+
+```
+
+
 ### Význam hlavních adresářů
 
 - `projects/` obsahuje kanonické specifikace projektů.

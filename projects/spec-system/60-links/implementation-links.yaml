@@ -3,12 +3,12 @@ links:
     project_page: "PO/Uložiště specifikací"
 
   local_paths:
-    spec_root: "~/SpecSystem/projects/spec-system"
+    spec_root: "~/SpecSystem/projects"
     projects_root: "~/Projects"
-    sources_root: "~/SpecSystem/sources"
-    wiki_root: "~/SpecSystem/wiki"
-    models_root: "~/SpecSystem/models"
-    outputs_root: "~/SpecSystem/outputs"
+    sources_root: "~/SpecSystem/shared/sources"
+    wiki_root: "~/SpecSystem/shared/wiki"
+    models_root: "~/SpecSystem/shared/models"
+    template_root: "~/SpecSystem/shared/templates"
 
   related_projects: []
 
@@ -52,3 +52,7 @@ links:
       - běh lokálně (bez cloudu)
       - LLM není zdroj pravdy
       - změny SPEC vyžadují potvrzení
+
+  obsidian:
+    vault_path: "/Users/radimpokorny/SpecSystem/shared/wiki"
+    role: "LLM Wiki, společná znalostní báze napříč projekty"

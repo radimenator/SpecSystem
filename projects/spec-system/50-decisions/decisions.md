@@ -203,3 +203,16 @@ Systém je rozdělen:
   - agentní úlohy
 
 Systém je funkční i bez VPS.
+
+## ADR-012: Obsidian Wiki je společná napříč projekty
+
+### Stav
+Přijato
+
+### Důvod
+Wiki má sloužit jako znalostní báze napříč projekty, nikoliv jako izolovaná projektová dokumentace.
+
+### Dopad
+Wiki je umístěna v `shared/wiki/`.
+
+Projektové znalosti jsou členěny v `shared/wiki/projects/<project-id>/`.
