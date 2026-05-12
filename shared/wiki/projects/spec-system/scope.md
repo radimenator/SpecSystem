@@ -1,28 +1,29 @@
 # Summary
 
-SpecSystem je specifikační a architektonický operační systém, který integruje zdrojovou evidenci, znalostní vrstvu, kanonickou specifikaci, formální architektonický model a implementace. Jeden z klíčových aspektů je podpora regenerace kódu ze specifikací a generování čitelného dokumentu.
+SpecSystem je specifikační a architektonický operační systém, který propojuje zdrojovou evidenci, znalostní vrstvu, kanonickou specifikaci, formální architektonický model a implementaci. Systém se zabývá vytvořením a správou entit, pojmů a konceptů, tvorbou dokumentů a extrakcí znalostí. Mezi funkce patří indexace zdrojových dokumentů, vyhledávání relevantního kontextu pro LLM, generování strukturovaných výstupů a podpora práce ve Wiki.
 
 # Concepts
 
-- SpecSystem: specifikační a architektonický operační systém
-- Kanonická vrstva: úloha uchování a strukturování kanonických specifikací projektů
-- Znalostní vrstva: podpora tvorby znalostní báze
-- ArchiMate Model Repository: reprezentace architektury jako prvky, vztahy a názory
+- **Specifikace**: Kanonické specifikace jsou důležitým aspektem systému, které umožňují uchovávání architektonického pohledu na celkový projekt.
+- **Znalostní vrstva**: Tato vrstva zahrnuje tvorbu a správu entit (aplikace, procesy, data, technologie), pojmů a konceptů a syntézy dokumentů.
+- **Traceability & vazby**: Systém umožňuje dohledatelnost odkazem na zdrojovou evidenci, wiki, specifikaci, model a kód.
 
 # Entities
 
-- SpecSystem Wiki: znalostní vrstva pro tvorbu entit a konceptů
-- RAG / Knowledge Retrieval: indexace dokumentů a podpora vyhledávání kontextu
-- LLM asistence: lokální asistent pro extrakci informací z dokumentů
+- **SpecSystem**: Specifikační a architektonický operační systém, který propojuje různé vrstvy.
+- **Obsidian Wiki**: Umožňuje tvorbu a správu entit, pojmů a konceptů v znalostní vrstvě.
+- **ArchiMate Model Repository**: Uchovává reprezentace architektury jako prvky, vztahy a pohledy.
 
 # Candidate Spec Updates
 
-- Zjednodušit definici "Obsidian / LLM Wiki" k omezení pouze na tvorbu a správu znalostní vrstvy.
+- Přidání podrobnějšího popisu pro vazby mezi zdrojovou evidencí, wiki, specifikací a modelu.
+- Doplňení informace o tom, že LLM je pouze asistent a není autoritou v systému.
 
 # Open Questions
 
-- Jak se zabránit autonomním změnám systému (v kontextu automatických změn specifikací)?
+- Jaká je přesně role automatické autority v kontextu SpecSystem?
+- Jaký typ traceability a vazeb má být implementován pro zajištění plného dohledu?
 
 # Source Notes
 
-- SpecSystem je omezeno od tématic jako samostatné správy zdrojového kódu, implementace aplikací a agentové orchestrační systémy.
+Zdroj obsahuje detailní popis funkcí a komponent SpecSystemu, především se zaměřuje na vytvoření a správu specifikací a architektonických modelů. Dokument zdůrazňuje, že systém není nástrojem pro psaní poznámek nebo řízení projektů, ale je zaměřený na specifikační a architektonické aspekty softwarových projektech.

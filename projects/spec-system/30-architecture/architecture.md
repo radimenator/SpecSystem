@@ -404,7 +404,7 @@ shared
 - `shared/models/archimate/projects/<project-id>/` obsahuje ArchiMate model konkrétního projektu.
 - `projects/<project-id>/outputs/` obsahuje odvozené výstupní dokumenty konkrétního projektu.dokumentaci a PDF exporty.
 
-***-
+***
 ## Závislosti souborů pro SpecSystem
 
 ### Lead Specification Architect

@@ -1,37 +1,45 @@
 # Summary
 
-Zdroj obsahuje několik rozhodnutí (ADRs) týkajících se struktury a fungování systému SpecSystem, zahrnující koncepty jako ukládání specifikací mimo projektovou složku, jednotlivých root specifikace pro každý projekt, oddělení kanonického uložiště specifikací a evidence zdrojů. Dodržuje se princip traceability přes vrstvy a povinnost mít plnou kontrolu nad daty i možnost práce offline.
+Zdroj obsahuje sérii rozhodnutí (ADR) týkajících se architektury a zásad pro projekt SpecSystem, které ohraničují, jak specifikace a modely jsou uchovány a používány. Tyto rozhodnutí pokrývají aspekty jako uložení specifikací mimo kódování, strukturu projektů, role Roam a Obsidian Wiki v systému, validnost architektonických modelů, publikace dokumentů z specifikací, interpretaci zdrojových dokumentů, roli LLM jako asistenta, traceability napříč vrstvami a architekturu s lokálním první přístupem.
 
 # Concepts
 
-- **Specifikace**: Primární znalostní zdroj, který je v rámci SpecSystem ukládán odděleně.
-- **Evidence**: Dokumenty a modely jako potenciální neaktuální nebo neúplné zdroje informací.
-- **Traceability**: Potřeba sledovatelnosti, aby se mohlo ověřit správnost specifikace.
+- ADR: Architecture Decision Record - protokol kdy se rozhodnutí v projektu o struktuře systému probíhají.
+- Specifikace: primární znalostní zdroj pro porozumění a implementaci systému.
+- Traceability: schopnost sledovat a ověřit průběh změn v různých vrstvách systému od počátku do aktuálního stavu.
 
 # Entities
 
-- **SpecSystem**: Oddělený repozitář pro uložení kanonických specifikací.
-- **Source Evidence Repository**: Repositář pro uchování zdrojové evidence, která není považována za pravdu.
-- **Outputs/ vrstva**: Vrstva generující dokumenty odvozené ze SpecSystemu a ArchiMate modelu.
+- SpecSystem: repozitář pro uložení specifikací projektů.
+- ArchiMate Model Repository: repozitář pro architektonické modely vyplývající z specifikace.
+- Source Evidence Repository: umístění pro dokumenty, které jsou pouze důkazy a nezdroje pravdy v systému.
+- Obsidian Wiki: společná báze znalostí pro projekty.
 
-# Candidate Spec Updates
+# Outputs
 
-- Přidání detailů o význame kanonických specifikací SpecSystemu při sestavování výstupních dokumentů.
-- Detailnější definice pro traceability, zahrnující konkrétní mechanismy pro sledovatelnost.
-
-# Trace
-
-- **Obsidian Wiki**: Umístěno ve `shared/wiki/` pro společné používání napříč projekty.
-- **ArchiMate model**: Použit při generování dokumentů jako architektonických reportů.
-- **LLM role**: Asistent, který může navrhovat změny a extrahovat data, ale nemůže měnit kanonickou specifikaci bez potvrzení.
+- Dokumentace projektu generovaná deterministicky z SpecSystem a ArchiMate modelu.
+- Reporty o architektuře projektu generovány stejným procesem jako jiné dokumenty.
 
 # Traceability
+Každý prvek v systému musí být traceabilní do počátku, může to zahrnovat následující entity:
+- Zdrojový dokument.
+- Wiki entita.
+- Rozhodnutí (ADR).
+- Implementace.
 
-- Každá specifikace, rozhodnutí, implementace a entita v wiki má traceable připojení k zdrojovým dokumentům nebo jinému prvkovi systému.
+# Local-first architektura
+MacBook funguje jako primární pracovní prostředí, kde LLM běží místně pro minimalizaci latence a maximální kontrolu nad daty. VPS (Virtual Private Server) je použito pro sdílení repozitářů, orchestraci a agentní úlohy.
 
-# Summary Notes
-Rozhodnutí (ADRs) podtrhují důležitost oddělení mezi specifikacemi, evidence a výstupy. SpecSystem funguje jako centrální zdroj pravdy pro aplikace, zatímco jiné vrstvy slouží ke komunikaci nebo pro práci s informacemi před jejich použitím v specifikacích. Obsidian Wiki je nástrojem pro sdílení znalostí mezi projekty podle určitého strukturálního schématu, zajišťující plnou kontrolu uživatelů nad svými daty i při offline práci. LLM je poskytovatelem asistencí a návrhů bez omezení autority v kanonických specifikacích.
+# Summary of ADRs
+10 rozhodnutí o struktuře systému, včetně umístění specifikací mimo kódy, role wiki jako společného zdroje znalostí pro projekty a povinnosti traceability mezi vrstvami. Naposledy přijatým rozhodnutím se řeší architektura s lokálním první přístupem a doplňujícím VPS.
 
-# ADRs
-- [ADR-010: Traceability is Mandatory Across Layers](https://example.com/adr/010)
-- [ADR-012: Obsidian Wiki as Cross-project Shared Knowledge Base](https://example.com/adr/012)
+# Outputs
+- Dokumentace generovaná z SpecSystem.
+- Architektonické reporty vyplývající z modelu.
+- Společná wiki napříč projekty umístěna v `shared/wiki/`.
+
+# Traceability
+Každý prvek se může traceovat do počátku, zahrnuje to zdrojové dokumenty, rozhodnutí a implementace. To umožňuje kontrolní mechanismus pro ověření správnosti systému.
+
+# ADR-012
+Obsidian Wiki je umístěna v `shared/wiki/`, projektové znalosti jsou členěny podle ID projektů, což zajišťuje globální a jednotný přístup k informacím napříč projekty.

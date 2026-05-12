@@ -5,7 +5,6 @@ import json
 from pathlib import Path
 import requests
 
-
 OLLAMA_URL = "http://localhost:11434"
 CHAT_MODEL = "qwen2.5:14b"
 EMBED_MODEL = "nomic-embed-text"
@@ -64,16 +63,21 @@ def main() -> None:
 
     prompt = f"""{prompt_template}
 
----
+    DŮLEŽITÉ:
+    Výstup musí být pouze obsah wiki stránky.
+    Zakázané jsou konverzační fráze, poděkování, nabídky pomoci a obecné rady.
+    Piš česky.
+    Buď věcný a stručný.
+    Nevytvářej obsah, který není podložen zdrojem.
 
-# Source file
+    # Source file
 
-{source_file}
+    {source_file}
 
-# Source text
+    # Source text
 
-{source_text}
-"""
+    {source_text}
+    """
 
     markdown = call_ollama(prompt)
     embedding = embed_text(source_text[:8000])
