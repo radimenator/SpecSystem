@@ -1,5 +1,5 @@
 components:
-  # 🔴 CORE SPEC LAYER
+  # CORE SPEC LAYER
 
   - id: spec_root
     name: Root specifikace
@@ -34,7 +34,7 @@ components:
     purpose: Uchování naučených patternů, preferencí a oprav (mimo kanonickou
       specifikaci)
 
-  # 🟡 INPUT / EVIDENCE LAYER
+  # INPUT / EVIDENCE LAYER
 
   - id: source_evidence_repository
     name: Source Evidence Repository
@@ -46,7 +46,7 @@ components:
     purpose: Transformace dokumentů na text, strukturovaná data, chunky a
       extrahované entity
 
-  # 🟢 KNOWLEDGE LAYER
+  # KNOWLEDGE LAYER
 
   - id: llm_wiki
     name: Obsidian / LLM Wiki
@@ -56,7 +56,7 @@ components:
     name: RAG / Knowledge Retrieval
     purpose: Vyhledávání relevantního kontextu napříč dokumenty, wiki a specifikací
 
-  # 🔵 MODEL LAYER
+  # MODEL LAYER
 
   - id: archimate_repository
     name: ArchiMate Model Repository
@@ -66,7 +66,7 @@ components:
     name: Validace modelu
     purpose: Kontrola správnosti ArchiMate modelu a jeho vazby na specifikaci
 
-  # 🟣 OUTPUT LAYER
+  # OUTPUT LAYER
 
   - id: publication_layer
     name: Publikační vrstva
@@ -82,7 +82,7 @@ components:
     purpose: Deterministická transformace specifikace a modelu do výstupních formátů
       (HTML, DOCX, PDF)
 
-  # ⚙️ IMPLEMENTATION LINK
+  # IMPLEMENTATION LINK
 
   - id: implementation_link
     name: Vazba na implementaci

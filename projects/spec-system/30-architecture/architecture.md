@@ -26,6 +26,28 @@ Uložiště specifikací slouží jako kanonický zdroj pravdy pro specifikace p
 - validace a exporty jsou deterministické
 - každá informace musí být dohledatelná ke zdroji (traceability)
 
+## Separation of Concerns
+
+Systém odděluje několik typů artefaktů:
+
+- SPEC = kanonická pravda
+- RUNBOOK = operativní práce
+- SCRIPT = automatizace
+- WIKI = interpretační a znalostní vrstva
+
+### Význam
+
+- SPEC definuje formální a verzovanou pravdu systému.
+- RUNBOOK popisuje provozní workflow a manuální postupy.
+- SCRIPT implementuje automatizaci a deterministické operace.
+- WIKI slouží pro syntézu, navigaci, entity a práci LLM.
+
+Toto oddělení zabraňuje:
+- míchání operativy a specifikace
+- degradaci kanonických artefaktů
+- nekontrolovanému driftu znalostí
+- coupling mezi automatizací a architekturou
+
 ## Hlavní vztahy
 - Roam projekt odkazuje na root specifikace
 - root specifikace odkazuje na implementaci v ~/Projects
@@ -67,7 +89,7 @@ feedback → zpět do SpecSystem / Wiki / Roam
 - preprocessing (text, chunking)
 - opakovatelná extrakce
 
-⸻
+***
 
 2. Obsidian / LLM Wiki
 
@@ -77,7 +99,7 @@ feedback → zpět do SpecSystem / Wiki / Roam
 - znalostní graf (linkování)
 - pracovní základ pro AI
 
-⸻
+***
 
 3. SpecSystem
 
@@ -87,7 +109,7 @@ feedback → zpět do SpecSystem / Wiki / Roam
 - ADR (rozhodnutí)
 - vazby na model a implementaci
 
-⸻
+***
 
 4. ArchiMate Model Repository
 
@@ -97,7 +119,7 @@ feedback → zpět do SpecSystem / Wiki / Roam
 - validace modelu
 - import/export Open Exchange XML
 
-⸻
+***
 
 5. RAG / Knowledge Layer
 
@@ -108,7 +130,7 @@ feedback → zpět do SpecSystem / Wiki / Roam
 - retrieval kontextu pro LLM
 - podpora traceability
 
-⸻
+***
 
 6. LLM Agent (lokální)
 
@@ -135,7 +157,7 @@ omezení:
   - YAML / Markdown / DOCX / HTML
 - deterministická transformace (bez LLM v kritické části)
 
----
+***
 ## Deployment / Execution Model
 
 Systém je navržen jako hybridní lokální + vzdálené řešení.
@@ -171,7 +193,7 @@ Zde běží:
 - VPS rozšiřuje možnosti (agent orchestrace, sdílení)
 - citlivá data zůstávají lokálně
 
----
+***
 
 # SpecSystem + OpenClaw Operating Structure
 
@@ -382,7 +404,7 @@ shared
 - `shared/models/archimate/projects/<project-id>/` obsahuje ArchiMate model konkrétního projektu.
 - `projects/<project-id>/outputs/` obsahuje odvozené výstupní dokumenty konkrétního projektu.dokumentaci a PDF exporty.
 
-----
+***-
 ## Závislosti souborů pro SpecSystem
 
 ### Lead Specification Architect
@@ -417,6 +439,6 @@ shared
   - `/srv/workspace/tasks/<date>-<project-id>-spec-review.md`
   - `/srv/workspace/tasks/<date>-<project-id>-spec-test.md`
 - Šablona specifikace: `/srv/workspace/spec-system/templates/project-spec/`
-- Výstup: aktualizovaná SPEC v `/srv/workspace/spec-system/projects/<project-id>/`, soubory `00` až `80`
+- Výstup: aktualizovaná SPEC v `/srv/workspace/spec-system/projects/<project-id>/`, soubory `00` až `90`
 
----
+***

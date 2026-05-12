@@ -10,7 +10,7 @@ Kód je nahraditelný artefakt. Specifikace je primární znalostní zdroj.
 ### Dopad
 Vzniká oddělený repozitář ~/SpecSystem.
 
----
+***
 
 ## ADR-002: Jedna aplikace má jeden root specifikace
 ### Stav
@@ -22,7 +22,7 @@ Je potřeba mít jednoznačný vstupní bod pro porozumění systému.
 ### Dopad
 Každý projekt má jednu kořenovou složku ve SpecSystem.
 
----
+***
 
 ## ADR-003: Roam není kanonické uložiště specifikací
 ### Stav
@@ -34,7 +34,7 @@ Roam je vhodný pro myšlení a vazby, ale ne jako kanonický, verzovaný a stro
 ### Dopad
 Roam drží projektový kontext. SpecSystem drží platnou specifikaci.
 
----
+***
 
 ## ADR-004: Specifikace musí jít publikovat do čitelného dokumentu
 ### Stav
@@ -46,7 +46,7 @@ Kanonický zdroj není totéž co čitelný dokument pro práci a revizi.
 ### Dopad
 Ve specifikaci existuje publikační vrstva a build proces.
 
----
+***
 
 ## ADR-005: Zdrojové dokumenty jsou evidence, nikoliv kanonická pravda
 
@@ -64,7 +64,7 @@ Je nutné oddělit realitu vstupů od interpretace a od schválené specifikace.
 Vzniká Source Evidence Repository.
 Specifikace nevzniká přímým převodem dokumentů, ale jejich interpretací.
 
-⸻
+***
 
 ## ADR-006: Obsidian / LLM Wiki je interpretační vrstva, ne zdroj pravdy
 
@@ -72,7 +72,7 @@ Specifikace nevzniká přímým převodem dokumentů, ale jejich interpretací.
 
 Přijato
 
-D### ůvod
+### Důvod
 
 Je potřeba mít prostor pro syntézu, pojmy a vazby bez narušení kanonické specifikace.
 
@@ -86,7 +86,7 @@ Wiki slouží pro:
 
 SpecSystem zůstává jediný kanonický zdroj.
 
-⸻
+***
 
 ## ADR-007: ArchiMate model je formální projekce specifikace
 
@@ -107,7 +107,7 @@ Model:
 * může být použit pro validaci
 * může být exportován (Open Exchange XML)
 
-⸻
+***
 
 ## ADR-008: Výstupní dokumenty jsou odvozené artefakty
 
@@ -127,7 +127,7 @@ Dokumenty jsou generované deterministicky ze:
 * SpecSystem
 * ArchiMate modelu
 
-⸻
+***
 
 ## ADR-009: LLM je asistent, ne autorita
 
@@ -152,7 +152,7 @@ LLM nesmí:
 * měnit kanonickou specifikaci bez potvrzení
 * měnit model bez validace
 
-⸻
+***
 
 ## ADR-010: Traceability je povinná napříč vrstvami
 

@@ -1,11 +1,11 @@
 # Big rocks (shrnutí)
-👉 Tento systém není:
+Tento systém není:
 
 * nástroj na psaní poznámek
 * nástroj na řízení projektů
 * náhrada IDE
 
-👉 Tento systém je:
+Tento systém je:
 
 specifikační a architektonický operační systém,
 který propojuje:
@@ -16,11 +16,11 @@ který propojuje:
 * formální architektonický model
 * a implementaci
 
-⸻
+***
 
 # Scope
 
-## 🧩 SpecSystem (kanonická vrstva)
+## SpecSystem (kanonická vrstva)
 
 - evidence kanonických specifikací projektů
 - verzování specifikací (Git)
@@ -31,9 +31,9 @@ který propojuje:
 - podpora regenerace implementace ze specifikace
 - generování čitelného dokumentu (HTML/PDF/DOCX)
 
-⸻
+***
 
-## 📚 Source Evidence Repository (nově explicitně)
+## Source Evidence Repository (nově explicitně)
 
 - evidence zdrojových dokumentů:
     - PDF, DOCX, CSV, Markdown
@@ -46,11 +46,11 @@ který propojuje:
     - chunking
     - strukturování (např. tabulky)
 
-👉 Pozor: bez interpretace jako pravdy
+Pozor: bez interpretace jako pravdy
 
-⸻
+***
 
-## 🧠 Obsidian / LLM Wiki (znalostní vrstva)
+## Obsidian / LLM Wiki (znalostní vrstva)
 
 - tvorba a správa:
     - entit (aplikace, procesy, data, technologie)
@@ -63,9 +63,9 @@ který propojuje:
     - ArchiMate model
     - výstupní dokumenty
 
-⸻
+***
 
-## 🏗️ ArchiMate Model Repository
+## ArchiMate Model Repository
 
 - reprezentace architektury jako:
     - prvky (elements)
@@ -79,9 +79,9 @@ který propojuje:
     - ArchiMate Open Exchange XML
 - generování základních views
 
-⸻
+***
 
-## 🔍 RAG / Knowledge Retrieval
+## RAG / Knowledge Retrieval
 
 - indexace:
     - zdrojových dokumentů
@@ -92,9 +92,9 @@ který propojuje:
     - uživatele
 - podpora traceability (odkaz na zdroj)
 
-⸻
+***
 
-## 🤖 LLM asistence (lokální)
+## LLM asistence (lokální)
 
 - extrakce entit a vztahů ze zdrojů
 - návrhy změn:
@@ -104,11 +104,11 @@ který propojuje:
 - generování strukturovaných výstupů (JSON)
 - podpora práce ve Wiki
 
-👉 pouze jako asistent, ne autorita
+pouze jako asistent, ne autorita
 
-⸻
+***
 
-## 🔗 Traceability & vazby
+## Traceability & vazby
 
 - vazba:
     - dokument → wiki → specifikace → model → kód
@@ -116,37 +116,37 @@ který propojuje:
     - odkud vznikl prvek/model/rozhodnutí
 - evidence změn a jejich důvodů
 
-----
+***
 # Out of scope
 
-## 📝 Knowledge & work management
+## Knowledge & work management
 
 - pracovní poznámky (Roam)
 - backlog a task management
 - řízení projektů
 
-⸻
+***
 
-## 💻 Implementace
+## Implementace
 
 - samotná správa zdrojového kódu
 - build pipeline aplikací
 - runtime aplikací
 
-⸻
+***
 
-## 🤖 Agent orchestrace (důležité upřesnění)
+## Agent orchestrace (důležité upřesnění)
 
 - autonomní běh agentů
 - multi-agent systémy
 - plánování a řízení agentních workflow
 - self-modifying systém bez kontroly
 
-## 👉 LLM je pouze nástroj, ne autonomní systém
+## LLM je pouze nástroj, ne autonomní systém
 
-⸻
+***
 
-## 🧠 Automatická autorita
+## Automatická autorita
 
 - automatické změny kanonické specifikace bez schválení
 - automatické změny ArchiMate modelu bez validace

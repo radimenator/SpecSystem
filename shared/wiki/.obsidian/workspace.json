@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "projects/spec-system/scope.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "scope"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "projects/spec-system/scope.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Zpětné odkazy pro index"
+              "title": "Zpětné odkazy pro scope"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "projects/spec-system/scope.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Odchozí odkazy z index"
+              "title": "Odchozí odkazy z scope"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "projects/spec-system/scope.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Přehled index"
+              "title": "Přehled scope"
             }
           }
         ]
@@ -185,8 +185,21 @@
   },
   "active": "0fd54f5ec24fa98d",
   "lastOpenFiles": [
-    "glossary.md",
+    "projects/spec-system/decisions.md",
+    "projects/spec-system/test.md",
+    "projects/spec-system/scope.md",
+    "projects/projects/spec-system/20-scope/scope.md",
+    "projects/projects/spec-system/20-scope",
+    "projects/projects/spec-system",
+    "projects/projects",
+    "projects/spec-system/sources.md",
+    "projects/spec-system/questions.md",
+    "projects/spec-system/overview.md",
+    "projects/spec-system/index.md",
+    "projects/spec-system/architecture.md",
+    "2026-05-12.md",
     "index.md",
+    "glossary.md",
     "log.md"
   ]
 }

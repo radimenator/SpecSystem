@@ -9,7 +9,7 @@ Bootstrap systému pro evidenci a správu specifikací.
 
 ### Dopad
 Vznikl základ pro odvození šablony všech dalších projektových specifikací.
----
+***
 
 ## v0.2
 ### Změna

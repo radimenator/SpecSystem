@@ -11,7 +11,7 @@ Zachovat takové informace, aby bylo možné systém nebo jeho části znovu vyt
 * znovuvytvoření dokumentace
 * přípravu vstupů pro implementaci
 
-⸻
+***
 
 ## Nezbytné vstupy
 
@@ -44,13 +44,13 @@ Zachovat takové informace, aby bylo možné systém nebo jeho části znovu vyt
 * pojmy a definice
 * syntézy dokumentů
 
-###Implementační vazby
+### Implementační vazby
 
 * odkazy na repozitáře v ~/Projects
 * struktura projektů
 * základní build/regeneration skripty
 
-⸻
+***
 
 ## Regenerovatelné části
 
@@ -79,7 +79,7 @@ Zachovat takové informace, aby bylo možné systém nebo jeho části znovu vyt
 * zadání pro jednotlivé komponenty
 * základní skeleton aplikace (pokud definováno)
 
-⸻
+***
 
 ## Neregenerovatelné části bez doplnění
 
@@ -90,7 +90,7 @@ Zachovat takové informace, aby bylo možné systém nebo jeho části znovu vyt
 * nezdokumentované vazby mezi komponentami
 * neuložené verze zdrojových dokumentů
 
-⸻
+***
 
 ## Pravidla regenerace
 
@@ -99,7 +99,7 @@ Zachovat takové informace, aby bylo možné systém nebo jeho části znovu vyt
 * dokumenty jsou odvozené artefakty
 * implementace je rekonstruovatelná pouze v rozsahu definovaném ve specifikaci
 
-⸻
+***
 
 ## Role LLM při regeneraci
 

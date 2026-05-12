@@ -14,19 +14,22 @@ PROJECT_ID="$1"
 FORMAT="${2:-all}"
 
 BASE="$HOME/SpecSystem/projects/$PROJECT_ID"
-DIST="$BASE/dist"
-OUTPUT_MD="$DIST/spec.md"
-OUTPUT_HTML="$DIST/spec.html"
-OUTPUT_DOCX="$DIST/spec.docx"
-OUTPUT_PDF="$DIST/spec.pdf"
+OUTPUT_DIR="$BASE/outputs/spec"
+
+OUTPUT_MD="$OUTPUT_DIR/spec.md"
+OUTPUT_HTML="$OUTPUT_DIR/spec.html"
+OUTPUT_DOCX="$OUTPUT_DIR/spec.docx"
+OUTPUT_PDF="$OUTPUT_DIR/spec.pdf"
+
 CSS_FILE="$HOME/SpecSystem/shared/pandoc/spec.css"
+HEADER_FILE="$HOME/SpecSystem/shared/pandoc/spec-header.html"
 
 if [ ! -d "$BASE" ]; then
   echo "Chyba: projekt neexistuje: $BASE"
   exit 1
 fi
 
-mkdir -p "$DIST"
+mkdir -p "$OUTPUT_DIR"
 
 append_section() {
   local FILE="$1"
@@ -70,19 +73,28 @@ EOF
   append_yaml_section "Motivace" "$BASE/10-motivation/motivation.yaml"
   append_section "$BASE/20-scope/scope.md"
   append_section "$BASE/30-architecture/architecture.md"
+
+  append_section "$BASE/35-archimate/metamodel.md"
+  append_section "$BASE/35-archimate/mapping.md"
+  append_section "$BASE/35-archimate/modeling-rules.md"
+  append_section "$BASE/35-archimate/views.md"
+
   append_yaml_section "Komponenty" "$BASE/40-components/components.yaml"
   append_section "$BASE/50-decisions/decisions.md"
   append_yaml_section "Vazby" "$BASE/60-links/implementation-links.yaml"
   append_section "$BASE/70-regeneration/regeneration.md"
+
+  append_section "$BASE/75-agent-memory/preferences.md"
+  append_section "$BASE/75-agent-memory/correction-log.md"
+
   append_section "$BASE/80-history/history.md"
+  append_section "$BASE/90-validation/validation-report.md"
 
   echo "Markdown view vytvořen:"
   echo "  $OUTPUT_MD"
 }
 
 generate_html() {
-  local HEADER_FILE="$HOME/SpecSystem/shared/pandoc/spec-header.html"
-
   pandoc "$OUTPUT_MD" \
     --standalone \
     --toc \
