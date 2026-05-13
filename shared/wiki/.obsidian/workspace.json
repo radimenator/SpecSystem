@@ -11,14 +11,10 @@
             "id": "0fd54f5ec24fa98d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/spec-system/architecture/01-#-architektura-systému.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "01-#-architektura-systému"
+              "title": "Nová karta"
             }
           }
         ]
@@ -94,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/spec-system/architecture/01-#-architektura-systému.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Zpětné odkazy pro 01-#-architektura-systému"
+              "title": "Zpětné odkazy"
             }
           },
           {
@@ -113,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/spec-system/architecture/01-#-architektura-systému.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Odchozí odkazy z 01-#-architektura-systému"
+              "title": "Odchozí odkazy"
             }
           },
           {
@@ -156,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/spec-system/architecture/01-#-architektura-systému.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Přehled 01-#-architektura-systému"
+              "title": "Přehled"
             }
           }
         ]
@@ -185,12 +178,13 @@
   },
   "active": "0fd54f5ec24fa98d",
   "lastOpenFiles": [
+    "projects/spec-system",
+    "projects/spec-system/architecture/01-#-architektura-systému.md",
     "projects/spec-system/architecture/04-hlavní-architektonické-principy.md",
     "projects/spec-system/04-hlavní-architektonické-principy.md",
     "projects/spec-system/test.md",
     "projects/spec-system/architecture/03-hlavní-oddělení.md",
     "projects/spec-system/architecture/02-účel.md",
-    "projects/spec-system/architecture/01-#-architektura-systému.md",
     "projects/spec-system/architecture",
     "projects/spec-system/architecture.md",
     "projects/spec-system/sources.md",

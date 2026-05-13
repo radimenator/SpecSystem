@@ -1,0 +1,6 @@
+- Jak se řídit pravidly pro omezující chování LLM a agentů?
+- Jak definovat odpovědnosti vrstev v systému SpecSystem?
+- Jak zajistit traceability a validaci změn v kanonických specifikacích a ArchiMate modelu?
+- Jak spravovat potenciální rizika spojená s autonomním během agentů a multi-agent systémů?
+- Jak zajišťovat, že LLM funguje pouze jako asistent bez autonomní kontroly?
+- Jak omezit automatické změny kanonických specifikací a ArchiMate modelu bez lidského schválení?
