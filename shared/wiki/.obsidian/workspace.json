@@ -11,10 +11,14 @@
             "id": "0fd54f5ec24fa98d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "systems/spec-system.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Nová karta"
+              "title": "spec-system"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "systems/spec-system.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Zpětné odkazy"
+              "title": "Zpětné odkazy pro spec-system"
             }
           },
           {
@@ -108,11 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "systems/spec-system.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Odchozí odkazy"
+              "title": "Odchozí odkazy z spec-system"
             }
           },
           {
@@ -150,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "systems/spec-system.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Přehled"
+              "title": "Přehled spec-system"
             }
           }
         ]
@@ -178,6 +185,12 @@
   },
   "active": "0fd54f5ec24fa98d",
   "lastOpenFiles": [
+    "projects/spec-system/index.md",
+    "glossary.md",
+    "systems/spec-system.md",
+    "concepts/spec-system.md",
+    "entities/spec-system.md",
+    "projects/spec-system/README.md",
     "projects/spec-system",
     "projects/spec-system/architecture/01-#-architektura-systému.md",
     "projects/spec-system/architecture/04-hlavní-architektonické-principy.md",
@@ -188,7 +201,6 @@
     "projects/spec-system/architecture",
     "projects/spec-system/architecture.md",
     "projects/spec-system/sources.md",
-    "projects/spec-system/index.md",
     "projects/spec-system/decisions.md",
     "projects/spec-system/scope.md",
     "projects/projects/spec-system/20-scope/scope.md",
@@ -199,7 +211,6 @@
     "projects/spec-system/overview.md",
     "2026-05-12.md",
     "index.md",
-    "glossary.md",
     "log.md"
   ]
 }
