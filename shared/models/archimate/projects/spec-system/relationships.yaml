@@ -1,1 +1,294 @@
+relationships:
+  #
+  # Core dependency flow
+  #
 
+  - id: rel-roam-source
+    type: flow
+    source: roam-research
+    target: source-evidence-repository
+    description: Projektový kontext a poznámky jsou ukládány do source evidence vrstvy.
+
+  - id: rel-source-wiki
+    type: serving
+    source: source-evidence-repository
+    target: llm-wiki
+    description: Zdrojové dokumenty slouží jako vstup pro wiki syntézu.
+
+  - id: rel-source-memory
+    type: serving
+    source: source-evidence-repository
+    target: persistent-memory-layer
+    description: Source evidence poskytuje vstup pro extraction do memory.
+
+  - id: rel-memory-spec
+    type: serving
+    source: persistent-memory-layer
+    target: spec-system
+    description: Persistent memory poskytuje stabilní reasoning kontext pro SPEC.
+
+  - id: rel-wiki-spec
+    type: serving
+    source: llm-wiki
+    target: spec-system
+    description: Wiki poskytuje interpretační vrstvu nad SPEC.
+
+  - id: rel-spec-archimate
+    type: realization
+    source: spec-system
+    target: archimate-model-repository
+    description: SPEC je formalizována do ArchiMate modelu.
+
+  - id: rel-archimate-spec-feedback
+    type: influence
+    source: archimate-model-repository
+    target: spec-system
+    description: Validace modelu může vést ke korekci SPEC.
+
+  - id: rel-spec-output
+    type: serving
+    source: spec-system
+    target: output-generation-layer
+    description: SPEC slouží jako zdroj pro generování dokumentace.
+
+  - id: rel-archimate-output
+    type: serving
+    source: archimate-model-repository
+    target: output-generation-layer
+    description: ArchiMate model slouží jako zdroj pro architektonické výstupy.
+
+  - id: rel-output-projects
+    type: flow
+    source: output-generation-layer
+    target: implementation-projects
+    description: Výstupní dokumentace podporuje implementaci projektů.
+
+  #
+  # Memory layer
+  #
+
+  - id: rel-memory-concepts
+    type: aggregation
+    source: persistent-memory-layer
+    target: memory-files
+    description: Persistent memory obsahuje koncepty, constraints a decisions.
+
+  - id: rel-memory-traceability
+    type: influence
+    source: persistent-memory-layer
+    target: spec-system-driver-traceability
+    description: Memory podporuje traceability systému.
+
+  - id: rel-memory-regeneration
+    type: influence
+    source: persistent-memory-layer
+    target: spec-system-goal-regeneration
+    description: Memory podporuje regeneraci znalostního kontextu.
+
+  #
+  # Local LLM ecosystem
+  #
+
+  - id: rel-local-llm-ollama
+    type: assignment
+    source: local-llm
+    target: ollama
+    description: Lokální LLM běží prostřednictvím Ollama runtime.
+
+  - id: rel-ollama-qwen
+    type: serving
+    source: ollama
+    target: qwen-14b
+    description: Ollama poskytuje reasoning model Qwen 2.5 14B.
+
+  - id: rel-ollama-embedding
+    type: serving
+    source: ollama
+    target: nomic-embed-text
+    description: Ollama poskytuje embedding model pro retrieval.
+
+  - id: rel-local-llm-memory
+    type: access
+    source: local-llm
+    target: persistent-memory-layer
+    description: Lokální LLM používá persistent memory jako kontext.
+
+  - id: rel-local-llm-wiki
+    type: access
+    source: local-llm
+    target: llm-wiki
+    description: Lokální LLM generuje a používá wiki obsah.
+
+  #
+  # OpenClaw orchestration
+  #
+
+  - id: rel-openclaw-spec
+    type: access
+    source: openclaw
+    target: spec-system
+    description: OpenClaw agenti pracují nad SPEC.
+
+  - id: rel-openclaw-memory
+    type: access
+    source: openclaw
+    target: persistent-memory-layer
+    description: OpenClaw používá memory jako dlouhodobý kontext.
+
+  - id: rel-openclaw-wiki
+    type: access
+    source: openclaw
+    target: llm-wiki
+    description: OpenClaw může využívat wiki pro navigaci a syntézu.
+
+  #
+  # Infrastructure
+  #
+
+  - id: rel-macbook-spec
+    type: assignment
+    source: macbook-local
+    target: spec-system
+    description: Lokální prostředí hostuje pracovní SPEC clone.
+
+  - id: rel-macbook-memory
+    type: assignment
+    source: macbook-local
+    target: persistent-memory-layer
+    description: Persistent memory běží lokálně.
+
+  - id: rel-macbook-llm
+    type: assignment
+    source: macbook-local
+    target: local-llm
+    description: Lokální LLM běží na MacBooku.
+
+  - id: rel-vps-openclaw
+    type: assignment
+    source: hetzner-vps
+    target: openclaw
+    description: VPS hostuje OpenClaw orchestration.
+
+  - id: rel-vps-git
+    type: assignment
+    source: hetzner-vps
+    target: git-repository
+    description: VPS hostuje centrální Git repozitáře.
+
+  #
+  # Automation
+  #
+
+  - id: rel-cron-memory
+    type: triggering
+    source: cron-nightly-rebuild
+    target: persistent-memory-layer
+    description: Nightly rebuild aktualizuje persistent memory.
+
+  - id: rel-cron-wiki
+    type: triggering
+    source: cron-nightly-rebuild
+    target: llm-wiki
+    description: Nightly rebuild generuje wiki projekci.
+
+  - id: rel-cron-report
+    type: triggering
+    source: cron-nightly-rebuild
+    target: output-generation-layer
+    description: Nightly rebuild může generovat validační reporty.
+
+  #
+  # Data relationships
+  #
+
+  - id: rel-spec-files
+    type: access
+    source: spec-system
+    target: spec-files
+    description: SPEC systém spravuje kanonické specifikační soubory.
+
+  - id: rel-memory-files
+    type: access
+    source: persistent-memory-layer
+    target: memory-files
+    description: Memory layer ukládá persistentní memory soubory.
+
+  - id: rel-wiki-pages
+    type: access
+    source: llm-wiki
+    target: wiki-pages
+    description: Wiki vrstva spravuje wiki stránky.
+
+  - id: rel-archimate-xml
+    type: access
+    source: archimate-model-repository
+    target: archimate-open-exchange
+    description: ArchiMate repository exportuje Open Exchange XML.
+
+  #
+  # Motivation relationships
+  #
+
+  - id: rel-driver-traceability-goal
+    type: influence
+    source: spec-system-driver-traceability
+    target: spec-system-goal-canonical-spec
+    description: Traceability podporuje vznik kanonické specifikace.
+
+  - id: rel-driver-source-truth-goal
+    type: influence
+    source: spec-system-driver-source-of-truth
+    target: spec-system-goal-canonical-spec
+    description: Single source of truth podporuje vznik SPEC.
+
+  - id: rel-goal-memory-requirement
+    type: realization
+    source: spec-system-requirement-memory
+    target: spec-system-goal-regeneration
+    description: Persistent memory podporuje regeneraci systému.
+
+  - id: rel-constraint-human-approval
+    type: influence
+    source: spec-system-constraint-human-approval
+    target: local-llm
+    description: LLM nesmí měnit SPEC bez potvrzení člověkem.
+
+  - id: rel-principle-spec-authority
+    type: influence
+    source: spec-system-principle-spec-authority
+    target: spec-system
+    description: SPEC je jediná autoritativní vrstva systému.
+
+  - id: rel-principle-memory-separation
+    type: influence
+    source: spec-system-principle-memory-separation
+    target: persistent-memory-layer
+    description: Memory je oddělená od SPEC.
+
+  #
+  # Evolution / implementation
+  #
+
+  - id: rel-v01-v02
+    type: triggering
+    source: spec-system-v01
+    target: spec-system-v02
+    description: Evoluce z jednoduchého uložiště specifikací na vrstvený systém.
+
+  - id: rel-v02-v03
+    type: triggering
+    source: spec-system-v02
+    target: spec-system-v03
+    description: Zavedení persistent memory vrstvy.
+
+  - id: rel-memory-project-v03
+    type: realization
+    source: persistent-memory-project
+    target: spec-system-v03
+    description: Projekt persistent memory realizuje verzi v0.3.
+
+  - id: rel-archimate-project
+    type: realization
+    source: archimate-generation-project
+    target: archimate-model-repository
+    description: Projekt generování Open Exchange XML realizuje ArchiMate export.

@@ -1,0 +1,640 @@
+<?xml version='1.0' encoding='utf-8'?>
+<model xmlns="http://www.opengroup.org/xsd/archimate/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" identifier="id-spec-system-model">
+  <name xml:lang="en">spec-system ArchiMate Model</name>
+  <elements>
+    <element identifier="id-spec-system-stakeholders" xsi:type="Grouping">
+      <name xml:lang="en">Stakeholders</name>
+    </element>
+    <element identifier="id-radim-pokorny" xsi:type="Stakeholder">
+      <name xml:lang="en">Radim Pokorný</name>
+      <documentation xml:lang="en">Autor a hlavní architekt systému SpecSystem.</documentation>
+    </element>
+    <element identifier="id-openclaw-agents" xsi:type="Stakeholder">
+      <name xml:lang="en">OpenClaw Agents</name>
+      <documentation xml:lang="en">Agentní infrastruktura využívající SPEC, memory a workflow.</documentation>
+    </element>
+    <element identifier="id-spec-system-driver-traceability" xsi:type="Driver">
+      <name xml:lang="en">Traceability</name>
+      <documentation xml:lang="en">Potřeba dohledatelnosti všech rozhodnutí, modelů a výstupů.</documentation>
+    </element>
+    <element identifier="id-spec-system-driver-source-of-truth" xsi:type="Driver">
+      <name xml:lang="en">Single Source of Truth</name>
+      <documentation xml:lang="en">Potřeba jediné kanonické specifikace systému.</documentation>
+    </element>
+    <element identifier="id-spec-system-assessment-fragmentation" xsi:type="Assessment">
+      <name xml:lang="en">Fragmented Documentation</name>
+      <documentation xml:lang="en">Dokumentace a znalosti bývají roztříštěné mezi více systémů.</documentation>
+    </element>
+    <element identifier="id-spec-system-goal-canonical-spec" xsi:type="Goal">
+      <name xml:lang="en">Canonical Specification</name>
+      <documentation xml:lang="en">Vytvořit stabilní kanonickou specifikaci projektů.</documentation>
+    </element>
+    <element identifier="id-spec-system-goal-regeneration" xsi:type="Goal">
+      <name xml:lang="en">Deterministic Regeneration</name>
+      <documentation xml:lang="en">Umožnit regeneraci dokumentace a modelů ze specifikace.</documentation>
+    </element>
+    <element identifier="id-spec-system-requirement-memory" xsi:type="Requirement">
+      <name xml:lang="en">Persistent Memory Layer</name>
+      <documentation xml:lang="en">Systém musí obsahovat dlouhodobou pracovní memory vrstvu.</documentation>
+    </element>
+    <element identifier="id-spec-system-requirement-local-llm" xsi:type="Requirement">
+      <name xml:lang="en">Local LLM Support</name>
+      <documentation xml:lang="en">Systém musí podporovat běh lokálních LLM modelů.</documentation>
+    </element>
+    <element identifier="id-spec-system-constraint-local-first" xsi:type="Constraint">
+      <name xml:lang="en">Local First</name>
+      <documentation xml:lang="en">Citlivá data musí zůstávat lokálně.</documentation>
+    </element>
+    <element identifier="id-spec-system-constraint-human-approval" xsi:type="Constraint">
+      <name xml:lang="en">Human Approval Required</name>
+      <documentation xml:lang="en">LLM nesmí měnit SPEC bez potvrzení člověkem.</documentation>
+    </element>
+    <element identifier="id-spec-system-principle-spec-authority" xsi:type="Principle">
+      <name xml:lang="en">SPEC is Source of Truth</name>
+      <documentation xml:lang="en">SPEC je jediná autoritativní pravda systému.</documentation>
+    </element>
+    <element identifier="id-spec-system-principle-memory-separation" xsi:type="Principle">
+      <name xml:lang="en">Memory is not SPEC</name>
+      <documentation xml:lang="en">Persistent memory není kanonická specifikace.</documentation>
+    </element>
+    <element identifier="id-spec-system" xsi:type="BusinessService">
+      <name xml:lang="en">SpecSystem</name>
+      <documentation xml:lang="en">Kanonický systém pro správu specifikací a architektury.</documentation>
+    </element>
+    <element identifier="id-specification-management" xsi:type="BusinessProcess">
+      <name xml:lang="en">Specification Management</name>
+      <documentation xml:lang="en">Správa životního cyklu specifikací.</documentation>
+    </element>
+    <element identifier="id-architecture-modeling" xsi:type="BusinessProcess">
+      <name xml:lang="en">Architecture Modeling</name>
+      <documentation xml:lang="en">Modelování architektury pomocí ArchiMate.</documentation>
+    </element>
+    <element identifier="id-document-generation" xsi:type="BusinessProcess">
+      <name xml:lang="en">Document Generation</name>
+      <documentation xml:lang="en">Generování formálních dokumentů a výstupů.</documentation>
+    </element>
+    <element identifier="id-memory-rebuild-process" xsi:type="BusinessProcess">
+      <name xml:lang="en">Memory Rebuild</name>
+      <documentation xml:lang="en">Periodický rebuild persistentní memory.</documentation>
+    </element>
+    <element identifier="id-roam-research" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Roam Research</name>
+      <documentation xml:lang="en">Prostředí pro poznámky, myšlení a projektový kontext.</documentation>
+    </element>
+    <element identifier="id-source-evidence-repository" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Source Evidence Repository</name>
+      <documentation xml:lang="en">Úložiště zdrojových dokumentů a evidence.</documentation>
+    </element>
+    <element identifier="id-llm-wiki" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Obsidian / LLM Wiki</name>
+      <documentation xml:lang="en">Interpretační a znalostní vrstva systému.</documentation>
+    </element>
+    <element identifier="id-persistent-memory-layer" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Persistent Memory Layer</name>
+      <documentation xml:lang="en">Dlouhodobá pracovní paměť pro LLM a agenty.</documentation>
+    </element>
+    <element identifier="id-archimate-model-repository" xsi:type="ApplicationComponent">
+      <name xml:lang="en">ArchiMate Model Repository</name>
+      <documentation xml:lang="en">Formální architektonický model systému.</documentation>
+    </element>
+    <element identifier="id-output-generation-layer" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Output Generation Layer</name>
+      <documentation xml:lang="en">Generování OHA, PDF, DOCX a dalších výstupů.</documentation>
+    </element>
+    <element identifier="id-local-llm" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Local LLM</name>
+      <documentation xml:lang="en">Lokální LLM běžící přes Ollama.</documentation>
+    </element>
+    <element identifier="id-openclaw" xsi:type="ApplicationComponent">
+      <name xml:lang="en">OpenClaw</name>
+      <documentation xml:lang="en">Agent orchestration a workflow systém.</documentation>
+    </element>
+    <element identifier="id-ollama" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Ollama</name>
+      <documentation xml:lang="en">Runtime pro lokální LLM modely.</documentation>
+    </element>
+    <element identifier="id-qwen-14b" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Qwen 2.5 14B</name>
+      <documentation xml:lang="en">Lokální reasoning model.</documentation>
+    </element>
+    <element identifier="id-nomic-embed-text" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Nomic Embed Text</name>
+      <documentation xml:lang="en">Embedding model pro retrieval a indexing.</documentation>
+    </element>
+    <element identifier="id-implementation-projects" xsi:type="ApplicationComponent">
+      <name xml:lang="en">~/Projects</name>
+      <documentation xml:lang="en">Lokální adresář s implementací, kódem a generovanými artefakty.</documentation>
+    </element>
+    <element identifier="id-spec-files" xsi:type="DataObject">
+      <name xml:lang="en">SPEC Files</name>
+      <documentation xml:lang="en">Kanonické specifikační soubory projektu.</documentation>
+    </element>
+    <element identifier="id-memory-files" xsi:type="DataObject">
+      <name xml:lang="en">Memory Files</name>
+      <documentation xml:lang="en">Persistentní znalostní extrakty.</documentation>
+    </element>
+    <element identifier="id-wiki-pages" xsi:type="DataObject">
+      <name xml:lang="en">Wiki Pages</name>
+      <documentation xml:lang="en">Generované wiki stránky.</documentation>
+    </element>
+    <element identifier="id-archimate-open-exchange" xsi:type="DataObject">
+      <name xml:lang="en">Open Exchange XML</name>
+      <documentation xml:lang="en">Exportovaný ArchiMate model.</documentation>
+    </element>
+    <element identifier="id-macbook-local" xsi:type="Node">
+      <name xml:lang="en">MacBook Local Environment</name>
+      <documentation xml:lang="en">Lokální pracovní prostředí.</documentation>
+    </element>
+    <element identifier="id-hetzner-vps" xsi:type="Node">
+      <name xml:lang="en">Hetzner VPS</name>
+      <documentation xml:lang="en">Vzdálené automatizační prostředí.</documentation>
+    </element>
+    <element identifier="id-git-repository" xsi:type="SystemSoftware">
+      <name xml:lang="en">Git Repository</name>
+      <documentation xml:lang="en">Verzování SPEC, memory a modelů.</documentation>
+    </element>
+    <element identifier="id-cron-nightly-rebuild" xsi:type="TechnologyService">
+      <name xml:lang="en">Nightly Rebuild Service</name>
+      <documentation xml:lang="en">Automatizovaný rebuild memory a wiki.</documentation>
+    </element>
+    <element identifier="id-spec-system-v01" xsi:type="Plateau">
+      <name xml:lang="en">SpecSystem v0.1</name>
+      <documentation xml:lang="en">Původní uložiště specifikací.</documentation>
+    </element>
+    <element identifier="id-spec-system-v02" xsi:type="Plateau">
+      <name xml:lang="en">SpecSystem v0.2</name>
+      <documentation xml:lang="en">Vrstvený systém evidence → wiki → SPEC → model.</documentation>
+    </element>
+    <element identifier="id-spec-system-v03" xsi:type="Plateau">
+      <name xml:lang="en">SpecSystem v0.3</name>
+      <documentation xml:lang="en">Persistent memory layer a nightly rebuild workflow.</documentation>
+    </element>
+    <element identifier="id-persistent-memory-project" xsi:type="WorkPackage">
+      <name xml:lang="en">Persistent Memory Layer Project</name>
+      <documentation xml:lang="en">Zavedení dlouhodobé memory vrstvy.</documentation>
+    </element>
+    <element identifier="id-archimate-generation-project" xsi:type="WorkPackage">
+      <name xml:lang="en">Open Exchange XML Generation</name>
+      <documentation xml:lang="en">Generování ArchiMate Open Exchange XML modelů.</documentation>
+    </element>
+  </elements>
+  <relationships>
+    <relationship identifier="rel-rel-roam-source" xsi:type="Flow" source="id-roam-research" target="id-source-evidence-repository">
+      <name xml:lang="en">rel-roam-source</name>
+      <documentation xml:lang="en">Projektový kontext a poznámky jsou ukládány do source evidence vrstvy.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-source-wiki" xsi:type="Serving" source="id-source-evidence-repository" target="id-llm-wiki">
+      <name xml:lang="en">rel-source-wiki</name>
+      <documentation xml:lang="en">Zdrojové dokumenty slouží jako vstup pro wiki syntézu.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-source-memory" xsi:type="Serving" source="id-source-evidence-repository" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-source-memory</name>
+      <documentation xml:lang="en">Source evidence poskytuje vstup pro extraction do memory.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-spec" xsi:type="Serving" source="id-persistent-memory-layer" target="id-spec-system">
+      <name xml:lang="en">rel-memory-spec</name>
+      <documentation xml:lang="en">Persistent memory poskytuje stabilní reasoning kontext pro SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-wiki-spec" xsi:type="Serving" source="id-llm-wiki" target="id-spec-system">
+      <name xml:lang="en">rel-wiki-spec</name>
+      <documentation xml:lang="en">Wiki poskytuje interpretační vrstvu nad SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-spec-archimate" xsi:type="Realization" source="id-spec-system" target="id-archimate-model-repository">
+      <name xml:lang="en">rel-spec-archimate</name>
+      <documentation xml:lang="en">SPEC je formalizována do ArchiMate modelu.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-archimate-spec-feedback" xsi:type="Influence" source="id-archimate-model-repository" target="id-spec-system">
+      <name xml:lang="en">rel-archimate-spec-feedback</name>
+      <documentation xml:lang="en">Validace modelu může vést ke korekci SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-spec-output" xsi:type="Serving" source="id-spec-system" target="id-output-generation-layer">
+      <name xml:lang="en">rel-spec-output</name>
+      <documentation xml:lang="en">SPEC slouží jako zdroj pro generování dokumentace.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-archimate-output" xsi:type="Serving" source="id-archimate-model-repository" target="id-output-generation-layer">
+      <name xml:lang="en">rel-archimate-output</name>
+      <documentation xml:lang="en">ArchiMate model slouží jako zdroj pro architektonické výstupy.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-output-projects" xsi:type="Flow" source="id-output-generation-layer" target="id-implementation-projects">
+      <name xml:lang="en">rel-output-projects</name>
+      <documentation xml:lang="en">Výstupní dokumentace podporuje implementaci projektů.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-concepts" xsi:type="Aggregation" source="id-persistent-memory-layer" target="id-memory-files">
+      <name xml:lang="en">rel-memory-concepts</name>
+      <documentation xml:lang="en">Persistent memory obsahuje koncepty, constraints a decisions.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-traceability" xsi:type="Influence" source="id-persistent-memory-layer" target="id-spec-system-driver-traceability">
+      <name xml:lang="en">rel-memory-traceability</name>
+      <documentation xml:lang="en">Memory podporuje traceability systému.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-regeneration" xsi:type="Influence" source="id-persistent-memory-layer" target="id-spec-system-goal-regeneration">
+      <name xml:lang="en">rel-memory-regeneration</name>
+      <documentation xml:lang="en">Memory podporuje regeneraci znalostního kontextu.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-local-llm-ollama" xsi:type="Assignment" source="id-local-llm" target="id-ollama">
+      <name xml:lang="en">rel-local-llm-ollama</name>
+      <documentation xml:lang="en">Lokální LLM běží prostřednictvím Ollama runtime.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-ollama-qwen" xsi:type="Serving" source="id-ollama" target="id-qwen-14b">
+      <name xml:lang="en">rel-ollama-qwen</name>
+      <documentation xml:lang="en">Ollama poskytuje reasoning model Qwen 2.5 14B.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-ollama-embedding" xsi:type="Serving" source="id-ollama" target="id-nomic-embed-text">
+      <name xml:lang="en">rel-ollama-embedding</name>
+      <documentation xml:lang="en">Ollama poskytuje embedding model pro retrieval.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-local-llm-memory" xsi:type="Access" source="id-local-llm" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-local-llm-memory</name>
+      <documentation xml:lang="en">Lokální LLM používá persistent memory jako kontext.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-local-llm-wiki" xsi:type="Access" source="id-local-llm" target="id-llm-wiki">
+      <name xml:lang="en">rel-local-llm-wiki</name>
+      <documentation xml:lang="en">Lokální LLM generuje a používá wiki obsah.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-openclaw-spec" xsi:type="Access" source="id-openclaw" target="id-spec-system">
+      <name xml:lang="en">rel-openclaw-spec</name>
+      <documentation xml:lang="en">OpenClaw agenti pracují nad SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-openclaw-memory" xsi:type="Access" source="id-openclaw" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-openclaw-memory</name>
+      <documentation xml:lang="en">OpenClaw používá memory jako dlouhodobý kontext.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-openclaw-wiki" xsi:type="Access" source="id-openclaw" target="id-llm-wiki">
+      <name xml:lang="en">rel-openclaw-wiki</name>
+      <documentation xml:lang="en">OpenClaw může využívat wiki pro navigaci a syntézu.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-macbook-spec" xsi:type="Assignment" source="id-macbook-local" target="id-spec-system">
+      <name xml:lang="en">rel-macbook-spec</name>
+      <documentation xml:lang="en">Lokální prostředí hostuje pracovní SPEC clone.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-macbook-memory" xsi:type="Assignment" source="id-macbook-local" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-macbook-memory</name>
+      <documentation xml:lang="en">Persistent memory běží lokálně.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-macbook-llm" xsi:type="Assignment" source="id-macbook-local" target="id-local-llm">
+      <name xml:lang="en">rel-macbook-llm</name>
+      <documentation xml:lang="en">Lokální LLM běží na MacBooku.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-vps-openclaw" xsi:type="Assignment" source="id-hetzner-vps" target="id-openclaw">
+      <name xml:lang="en">rel-vps-openclaw</name>
+      <documentation xml:lang="en">VPS hostuje OpenClaw orchestration.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-vps-git" xsi:type="Assignment" source="id-hetzner-vps" target="id-git-repository">
+      <name xml:lang="en">rel-vps-git</name>
+      <documentation xml:lang="en">VPS hostuje centrální Git repozitáře.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-cron-memory" xsi:type="Triggering" source="id-cron-nightly-rebuild" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-cron-memory</name>
+      <documentation xml:lang="en">Nightly rebuild aktualizuje persistent memory.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-cron-wiki" xsi:type="Triggering" source="id-cron-nightly-rebuild" target="id-llm-wiki">
+      <name xml:lang="en">rel-cron-wiki</name>
+      <documentation xml:lang="en">Nightly rebuild generuje wiki projekci.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-cron-report" xsi:type="Triggering" source="id-cron-nightly-rebuild" target="id-output-generation-layer">
+      <name xml:lang="en">rel-cron-report</name>
+      <documentation xml:lang="en">Nightly rebuild může generovat validační reporty.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-spec-files" xsi:type="Access" source="id-spec-system" target="id-spec-files">
+      <name xml:lang="en">rel-spec-files</name>
+      <documentation xml:lang="en">SPEC systém spravuje kanonické specifikační soubory.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-files" xsi:type="Access" source="id-persistent-memory-layer" target="id-memory-files">
+      <name xml:lang="en">rel-memory-files</name>
+      <documentation xml:lang="en">Memory layer ukládá persistentní memory soubory.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-wiki-pages" xsi:type="Access" source="id-llm-wiki" target="id-wiki-pages">
+      <name xml:lang="en">rel-wiki-pages</name>
+      <documentation xml:lang="en">Wiki vrstva spravuje wiki stránky.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-archimate-xml" xsi:type="Access" source="id-archimate-model-repository" target="id-archimate-open-exchange">
+      <name xml:lang="en">rel-archimate-xml</name>
+      <documentation xml:lang="en">ArchiMate repository exportuje Open Exchange XML.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-driver-traceability-goal" xsi:type="Influence" source="id-spec-system-driver-traceability" target="id-spec-system-goal-canonical-spec">
+      <name xml:lang="en">rel-driver-traceability-goal</name>
+      <documentation xml:lang="en">Traceability podporuje vznik kanonické specifikace.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-driver-source-truth-goal" xsi:type="Influence" source="id-spec-system-driver-source-of-truth" target="id-spec-system-goal-canonical-spec">
+      <name xml:lang="en">rel-driver-source-truth-goal</name>
+      <documentation xml:lang="en">Single source of truth podporuje vznik SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-goal-memory-requirement" xsi:type="Realization" source="id-spec-system-requirement-memory" target="id-spec-system-goal-regeneration">
+      <name xml:lang="en">rel-goal-memory-requirement</name>
+      <documentation xml:lang="en">Persistent memory podporuje regeneraci systému.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-constraint-human-approval" xsi:type="Influence" source="id-spec-system-constraint-human-approval" target="id-local-llm">
+      <name xml:lang="en">rel-constraint-human-approval</name>
+      <documentation xml:lang="en">LLM nesmí měnit SPEC bez potvrzení člověkem.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-principle-spec-authority" xsi:type="Influence" source="id-spec-system-principle-spec-authority" target="id-spec-system">
+      <name xml:lang="en">rel-principle-spec-authority</name>
+      <documentation xml:lang="en">SPEC je jediná autoritativní vrstva systému.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-principle-memory-separation" xsi:type="Influence" source="id-spec-system-principle-memory-separation" target="id-persistent-memory-layer">
+      <name xml:lang="en">rel-principle-memory-separation</name>
+      <documentation xml:lang="en">Memory je oddělená od SPEC.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-v01-v02" xsi:type="Triggering" source="id-spec-system-v01" target="id-spec-system-v02">
+      <name xml:lang="en">rel-v01-v02</name>
+      <documentation xml:lang="en">Evoluce z jednoduchého uložiště specifikací na vrstvený systém.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-v02-v03" xsi:type="Triggering" source="id-spec-system-v02" target="id-spec-system-v03">
+      <name xml:lang="en">rel-v02-v03</name>
+      <documentation xml:lang="en">Zavedení persistent memory vrstvy.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-memory-project-v03" xsi:type="Realization" source="id-persistent-memory-project" target="id-spec-system-v03">
+      <name xml:lang="en">rel-memory-project-v03</name>
+      <documentation xml:lang="en">Projekt persistent memory realizuje verzi v0.3.</documentation>
+    </relationship>
+    <relationship identifier="rel-rel-archimate-project" xsi:type="Realization" source="id-archimate-generation-project" target="id-archimate-model-repository">
+      <name xml:lang="en">rel-archimate-project</name>
+      <documentation xml:lang="en">Projekt generování Open Exchange XML realizuje ArchiMate export.</documentation>
+    </relationship>
+  </relationships>
+  <organizations>
+    <item identifier="id-elements-folder">
+      <label xml:lang="en">Elements</label>
+      <item identifier="id-folder-application">
+        <label xml:lang="en">application</label>
+        <item identifierRef="id-roam-research" />
+        <item identifierRef="id-source-evidence-repository" />
+        <item identifierRef="id-llm-wiki" />
+        <item identifierRef="id-persistent-memory-layer" />
+        <item identifierRef="id-archimate-model-repository" />
+        <item identifierRef="id-output-generation-layer" />
+        <item identifierRef="id-local-llm" />
+        <item identifierRef="id-openclaw" />
+        <item identifierRef="id-ollama" />
+        <item identifierRef="id-qwen-14b" />
+        <item identifierRef="id-nomic-embed-text" />
+        <item identifierRef="id-implementation-projects" />
+        <item identifierRef="id-spec-files" />
+        <item identifierRef="id-memory-files" />
+        <item identifierRef="id-wiki-pages" />
+        <item identifierRef="id-archimate-open-exchange" />
+      </item>
+      <item identifier="id-folder-business">
+        <label xml:lang="en">business</label>
+        <item identifierRef="id-spec-system" />
+        <item identifierRef="id-specification-management" />
+        <item identifierRef="id-architecture-modeling" />
+        <item identifierRef="id-document-generation" />
+        <item identifierRef="id-memory-rebuild-process" />
+      </item>
+      <item identifier="id-folder-implementation">
+        <label xml:lang="en">implementation</label>
+        <item identifierRef="id-spec-system-v01" />
+        <item identifierRef="id-spec-system-v02" />
+        <item identifierRef="id-spec-system-v03" />
+        <item identifierRef="id-persistent-memory-project" />
+        <item identifierRef="id-archimate-generation-project" />
+      </item>
+      <item identifier="id-folder-motivation">
+        <label xml:lang="en">motivation</label>
+        <item identifierRef="id-spec-system-stakeholders" />
+        <item identifierRef="id-radim-pokorny" />
+        <item identifierRef="id-openclaw-agents" />
+        <item identifierRef="id-spec-system-driver-traceability" />
+        <item identifierRef="id-spec-system-driver-source-of-truth" />
+        <item identifierRef="id-spec-system-assessment-fragmentation" />
+        <item identifierRef="id-spec-system-goal-canonical-spec" />
+        <item identifierRef="id-spec-system-goal-regeneration" />
+        <item identifierRef="id-spec-system-requirement-memory" />
+        <item identifierRef="id-spec-system-requirement-local-llm" />
+        <item identifierRef="id-spec-system-constraint-local-first" />
+        <item identifierRef="id-spec-system-constraint-human-approval" />
+        <item identifierRef="id-spec-system-principle-spec-authority" />
+        <item identifierRef="id-spec-system-principle-memory-separation" />
+      </item>
+      <item identifier="id-folder-technology">
+        <label xml:lang="en">technology</label>
+        <item identifierRef="id-macbook-local" />
+        <item identifierRef="id-hetzner-vps" />
+        <item identifierRef="id-git-repository" />
+        <item identifierRef="id-cron-nightly-rebuild" />
+      </item>
+    </item>
+    <item identifier="id-relationships-folder">
+      <label xml:lang="en">Relationships</label>
+      <item identifierRef="rel-rel-roam-source" />
+      <item identifierRef="rel-rel-source-wiki" />
+      <item identifierRef="rel-rel-source-memory" />
+      <item identifierRef="rel-rel-memory-spec" />
+      <item identifierRef="rel-rel-wiki-spec" />
+      <item identifierRef="rel-rel-spec-archimate" />
+      <item identifierRef="rel-rel-archimate-spec-feedback" />
+      <item identifierRef="rel-rel-spec-output" />
+      <item identifierRef="rel-rel-archimate-output" />
+      <item identifierRef="rel-rel-output-projects" />
+      <item identifierRef="rel-rel-memory-concepts" />
+      <item identifierRef="rel-rel-memory-traceability" />
+      <item identifierRef="rel-rel-memory-regeneration" />
+      <item identifierRef="rel-rel-local-llm-ollama" />
+      <item identifierRef="rel-rel-ollama-qwen" />
+      <item identifierRef="rel-rel-ollama-embedding" />
+      <item identifierRef="rel-rel-local-llm-memory" />
+      <item identifierRef="rel-rel-local-llm-wiki" />
+      <item identifierRef="rel-rel-openclaw-spec" />
+      <item identifierRef="rel-rel-openclaw-memory" />
+      <item identifierRef="rel-rel-openclaw-wiki" />
+      <item identifierRef="rel-rel-macbook-spec" />
+      <item identifierRef="rel-rel-macbook-memory" />
+      <item identifierRef="rel-rel-macbook-llm" />
+      <item identifierRef="rel-rel-vps-openclaw" />
+      <item identifierRef="rel-rel-vps-git" />
+      <item identifierRef="rel-rel-cron-memory" />
+      <item identifierRef="rel-rel-cron-wiki" />
+      <item identifierRef="rel-rel-cron-report" />
+      <item identifierRef="rel-rel-spec-files" />
+      <item identifierRef="rel-rel-memory-files" />
+      <item identifierRef="rel-rel-wiki-pages" />
+      <item identifierRef="rel-rel-archimate-xml" />
+      <item identifierRef="rel-rel-driver-traceability-goal" />
+      <item identifierRef="rel-rel-driver-source-truth-goal" />
+      <item identifierRef="rel-rel-goal-memory-requirement" />
+      <item identifierRef="rel-rel-constraint-human-approval" />
+      <item identifierRef="rel-rel-principle-spec-authority" />
+      <item identifierRef="rel-rel-principle-memory-separation" />
+      <item identifierRef="rel-rel-v01-v02" />
+      <item identifierRef="rel-rel-v02-v03" />
+      <item identifierRef="rel-rel-memory-project-v03" />
+      <item identifierRef="rel-rel-archimate-project" />
+    </item>
+    <item identifier="id-views-folder">
+      <label xml:lang="en">Views</label>
+      <item identifierRef="view-view-spec-system-motivation" />
+      <item identifierRef="view-view-spec-system-layered-architecture" />
+      <item identifierRef="view-view-persistent-memory" />
+      <item identifierRef="view-view-local-llm-ecosystem" />
+      <item identifierRef="view-view-openclaw-integration" />
+      <item identifierRef="view-view-spec-system-deployment" />
+      <item identifierRef="view-view-nightly-rebuild" />
+      <item identifierRef="view-view-traceability" />
+      <item identifierRef="view-view-spec-system-evolution" />
+      <item identifierRef="view-view-output-generation" />
+    </item>
+  </organizations>
+  <views>
+    <diagrams>
+      <view identifier="view-view-spec-system-motivation" xsi:type="Diagram">
+        <name xml:lang="en">SpecSystem Motivation View</name>
+        <documentation xml:lang="en">Motivace, cíle, principy a omezení systému SpecSystem.</documentation>
+        <node identifier="node-view-spec-system-motivation-radim-pokorny" xsi:type="Element" elementRef="id-radim-pokorny" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-openclaw-agents" xsi:type="Element" elementRef="id-openclaw-agents" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-driver-traceability" xsi:type="Element" elementRef="id-spec-system-driver-traceability" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-driver-source-of-truth" xsi:type="Element" elementRef="id-spec-system-driver-source-of-truth" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-assessment-fragmentation" xsi:type="Element" elementRef="id-spec-system-assessment-fragmentation" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-goal-canonical-spec" xsi:type="Element" elementRef="id-spec-system-goal-canonical-spec" x="100" y="850" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-goal-regeneration" xsi:type="Element" elementRef="id-spec-system-goal-regeneration" x="100" y="1000" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-requirement-memory" xsi:type="Element" elementRef="id-spec-system-requirement-memory" x="100" y="1150" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-requirement-local-llm" xsi:type="Element" elementRef="id-spec-system-requirement-local-llm" x="100" y="1300" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-constraint-local-first" xsi:type="Element" elementRef="id-spec-system-constraint-local-first" x="100" y="1450" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-constraint-human-approval" xsi:type="Element" elementRef="id-spec-system-constraint-human-approval" x="100" y="1600" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-principle-spec-authority" xsi:type="Element" elementRef="id-spec-system-principle-spec-authority" x="100" y="1750" w="220" h="90" />
+        <node identifier="node-view-spec-system-motivation-spec-system-principle-memory-separation" xsi:type="Element" elementRef="id-spec-system-principle-memory-separation" x="100" y="1900" w="220" h="90" />
+        <connection identifier="conn-view-spec-system-motivation-rel-driver-traceability-goal" xsi:type="Relationship" relationshipRef="rel-rel-driver-traceability-goal" source="node-view-spec-system-motivation-spec-system-driver-traceability" target="node-view-spec-system-motivation-spec-system-goal-canonical-spec" />
+        <connection identifier="conn-view-spec-system-motivation-rel-driver-source-truth-goal" xsi:type="Relationship" relationshipRef="rel-rel-driver-source-truth-goal" source="node-view-spec-system-motivation-spec-system-driver-source-of-truth" target="node-view-spec-system-motivation-spec-system-goal-canonical-spec" />
+        <connection identifier="conn-view-spec-system-motivation-rel-goal-memory-requirement" xsi:type="Relationship" relationshipRef="rel-rel-goal-memory-requirement" source="node-view-spec-system-motivation-spec-system-requirement-memory" target="node-view-spec-system-motivation-spec-system-goal-regeneration" />
+      </view>
+      <view identifier="view-view-spec-system-layered-architecture" xsi:type="Diagram">
+        <name xml:lang="en">SpecSystem Layered Architecture</name>
+        <documentation xml:lang="en">Hlavní vrstvy systému a dependency flow.</documentation>
+        <node identifier="node-view-spec-system-layered-architecture-roam-research" xsi:type="Element" elementRef="id-roam-research" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-source-evidence-repository" xsi:type="Element" elementRef="id-source-evidence-repository" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-archimate-model-repository" xsi:type="Element" elementRef="id-archimate-model-repository" x="100" y="850" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-output-generation-layer" xsi:type="Element" elementRef="id-output-generation-layer" x="100" y="1000" w="220" h="90" />
+        <node identifier="node-view-spec-system-layered-architecture-implementation-projects" xsi:type="Element" elementRef="id-implementation-projects" x="100" y="1150" w="220" h="90" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-roam-source" xsi:type="Relationship" relationshipRef="rel-rel-roam-source" source="node-view-spec-system-layered-architecture-roam-research" target="node-view-spec-system-layered-architecture-source-evidence-repository" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-source-wiki" xsi:type="Relationship" relationshipRef="rel-rel-source-wiki" source="node-view-spec-system-layered-architecture-source-evidence-repository" target="node-view-spec-system-layered-architecture-llm-wiki" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-source-memory" xsi:type="Relationship" relationshipRef="rel-rel-source-memory" source="node-view-spec-system-layered-architecture-source-evidence-repository" target="node-view-spec-system-layered-architecture-persistent-memory-layer" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-memory-spec" xsi:type="Relationship" relationshipRef="rel-rel-memory-spec" source="node-view-spec-system-layered-architecture-persistent-memory-layer" target="node-view-spec-system-layered-architecture-spec-system" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-wiki-spec" xsi:type="Relationship" relationshipRef="rel-rel-wiki-spec" source="node-view-spec-system-layered-architecture-llm-wiki" target="node-view-spec-system-layered-architecture-spec-system" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-spec-archimate" xsi:type="Relationship" relationshipRef="rel-rel-spec-archimate" source="node-view-spec-system-layered-architecture-spec-system" target="node-view-spec-system-layered-architecture-archimate-model-repository" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-spec-output" xsi:type="Relationship" relationshipRef="rel-rel-spec-output" source="node-view-spec-system-layered-architecture-spec-system" target="node-view-spec-system-layered-architecture-output-generation-layer" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-archimate-output" xsi:type="Relationship" relationshipRef="rel-rel-archimate-output" source="node-view-spec-system-layered-architecture-archimate-model-repository" target="node-view-spec-system-layered-architecture-output-generation-layer" />
+        <connection identifier="conn-view-spec-system-layered-architecture-rel-output-projects" xsi:type="Relationship" relationshipRef="rel-rel-output-projects" source="node-view-spec-system-layered-architecture-output-generation-layer" target="node-view-spec-system-layered-architecture-implementation-projects" />
+      </view>
+      <view identifier="view-view-persistent-memory" xsi:type="Diagram">
+        <name xml:lang="en">Persistent Memory Layer</name>
+        <documentation xml:lang="en">Persistent memory vrstva a její vztahy.</documentation>
+        <node identifier="node-view-persistent-memory-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-memory-files" xsi:type="Element" elementRef="id-memory-files" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-source-evidence-repository" xsi:type="Element" elementRef="id-source-evidence-repository" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-local-llm" xsi:type="Element" elementRef="id-local-llm" x="100" y="850" w="220" h="90" />
+        <node identifier="node-view-persistent-memory-cron-nightly-rebuild" xsi:type="Element" elementRef="id-cron-nightly-rebuild" x="100" y="1000" w="220" h="90" />
+        <connection identifier="conn-view-persistent-memory-rel-source-memory" xsi:type="Relationship" relationshipRef="rel-rel-source-memory" source="node-view-persistent-memory-source-evidence-repository" target="node-view-persistent-memory-persistent-memory-layer" />
+        <connection identifier="conn-view-persistent-memory-rel-memory-files" xsi:type="Relationship" relationshipRef="rel-rel-memory-files" source="node-view-persistent-memory-persistent-memory-layer" target="node-view-persistent-memory-memory-files" />
+        <connection identifier="conn-view-persistent-memory-rel-memory-spec" xsi:type="Relationship" relationshipRef="rel-rel-memory-spec" source="node-view-persistent-memory-persistent-memory-layer" target="node-view-persistent-memory-spec-system" />
+        <connection identifier="conn-view-persistent-memory-rel-local-llm-memory" xsi:type="Relationship" relationshipRef="rel-rel-local-llm-memory" source="node-view-persistent-memory-local-llm" target="node-view-persistent-memory-persistent-memory-layer" />
+        <connection identifier="conn-view-persistent-memory-rel-cron-memory" xsi:type="Relationship" relationshipRef="rel-rel-cron-memory" source="node-view-persistent-memory-cron-nightly-rebuild" target="node-view-persistent-memory-persistent-memory-layer" />
+      </view>
+      <view identifier="view-view-local-llm-ecosystem" xsi:type="Diagram">
+        <name xml:lang="en">Local LLM Ecosystem</name>
+        <documentation xml:lang="en">Lokální LLM infrastruktura.</documentation>
+        <node identifier="node-view-local-llm-ecosystem-local-llm" xsi:type="Element" elementRef="id-local-llm" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-local-llm-ecosystem-ollama" xsi:type="Element" elementRef="id-ollama" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-local-llm-ecosystem-qwen-14b" xsi:type="Element" elementRef="id-qwen-14b" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-local-llm-ecosystem-nomic-embed-text" xsi:type="Element" elementRef="id-nomic-embed-text" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-local-llm-ecosystem-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-local-llm-ecosystem-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="850" w="220" h="90" />
+        <connection identifier="conn-view-local-llm-ecosystem-rel-local-llm-ollama" xsi:type="Relationship" relationshipRef="rel-rel-local-llm-ollama" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-ollama" />
+        <connection identifier="conn-view-local-llm-ecosystem-rel-ollama-qwen" xsi:type="Relationship" relationshipRef="rel-rel-ollama-qwen" source="node-view-local-llm-ecosystem-ollama" target="node-view-local-llm-ecosystem-qwen-14b" />
+        <connection identifier="conn-view-local-llm-ecosystem-rel-ollama-embedding" xsi:type="Relationship" relationshipRef="rel-rel-ollama-embedding" source="node-view-local-llm-ecosystem-ollama" target="node-view-local-llm-ecosystem-nomic-embed-text" />
+        <connection identifier="conn-view-local-llm-ecosystem-rel-local-llm-memory" xsi:type="Relationship" relationshipRef="rel-rel-local-llm-memory" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-persistent-memory-layer" />
+        <connection identifier="conn-view-local-llm-ecosystem-rel-local-llm-wiki" xsi:type="Relationship" relationshipRef="rel-rel-local-llm-wiki" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-llm-wiki" />
+      </view>
+      <view identifier="view-view-openclaw-integration" xsi:type="Diagram">
+        <name xml:lang="en">OpenClaw Integration</name>
+        <documentation xml:lang="en">Integrace OpenClaw orchestrace.</documentation>
+        <node identifier="node-view-openclaw-integration-openclaw" xsi:type="Element" elementRef="id-openclaw" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-openclaw-integration-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-openclaw-integration-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-openclaw-integration-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-openclaw-integration-hetzner-vps" xsi:type="Element" elementRef="id-hetzner-vps" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-openclaw-integration-git-repository" xsi:type="Element" elementRef="id-git-repository" x="100" y="850" w="220" h="90" />
+        <connection identifier="conn-view-openclaw-integration-rel-openclaw-spec" xsi:type="Relationship" relationshipRef="rel-rel-openclaw-spec" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-spec-system" />
+        <connection identifier="conn-view-openclaw-integration-rel-openclaw-memory" xsi:type="Relationship" relationshipRef="rel-rel-openclaw-memory" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-persistent-memory-layer" />
+        <connection identifier="conn-view-openclaw-integration-rel-openclaw-wiki" xsi:type="Relationship" relationshipRef="rel-rel-openclaw-wiki" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-llm-wiki" />
+        <connection identifier="conn-view-openclaw-integration-rel-vps-openclaw" xsi:type="Relationship" relationshipRef="rel-rel-vps-openclaw" source="node-view-openclaw-integration-hetzner-vps" target="node-view-openclaw-integration-openclaw" />
+        <connection identifier="conn-view-openclaw-integration-rel-vps-git" xsi:type="Relationship" relationshipRef="rel-rel-vps-git" source="node-view-openclaw-integration-hetzner-vps" target="node-view-openclaw-integration-git-repository" />
+      </view>
+      <view identifier="view-view-spec-system-deployment" xsi:type="Diagram">
+        <name xml:lang="en">SpecSystem Deployment</name>
+        <documentation xml:lang="en">Hybridní lokální + VPS deployment model.</documentation>
+        <node identifier="node-view-spec-system-deployment-macbook-local" xsi:type="Element" elementRef="id-macbook-local" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-hetzner-vps" xsi:type="Element" elementRef="id-hetzner-vps" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-local-llm" xsi:type="Element" elementRef="id-local-llm" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="850" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-openclaw" xsi:type="Element" elementRef="id-openclaw" x="100" y="1000" w="220" h="90" />
+        <node identifier="node-view-spec-system-deployment-git-repository" xsi:type="Element" elementRef="id-git-repository" x="100" y="1150" w="220" h="90" />
+        <connection identifier="conn-view-spec-system-deployment-rel-macbook-spec" xsi:type="Relationship" relationshipRef="rel-rel-macbook-spec" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-spec-system" />
+        <connection identifier="conn-view-spec-system-deployment-rel-macbook-memory" xsi:type="Relationship" relationshipRef="rel-rel-macbook-memory" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-persistent-memory-layer" />
+        <connection identifier="conn-view-spec-system-deployment-rel-macbook-llm" xsi:type="Relationship" relationshipRef="rel-rel-macbook-llm" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-local-llm" />
+        <connection identifier="conn-view-spec-system-deployment-rel-vps-openclaw" xsi:type="Relationship" relationshipRef="rel-rel-vps-openclaw" source="node-view-spec-system-deployment-hetzner-vps" target="node-view-spec-system-deployment-openclaw" />
+        <connection identifier="conn-view-spec-system-deployment-rel-vps-git" xsi:type="Relationship" relationshipRef="rel-rel-vps-git" source="node-view-spec-system-deployment-hetzner-vps" target="node-view-spec-system-deployment-git-repository" />
+      </view>
+      <view identifier="view-view-nightly-rebuild" xsi:type="Diagram">
+        <name xml:lang="en">Nightly Rebuild Workflow</name>
+        <documentation xml:lang="en">Automatizovaný nightly rebuild workflow.</documentation>
+        <node identifier="node-view-nightly-rebuild-cron-nightly-rebuild" xsi:type="Element" elementRef="id-cron-nightly-rebuild" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-nightly-rebuild-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-nightly-rebuild-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-nightly-rebuild-output-generation-layer" xsi:type="Element" elementRef="id-output-generation-layer" x="100" y="550" w="220" h="90" />
+        <connection identifier="conn-view-nightly-rebuild-rel-cron-memory" xsi:type="Relationship" relationshipRef="rel-rel-cron-memory" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-persistent-memory-layer" />
+        <connection identifier="conn-view-nightly-rebuild-rel-cron-wiki" xsi:type="Relationship" relationshipRef="rel-rel-cron-wiki" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-llm-wiki" />
+        <connection identifier="conn-view-nightly-rebuild-rel-cron-report" xsi:type="Relationship" relationshipRef="rel-rel-cron-report" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-output-generation-layer" />
+      </view>
+      <view identifier="view-view-traceability" xsi:type="Diagram">
+        <name xml:lang="en">Traceability View</name>
+        <documentation xml:lang="en">Dohledatelnost mezi evidence, memory, SPEC a výstupy.</documentation>
+        <node identifier="node-view-traceability-source-evidence-repository" xsi:type="Element" elementRef="id-source-evidence-repository" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-traceability-persistent-memory-layer" xsi:type="Element" elementRef="id-persistent-memory-layer" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-traceability-llm-wiki" xsi:type="Element" elementRef="id-llm-wiki" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-traceability-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-traceability-archimate-model-repository" xsi:type="Element" elementRef="id-archimate-model-repository" x="100" y="700" w="220" h="90" />
+        <node identifier="node-view-traceability-output-generation-layer" xsi:type="Element" elementRef="id-output-generation-layer" x="100" y="850" w="220" h="90" />
+        <node identifier="node-view-traceability-implementation-projects" xsi:type="Element" elementRef="id-implementation-projects" x="100" y="1000" w="220" h="90" />
+        <connection identifier="conn-view-traceability-rel-source-memory" xsi:type="Relationship" relationshipRef="rel-rel-source-memory" source="node-view-traceability-source-evidence-repository" target="node-view-traceability-persistent-memory-layer" />
+        <connection identifier="conn-view-traceability-rel-source-wiki" xsi:type="Relationship" relationshipRef="rel-rel-source-wiki" source="node-view-traceability-source-evidence-repository" target="node-view-traceability-llm-wiki" />
+        <connection identifier="conn-view-traceability-rel-memory-spec" xsi:type="Relationship" relationshipRef="rel-rel-memory-spec" source="node-view-traceability-persistent-memory-layer" target="node-view-traceability-spec-system" />
+        <connection identifier="conn-view-traceability-rel-wiki-spec" xsi:type="Relationship" relationshipRef="rel-rel-wiki-spec" source="node-view-traceability-llm-wiki" target="node-view-traceability-spec-system" />
+        <connection identifier="conn-view-traceability-rel-spec-archimate" xsi:type="Relationship" relationshipRef="rel-rel-spec-archimate" source="node-view-traceability-spec-system" target="node-view-traceability-archimate-model-repository" />
+        <connection identifier="conn-view-traceability-rel-spec-output" xsi:type="Relationship" relationshipRef="rel-rel-spec-output" source="node-view-traceability-spec-system" target="node-view-traceability-output-generation-layer" />
+        <connection identifier="conn-view-traceability-rel-output-projects" xsi:type="Relationship" relationshipRef="rel-rel-output-projects" source="node-view-traceability-output-generation-layer" target="node-view-traceability-implementation-projects" />
+      </view>
+      <view identifier="view-view-spec-system-evolution" xsi:type="Diagram">
+        <name xml:lang="en">SpecSystem Evolution</name>
+        <documentation xml:lang="en">Evoluce systému SpecSystem.</documentation>
+        <node identifier="node-view-spec-system-evolution-spec-system-v01" xsi:type="Element" elementRef="id-spec-system-v01" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-spec-system-evolution-spec-system-v02" xsi:type="Element" elementRef="id-spec-system-v02" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-spec-system-evolution-spec-system-v03" xsi:type="Element" elementRef="id-spec-system-v03" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-spec-system-evolution-persistent-memory-project" xsi:type="Element" elementRef="id-persistent-memory-project" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-spec-system-evolution-archimate-generation-project" xsi:type="Element" elementRef="id-archimate-generation-project" x="100" y="700" w="220" h="90" />
+        <connection identifier="conn-view-spec-system-evolution-rel-v01-v02" xsi:type="Relationship" relationshipRef="rel-rel-v01-v02" source="node-view-spec-system-evolution-spec-system-v01" target="node-view-spec-system-evolution-spec-system-v02" />
+        <connection identifier="conn-view-spec-system-evolution-rel-v02-v03" xsi:type="Relationship" relationshipRef="rel-rel-v02-v03" source="node-view-spec-system-evolution-spec-system-v02" target="node-view-spec-system-evolution-spec-system-v03" />
+        <connection identifier="conn-view-spec-system-evolution-rel-memory-project-v03" xsi:type="Relationship" relationshipRef="rel-rel-memory-project-v03" source="node-view-spec-system-evolution-persistent-memory-project" target="node-view-spec-system-evolution-spec-system-v03" />
+      </view>
+      <view identifier="view-view-output-generation" xsi:type="Diagram">
+        <name xml:lang="en">Output Generation</name>
+        <documentation xml:lang="en">Generování formálních výstupů systému.</documentation>
+        <node identifier="node-view-output-generation-spec-system" xsi:type="Element" elementRef="id-spec-system" x="100" y="100" w="220" h="90" />
+        <node identifier="node-view-output-generation-archimate-model-repository" xsi:type="Element" elementRef="id-archimate-model-repository" x="100" y="250" w="220" h="90" />
+        <node identifier="node-view-output-generation-output-generation-layer" xsi:type="Element" elementRef="id-output-generation-layer" x="100" y="400" w="220" h="90" />
+        <node identifier="node-view-output-generation-archimate-open-exchange" xsi:type="Element" elementRef="id-archimate-open-exchange" x="100" y="550" w="220" h="90" />
+        <node identifier="node-view-output-generation-implementation-projects" xsi:type="Element" elementRef="id-implementation-projects" x="100" y="700" w="220" h="90" />
+        <connection identifier="conn-view-output-generation-rel-spec-output" xsi:type="Relationship" relationshipRef="rel-rel-spec-output" source="node-view-output-generation-spec-system" target="node-view-output-generation-output-generation-layer" />
+        <connection identifier="conn-view-output-generation-rel-archimate-output" xsi:type="Relationship" relationshipRef="rel-rel-archimate-output" source="node-view-output-generation-archimate-model-repository" target="node-view-output-generation-output-generation-layer" />
+        <connection identifier="conn-view-output-generation-rel-archimate-xml" xsi:type="Relationship" relationshipRef="rel-rel-archimate-xml" source="node-view-output-generation-archimate-model-repository" target="node-view-output-generation-archimate-open-exchange" />
+        <connection identifier="conn-view-output-generation-rel-output-projects" xsi:type="Relationship" relationshipRef="rel-rel-output-projects" source="node-view-output-generation-output-generation-layer" target="node-view-output-generation-implementation-projects" />
+      </view>
+    </diagrams>
+  </views>
+</model>

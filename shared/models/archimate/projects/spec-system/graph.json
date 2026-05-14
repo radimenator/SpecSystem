@@ -1,1 +1,282 @@
-
+{
+    "model": {
+        "id": "spec-system-model",
+        "name": "SpecSystem Architecture Model",
+        "version": "0.3",
+        "description": "ArchiMate graph model for SpecSystem"
+    },
+    "nodes": [
+        {
+            "id": "roam-research",
+            "type": "application-component",
+            "name": "Roam Research",
+            "layer": "application"
+        },
+        {
+            "id": "source-evidence-repository",
+            "type": "application-component",
+            "name": "Source Evidence Repository",
+            "layer": "application"
+        },
+        {
+            "id": "llm-wiki",
+            "type": "application-component",
+            "name": "Obsidian / LLM Wiki",
+            "layer": "application"
+        },
+        {
+            "id": "persistent-memory-layer",
+            "type": "application-component",
+            "name": "Persistent Memory Layer",
+            "layer": "application"
+        },
+        {
+            "id": "spec-system",
+            "type": "application-component",
+            "name": "SpecSystem",
+            "layer": "application"
+        },
+        {
+            "id": "archimate-model-repository",
+            "type": "application-component",
+            "name": "ArchiMate Model Repository",
+            "layer": "application"
+        },
+        {
+            "id": "output-generation-layer",
+            "type": "application-component",
+            "name": "Output Generation Layer",
+            "layer": "application"
+        },
+        {
+            "id": "implementation-projects",
+            "type": "application-component",
+            "name": "~/Projects",
+            "layer": "application"
+        },
+        {
+            "id": "local-llm",
+            "type": "application-component",
+            "name": "Local LLM",
+            "layer": "application"
+        },
+        {
+            "id": "ollama",
+            "type": "application-component",
+            "name": "Ollama",
+            "layer": "application"
+        },
+        {
+            "id": "qwen-14b",
+            "type": "application-component",
+            "name": "Qwen 2.5 14B",
+            "layer": "application"
+        },
+        {
+            "id": "nomic-embed-text",
+            "type": "application-component",
+            "name": "Nomic Embed Text",
+            "layer": "application"
+        },
+        {
+            "id": "openclaw",
+            "type": "application-component",
+            "name": "OpenClaw",
+            "layer": "application"
+        },
+        {
+            "id": "macbook-local",
+            "type": "node",
+            "name": "MacBook Local Environment",
+            "layer": "technology"
+        },
+        {
+            "id": "hetzner-vps",
+            "type": "node",
+            "name": "Hetzner VPS",
+            "layer": "technology"
+        },
+        {
+            "id": "git-repository",
+            "type": "system-software",
+            "name": "Git Repository",
+            "layer": "technology"
+        },
+        {
+            "id": "cron-nightly-rebuild",
+            "type": "technology-service",
+            "name": "Nightly Rebuild",
+            "layer": "technology"
+        },
+        {
+            "id": "spec-files",
+            "type": "data-object",
+            "name": "SPEC Files",
+            "layer": "application"
+        },
+        {
+            "id": "memory-files",
+            "type": "data-object",
+            "name": "Memory Files",
+            "layer": "application"
+        },
+        {
+            "id": "wiki-pages",
+            "type": "data-object",
+            "name": "Wiki Pages",
+            "layer": "application"
+        },
+        {
+            "id": "archimate-open-exchange",
+            "type": "data-object",
+            "name": "Open Exchange XML",
+            "layer": "application"
+        }
+    ],
+    "edges": [
+        {
+            "id": "rel-roam-source",
+            "source": "roam-research",
+            "target": "source-evidence-repository",
+            "type": "flow"
+        },
+        {
+            "id": "rel-source-wiki",
+            "source": "source-evidence-repository",
+            "target": "llm-wiki",
+            "type": "serving"
+        },
+        {
+            "id": "rel-source-memory",
+            "source": "source-evidence-repository",
+            "target": "persistent-memory-layer",
+            "type": "serving"
+        },
+        {
+            "id": "rel-memory-spec",
+            "source": "persistent-memory-layer",
+            "target": "spec-system",
+            "type": "serving"
+        },
+        {
+            "id": "rel-wiki-spec",
+            "source": "llm-wiki",
+            "target": "spec-system",
+            "type": "serving"
+        },
+        {
+            "id": "rel-spec-archimate",
+            "source": "spec-system",
+            "target": "archimate-model-repository",
+            "type": "realization"
+        },
+        {
+            "id": "rel-spec-output",
+            "source": "spec-system",
+            "target": "output-generation-layer",
+            "type": "serving"
+        },
+        {
+            "id": "rel-archimate-output",
+            "source": "archimate-model-repository",
+            "target": "output-generation-layer",
+            "type": "serving"
+        },
+        {
+            "id": "rel-output-projects",
+            "source": "output-generation-layer",
+            "target": "implementation-projects",
+            "type": "flow"
+        },
+        {
+            "id": "rel-local-llm-ollama",
+            "source": "local-llm",
+            "target": "ollama",
+            "type": "assignment"
+        },
+        {
+            "id": "rel-ollama-qwen",
+            "source": "ollama",
+            "target": "qwen-14b",
+            "type": "serving"
+        },
+        {
+            "id": "rel-ollama-embedding",
+            "source": "ollama",
+            "target": "nomic-embed-text",
+            "type": "serving"
+        },
+        {
+            "id": "rel-openclaw-spec",
+            "source": "openclaw",
+            "target": "spec-system",
+            "type": "access"
+        },
+        {
+            "id": "rel-openclaw-memory",
+            "source": "openclaw",
+            "target": "persistent-memory-layer",
+            "type": "access"
+        },
+        {
+            "id": "rel-cron-memory",
+            "source": "cron-nightly-rebuild",
+            "target": "persistent-memory-layer",
+            "type": "triggering"
+        },
+        {
+            "id": "rel-cron-wiki",
+            "source": "cron-nightly-rebuild",
+            "target": "llm-wiki",
+            "type": "triggering"
+        },
+        {
+            "id": "rel-macbook-local-llm",
+            "source": "macbook-local",
+            "target": "local-llm",
+            "type": "assignment"
+        },
+        {
+            "id": "rel-macbook-spec",
+            "source": "macbook-local",
+            "target": "spec-system",
+            "type": "assignment"
+        },
+        {
+            "id": "rel-vps-openclaw",
+            "source": "hetzner-vps",
+            "target": "openclaw",
+            "type": "assignment"
+        },
+        {
+            "id": "rel-vps-git",
+            "source": "hetzner-vps",
+            "target": "git-repository",
+            "type": "assignment"
+        },
+        {
+            "id": "rel-spec-files",
+            "source": "spec-system",
+            "target": "spec-files",
+            "type": "access"
+        },
+        {
+            "id": "rel-memory-files",
+            "source": "persistent-memory-layer",
+            "target": "memory-files",
+            "type": "access"
+        },
+        {
+            "id": "rel-wiki-pages",
+            "source": "llm-wiki",
+            "target": "wiki-pages",
+            "type": "access"
+        },
+        {
+            "id": "rel-archimate-xml",
+            "source": "archimate-model-repository",
+            "target": "archimate-open-exchange",
+            "type": "access"
+        }
+    ]
+}

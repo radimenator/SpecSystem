@@ -1,1 +1,290 @@
+views:
+  #
+  # Motivation View
+  #
 
+  - id: view-spec-system-motivation
+    name: SpecSystem Motivation View
+    type: motivation
+    description: Motivace, cíle, principy a omezení systému SpecSystem.
+
+    elements:
+      - radim-pokorny
+      - openclaw-agents
+
+      - spec-system-driver-traceability
+      - spec-system-driver-source-of-truth
+
+      - spec-system-assessment-fragmentation
+
+      - spec-system-goal-canonical-spec
+      - spec-system-goal-regeneration
+
+      - spec-system-requirement-memory
+      - spec-system-requirement-local-llm
+
+      - spec-system-constraint-local-first
+      - spec-system-constraint-human-approval
+
+      - spec-system-principle-spec-authority
+      - spec-system-principle-memory-separation
+
+    relationships:
+      - rel-driver-traceability-goal
+      - rel-driver-source-truth-goal
+      - rel-goal-memory-requirement
+      - rel-constraint-human-approval
+      - rel-principle-spec-authority
+      - rel-principle-memory-separation
+
+    layout:
+      direction: top-down
+
+  #
+  # Layered Architecture View
+  #
+
+  - id: view-spec-system-layered-architecture
+    name: SpecSystem Layered Architecture
+    type: layered
+    description: Hlavní vrstvy systému a dependency flow.
+
+    elements:
+      - roam-research
+      - source-evidence-repository
+      - llm-wiki
+      - persistent-memory-layer
+      - spec-system
+      - archimate-model-repository
+      - output-generation-layer
+      - implementation-projects
+
+    relationships:
+      - rel-roam-source
+      - rel-source-wiki
+      - rel-source-memory
+      - rel-memory-spec
+      - rel-wiki-spec
+      - rel-spec-archimate
+      - rel-spec-output
+      - rel-archimate-output
+      - rel-output-projects
+
+    layout:
+      direction: top-down
+
+  #
+  # Persistent Memory View
+  #
+
+  - id: view-persistent-memory
+    name: Persistent Memory Layer
+    type: application
+    description: Persistent memory vrstva a její vztahy.
+
+    elements:
+      - persistent-memory-layer
+      - memory-files
+      - source-evidence-repository
+      - llm-wiki
+      - spec-system
+      - local-llm
+      - cron-nightly-rebuild
+
+    relationships:
+      - rel-source-memory
+      - rel-memory-files
+      - rel-memory-spec
+      - rel-local-llm-memory
+      - rel-cron-memory
+
+    layout:
+      direction: left-right
+
+  #
+  # Local LLM Ecosystem
+  #
+
+  - id: view-local-llm-ecosystem
+    name: Local LLM Ecosystem
+    type: application
+    description: Lokální LLM infrastruktura.
+
+    elements:
+      - local-llm
+      - ollama
+      - qwen-14b
+      - nomic-embed-text
+      - persistent-memory-layer
+      - llm-wiki
+
+    relationships:
+      - rel-local-llm-ollama
+      - rel-ollama-qwen
+      - rel-ollama-embedding
+      - rel-local-llm-memory
+      - rel-local-llm-wiki
+
+    layout:
+      direction: left-right
+
+  #
+  # OpenClaw Integration View
+  #
+
+  - id: view-openclaw-integration
+    name: OpenClaw Integration
+    type: application
+    description: Integrace OpenClaw orchestrace.
+
+    elements:
+      - openclaw
+      - spec-system
+      - persistent-memory-layer
+      - llm-wiki
+      - hetzner-vps
+      - git-repository
+
+    relationships:
+      - rel-openclaw-spec
+      - rel-openclaw-memory
+      - rel-openclaw-wiki
+      - rel-vps-openclaw
+      - rel-vps-git
+
+    layout:
+      direction: left-right
+
+  #
+  # Deployment View
+  #
+
+  - id: view-spec-system-deployment
+    name: SpecSystem Deployment
+    type: deployment
+    description: Hybridní lokální + VPS deployment model.
+
+    elements:
+      - macbook-local
+      - hetzner-vps
+
+      - local-llm
+      - spec-system
+      - persistent-memory-layer
+      - llm-wiki
+
+      - openclaw
+      - git-repository
+
+    relationships:
+      - rel-macbook-spec
+      - rel-macbook-memory
+      - rel-macbook-llm
+      - rel-vps-openclaw
+      - rel-vps-git
+
+    layout:
+      direction: left-right
+
+  #
+  # Automation View
+  #
+
+  - id: view-nightly-rebuild
+    name: Nightly Rebuild Workflow
+    type: process
+    description: Automatizovaný nightly rebuild workflow.
+
+    elements:
+      - cron-nightly-rebuild
+      - persistent-memory-layer
+      - llm-wiki
+      - output-generation-layer
+
+    relationships:
+      - rel-cron-memory
+      - rel-cron-wiki
+      - rel-cron-report
+
+    layout:
+      direction: left-right
+
+  #
+  # Traceability View
+  #
+
+  - id: view-traceability
+    name: Traceability View
+    type: traceability
+    description: Dohledatelnost mezi evidence, memory, SPEC a výstupy.
+
+    elements:
+      - source-evidence-repository
+      - persistent-memory-layer
+      - llm-wiki
+      - spec-system
+      - archimate-model-repository
+      - output-generation-layer
+      - implementation-projects
+
+    relationships:
+      - rel-source-memory
+      - rel-source-wiki
+      - rel-memory-spec
+      - rel-wiki-spec
+      - rel-spec-archimate
+      - rel-spec-output
+      - rel-output-projects
+
+    layout:
+      direction: top-down
+
+  #
+  # Evolution View
+  #
+
+  - id: view-spec-system-evolution
+    name: SpecSystem Evolution
+    type: implementation
+    description: Evoluce systému SpecSystem.
+
+    elements:
+      - spec-system-v01
+      - spec-system-v02
+      - spec-system-v03
+      - persistent-memory-project
+      - archimate-generation-project
+
+    relationships:
+      - rel-v01-v02
+      - rel-v02-v03
+      - rel-memory-project-v03
+      - rel-archimate-project
+
+    layout:
+      direction: left-right
+
+  #
+  # Output Generation View
+  #
+
+  - id: view-output-generation
+    name: Output Generation
+    type: application
+    description: Generování formálních výstupů systému.
+
+    elements:
+      - spec-system
+      - archimate-model-repository
+      - output-generation-layer
+      - archimate-open-exchange
+      - implementation-projects
+
+    relationships:
+      - rel-spec-output
+      - rel-archimate-output
+      - rel-archimate-xml
+      - rel-output-projects
+
+    layout:
+      direction: left-right

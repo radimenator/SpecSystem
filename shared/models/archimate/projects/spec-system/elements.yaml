@@ -1,1 +1,287 @@
+elements:
+  #
+  # Motivation Layer
+  #
 
+  - id: spec-system-stakeholders
+    type: grouping
+    name: Stakeholders
+    layer: motivation
+
+  - id: radim-pokorny
+    type: stakeholder
+    name: Radim Pokorný
+    layer: motivation
+    description: Autor a hlavní architekt systému SpecSystem.
+
+  - id: openclaw-agents
+    type: stakeholder
+    name: OpenClaw Agents
+    layer: motivation
+    description: Agentní infrastruktura využívající SPEC, memory a workflow.
+
+  - id: spec-system-driver-traceability
+    type: driver
+    name: Traceability
+    layer: motivation
+    description: Potřeba dohledatelnosti všech rozhodnutí, modelů a výstupů.
+
+  - id: spec-system-driver-source-of-truth
+    type: driver
+    name: Single Source of Truth
+    layer: motivation
+    description: Potřeba jediné kanonické specifikace systému.
+
+  - id: spec-system-assessment-fragmentation
+    type: assessment
+    name: Fragmented Documentation
+    layer: motivation
+    description: Dokumentace a znalosti bývají roztříštěné mezi více systémů.
+
+  - id: spec-system-goal-canonical-spec
+    type: goal
+    name: Canonical Specification
+    layer: motivation
+    description: Vytvořit stabilní kanonickou specifikaci projektů.
+
+  - id: spec-system-goal-regeneration
+    type: goal
+    name: Deterministic Regeneration
+    layer: motivation
+    description: Umožnit regeneraci dokumentace a modelů ze specifikace.
+
+  - id: spec-system-requirement-memory
+    type: requirement
+    name: Persistent Memory Layer
+    layer: motivation
+    description: Systém musí obsahovat dlouhodobou pracovní memory vrstvu.
+
+  - id: spec-system-requirement-local-llm
+    type: requirement
+    name: Local LLM Support
+    layer: motivation
+    description: Systém musí podporovat běh lokálních LLM modelů.
+
+  - id: spec-system-constraint-local-first
+    type: constraint
+    name: Local First
+    layer: motivation
+    description: Citlivá data musí zůstávat lokálně.
+
+  - id: spec-system-constraint-human-approval
+    type: constraint
+    name: Human Approval Required
+    layer: motivation
+    description: LLM nesmí měnit SPEC bez potvrzení člověkem.
+
+  - id: spec-system-principle-spec-authority
+    type: principle
+    name: SPEC is Source of Truth
+    layer: motivation
+    description: SPEC je jediná autoritativní pravda systému.
+
+  - id: spec-system-principle-memory-separation
+    type: principle
+    name: Memory is not SPEC
+    layer: motivation
+    description: Persistent memory není kanonická specifikace.
+
+  #
+  # Business Layer
+  #
+
+  - id: spec-system
+    type: business-service
+    name: SpecSystem
+    layer: business
+    description: Kanonický systém pro správu specifikací a architektury.
+
+  - id: specification-management
+    type: business-process
+    name: Specification Management
+    layer: business
+    description: Správa životního cyklu specifikací.
+
+  - id: architecture-modeling
+    type: business-process
+    name: Architecture Modeling
+    layer: business
+    description: Modelování architektury pomocí ArchiMate.
+
+  - id: document-generation
+    type: business-process
+    name: Document Generation
+    layer: business
+    description: Generování formálních dokumentů a výstupů.
+
+  - id: memory-rebuild-process
+    type: business-process
+    name: Memory Rebuild
+    layer: business
+    description: Periodický rebuild persistentní memory.
+
+  #
+  # Application Layer
+  #
+
+  - id: roam-research
+    type: application-component
+    name: Roam Research
+    layer: application
+    description: Prostředí pro poznámky, myšlení a projektový kontext.
+
+  - id: source-evidence-repository
+    type: application-component
+    name: Source Evidence Repository
+    layer: application
+    description: Úložiště zdrojových dokumentů a evidence.
+
+  - id: llm-wiki
+    type: application-component
+    name: Obsidian / LLM Wiki
+    layer: application
+    description: Interpretační a znalostní vrstva systému.
+
+  - id: persistent-memory-layer
+    type: application-component
+    name: Persistent Memory Layer
+    layer: application
+    description: Dlouhodobá pracovní paměť pro LLM a agenty.
+
+  - id: archimate-model-repository
+    type: application-component
+    name: ArchiMate Model Repository
+    layer: application
+    description: Formální architektonický model systému.
+
+  - id: output-generation-layer
+    type: application-component
+    name: Output Generation Layer
+    layer: application
+    description: Generování OHA, PDF, DOCX a dalších výstupů.
+
+  - id: local-llm
+    type: application-component
+    name: Local LLM
+    layer: application
+    description: Lokální LLM běžící přes Ollama.
+
+  - id: openclaw
+    type: application-component
+    name: OpenClaw
+    layer: application
+    description: Agent orchestration a workflow systém.
+
+  - id: ollama
+    type: application-component
+    name: Ollama
+    layer: application
+    description: Runtime pro lokální LLM modely.
+
+  - id: qwen-14b
+    type: application-component
+    name: Qwen 2.5 14B
+    layer: application
+    description: Lokální reasoning model.
+
+  - id: nomic-embed-text
+    type: application-component
+    name: Nomic Embed Text
+    layer: application
+    description: Embedding model pro retrieval a indexing.
+
+  - id: implementation-projects
+    type: application-component
+    name: ~/Projects
+    layer: application
+    description: Lokální adresář s implementací, kódem a generovanými artefakty.
+
+  #
+  # Data Layer
+  #
+
+  - id: spec-files
+    type: data-object
+    name: SPEC Files
+    layer: application
+    description: Kanonické specifikační soubory projektu.
+
+  - id: memory-files
+    type: data-object
+    name: Memory Files
+    layer: application
+    description: Persistentní znalostní extrakty.
+
+  - id: wiki-pages
+    type: data-object
+    name: Wiki Pages
+    layer: application
+    description: Generované wiki stránky.
+
+  - id: archimate-open-exchange
+    type: data-object
+    name: Open Exchange XML
+    layer: application
+    description: Exportovaný ArchiMate model.
+
+  #
+  # Technology Layer
+  #
+
+  - id: macbook-local
+    type: node
+    name: MacBook Local Environment
+    layer: technology
+    description: Lokální pracovní prostředí.
+
+  - id: hetzner-vps
+    type: node
+    name: Hetzner VPS
+    layer: technology
+    description: Vzdálené automatizační prostředí.
+
+  - id: git-repository
+    type: system-software
+    name: Git Repository
+    layer: technology
+    description: Verzování SPEC, memory a modelů.
+
+  - id: cron-nightly-rebuild
+    type: technology-service
+    name: Nightly Rebuild Service
+    layer: technology
+    description: Automatizovaný rebuild memory a wiki.
+
+  #
+  # Implementation & Migration Layer
+  #
+
+  - id: spec-system-v01
+    type: plateau
+    name: SpecSystem v0.1
+    layer: implementation
+    description: Původní uložiště specifikací.
+
+  - id: spec-system-v02
+    type: plateau
+    name: SpecSystem v0.2
+    layer: implementation
+    description: Vrstvený systém evidence → wiki → SPEC → model.
+
+  - id: spec-system-v03
+    type: plateau
+    name: SpecSystem v0.3
+    layer: implementation
+    description: Persistent memory layer a nightly rebuild workflow.
+
+  - id: persistent-memory-project
+    type: project
+    name: Persistent Memory Layer Project
+    layer: implementation
+    description: Zavedení dlouhodobé memory vrstvy.
+
+  - id: archimate-generation-project
+    type: project
+    name: Open Exchange XML Generation
+    layer: implementation
+    description: Generování ArchiMate Open Exchange XML modelů.

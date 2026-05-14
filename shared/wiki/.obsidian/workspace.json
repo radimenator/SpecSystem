@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "systems/spec-system.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -185,12 +185,14 @@
   },
   "active": "0fd54f5ec24fa98d",
   "lastOpenFiles": [
-    "projects/spec-system/index.md",
+    "projects/spec-system/README.md",
+    "entities/spec-system.md",
+    "concepts/spec-system.md",
+    "log.md",
+    "index.md",
     "glossary.md",
     "systems/spec-system.md",
-    "concepts/spec-system.md",
-    "entities/spec-system.md",
-    "projects/spec-system/README.md",
+    "projects/spec-system/index.md",
     "projects/spec-system",
     "projects/spec-system/architecture/01-#-architektura-systému.md",
     "projects/spec-system/architecture/04-hlavní-architektonické-principy.md",
@@ -209,8 +211,6 @@
     "projects/projects",
     "projects/spec-system/questions.md",
     "projects/spec-system/overview.md",
-    "2026-05-12.md",
-    "index.md",
-    "log.md"
+    "2026-05-12.md"
   ]
 }
