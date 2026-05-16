@@ -1,0 +1,16 @@
+links:
+  roam:
+    project_page: "PO/..."
+
+  local_paths:
+    project_root: "~/Projects/catalog-services"
+    spec_root: "~/SpecSystem/projects/catalog-services"
+
+  repositories:
+    - url: https://github.com/...
+      description: hlavní repo
+
+  services:
+    - name: VPS
+      type: infra
+      provider: Hetzner

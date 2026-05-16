@@ -1,0 +1,23 @@
+components:
+  - id: example_component
+    name: Example Component
+
+    type: application_component # application_component | data_object | service
+    layer: application # business | application | technology
+
+    purpose: Popis účelu komponenty
+
+    responsibilities:
+      - odpovědnost 1
+      - odpovědnost 2
+
+    interfaces:
+      - api
+      - cli
+
+relations:
+  - source: example_component
+    target: another_component
+
+    type: association # association | flow | access | serving
+    description: vztah mezi komponentami

@@ -1,0 +1,18 @@
+meta:
+  id: catalog-services
+  name: catalog-services
+
+  type: system # system | feature | tool
+  status: draft # draft | active | archived
+
+  owner: Radim
+  canonical_version: 0.1
+
+  created: 2026-05-15
+  updated: 2026-05-15
+
+links:
+  roam_project: "PO/catalog-services"
+  code_repositories: []
+  related_specs: []
+  archimate_model: ""

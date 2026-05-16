@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="spec-system ArchiMate Model" id="id-spec-system-model" version="5.0.0">
+  <folder name="Strategy" id="id-5fa5d0953d824c409cce5b6d1da8e519" type="strategy"/>
+  <folder name="Business" id="id-ffcb40b8c14549d98283fef1ea742a7a" type="business">
+    <folder name="Elements" id="id-304a319cf5ef483698aebbb149c74797">
+      <folder name="business" id="id-80a5eab6755f4845aec0322f7ac089f4">
+        <element xsi:type="archimate:BusinessService" name="SpecSystem" id="id-spec-system">
+          <documentation>Kanonický systém pro správu specifikací a architektury.</documentation>
+        </element>
+        <element xsi:type="archimate:BusinessProcess" name="Specification Management" id="id-specification-management">
+          <documentation>Správa životního cyklu specifikací.</documentation>
+        </element>
+        <element xsi:type="archimate:BusinessProcess" name="Architecture Modeling" id="id-architecture-modeling">
+          <documentation>Modelování architektury pomocí ArchiMate.</documentation>
+        </element>
+        <element xsi:type="archimate:BusinessProcess" name="Document Generation" id="id-document-generation">
+          <documentation>Generování formálních dokumentů a výstupů.</documentation>
+        </element>
+        <element xsi:type="archimate:BusinessProcess" name="Memory Rebuild" id="id-memory-rebuild-process">
+          <documentation>Periodický rebuild persistentní memory.</documentation>
+        </element>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Application" id="id-e24e02a9e3614b27808f2628b270211b" type="application">
+    <folder name="Elements" id="id-5b8c16e8d6d54b45a61c15fef81614a6">
+      <folder name="application" id="id-48fcc909f1524988918c06762329c365">
+        <element xsi:type="archimate:ApplicationComponent" name="Roam Research" id="id-roam-research">
+          <documentation>Prostředí pro poznámky, myšlení a projektový kontext.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Source Evidence Repository" id="id-source-evidence-repository">
+          <documentation>Úložiště zdrojových dokumentů a evidence.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Obsidian / LLM Wiki" id="id-llm-wiki">
+          <documentation>Interpretační a znalostní vrstva systému.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Persistent Memory Layer" id="id-persistent-memory-layer">
+          <documentation>Dlouhodobá pracovní paměť pro LLM a agenty.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="ArchiMate Model Repository" id="id-archimate-model-repository">
+          <documentation>Formální architektonický model systému.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Output Generation Layer" id="id-output-generation-layer">
+          <documentation>Generování OHA, PDF, DOCX a dalších výstupů.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Local LLM" id="id-local-llm">
+          <documentation>Lokální LLM běžící přes Ollama.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="OpenClaw" id="id-openclaw">
+          <documentation>Agent orchestration a workflow systém.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Ollama" id="id-ollama">
+          <documentation>Runtime pro lokální LLM modely.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Qwen 2.5 14B" id="id-qwen-14b">
+          <documentation>Lokální reasoning model.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="Nomic Embed Text" id="id-nomic-embed-text">
+          <documentation>Embedding model pro retrieval a indexing.</documentation>
+        </element>
+        <element xsi:type="archimate:ApplicationComponent" name="~/Projects" id="id-implementation-projects">
+          <documentation>Lokální adresář s implementací, kódem a generovanými artefakty.</documentation>
+        </element>
+        <element xsi:type="archimate:DataObject" name="SPEC Files" id="id-spec-files">
+          <documentation>Kanonické specifikační soubory projektu.</documentation>
+        </element>
+        <element xsi:type="archimate:DataObject" name="Memory Files" id="id-memory-files">
+          <documentation>Persistentní znalostní extrakty.</documentation>
+        </element>
+        <element xsi:type="archimate:DataObject" name="Wiki Pages" id="id-wiki-pages">
+          <documentation>Generované wiki stránky.</documentation>
+        </element>
+        <element xsi:type="archimate:DataObject" name="Open Exchange XML" id="id-archimate-open-exchange">
+          <documentation>Exportovaný ArchiMate model.</documentation>
+        </element>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Technology &amp; Physical" id="id-d299fc41eec149d592a1255005ec8586" type="technology">
+    <folder name="Elements" id="id-ea5695a839ab457792c23475aa01931a">
+      <folder name="technology" id="id-416e983bd009491c9ed274d59cbd596d">
+        <element xsi:type="archimate:Node" name="MacBook Local Environment" id="id-macbook-local">
+          <documentation>Lokální pracovní prostředí.</documentation>
+        </element>
+        <element xsi:type="archimate:Node" name="Hetzner VPS" id="id-hetzner-vps">
+          <documentation>Vzdálené automatizační prostředí.</documentation>
+        </element>
+        <element xsi:type="archimate:SystemSoftware" name="Git Repository" id="id-git-repository">
+          <documentation>Verzování SPEC, memory a modelů.</documentation>
+        </element>
+        <element xsi:type="archimate:TechnologyService" name="Nightly Rebuild Service" id="id-cron-nightly-rebuild">
+          <documentation>Automatizovaný rebuild memory a wiki.</documentation>
+        </element>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Motivation" id="id-28fcc2885609485dab6f02097573ae34" type="motivation">
+    <folder name="Elements" id="id-70ab0569e9ee49da8f35ea46dad70701">
+      <folder name="motivation" id="id-c8a953d99951459faea3af74dde29c6d">
+        <element xsi:type="archimate:Stakeholder" name="Radim Pokorný" id="id-radim-pokorny">
+          <documentation>Autor a hlavní architekt systému SpecSystem.</documentation>
+        </element>
+        <element xsi:type="archimate:Stakeholder" name="OpenClaw Agents" id="id-openclaw-agents">
+          <documentation>Agentní infrastruktura využívající SPEC, memory a workflow.</documentation>
+        </element>
+        <element xsi:type="archimate:Driver" name="Traceability" id="id-spec-system-driver-traceability">
+          <documentation>Potřeba dohledatelnosti všech rozhodnutí, modelů a výstupů.</documentation>
+        </element>
+        <element xsi:type="archimate:Driver" name="Single Source of Truth" id="id-spec-system-driver-source-of-truth">
+          <documentation>Potřeba jediné kanonické specifikace systému.</documentation>
+        </element>
+        <element xsi:type="archimate:Assessment" name="Fragmented Documentation" id="id-spec-system-assessment-fragmentation">
+          <documentation>Dokumentace a znalosti bývají roztříštěné mezi více systémů.</documentation>
+        </element>
+        <element xsi:type="archimate:Goal" name="Canonical Specification" id="id-spec-system-goal-canonical-spec">
+          <documentation>Vytvořit stabilní kanonickou specifikaci projektů.</documentation>
+        </element>
+        <element xsi:type="archimate:Goal" name="Deterministic Regeneration" id="id-spec-system-goal-regeneration">
+          <documentation>Umožnit regeneraci dokumentace a modelů ze specifikace.</documentation>
+        </element>
+        <element xsi:type="archimate:Requirement" name="Persistent Memory Layer" id="id-spec-system-requirement-memory">
+          <documentation>Systém musí obsahovat dlouhodobou pracovní memory vrstvu.</documentation>
+        </element>
+        <element xsi:type="archimate:Requirement" name="Local LLM Support" id="id-spec-system-requirement-local-llm">
+          <documentation>Systém musí podporovat běh lokálních LLM modelů.</documentation>
+        </element>
+        <element xsi:type="archimate:Constraint" name="Local First" id="id-spec-system-constraint-local-first">
+          <documentation>Citlivá data musí zůstávat lokálně.</documentation>
+        </element>
+        <element xsi:type="archimate:Constraint" name="Human Approval Required" id="id-spec-system-constraint-human-approval">
+          <documentation>LLM nesmí měnit SPEC bez potvrzení člověkem.</documentation>
+        </element>
+        <element xsi:type="archimate:Principle" name="SPEC is Source of Truth" id="id-spec-system-principle-spec-authority">
+          <documentation>SPEC je jediná autoritativní pravda systému.</documentation>
+        </element>
+        <element xsi:type="archimate:Principle" name="Memory is not SPEC" id="id-spec-system-principle-memory-separation">
+          <documentation>Persistent memory není kanonická specifikace.</documentation>
+        </element>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Implementation &amp; Migration" id="id-cfd043f2d72b43f7a8fa3bb0f888f328" type="implementation_migration">
+    <folder name="Elements" id="id-25046bebc1a64d1fac65b424b1b91234">
+      <folder name="implementation" id="id-cfb8384c007344138ba9086205aeb78d">
+        <element xsi:type="archimate:Plateau" name="SpecSystem v0.1" id="id-spec-system-v01">
+          <documentation>Původní uložiště specifikací.</documentation>
+        </element>
+        <element xsi:type="archimate:Plateau" name="SpecSystem v0.2" id="id-spec-system-v02">
+          <documentation>Vrstvený systém evidence → wiki → SPEC → model.</documentation>
+        </element>
+        <element xsi:type="archimate:Plateau" name="SpecSystem v0.3" id="id-spec-system-v03">
+          <documentation>Persistent memory layer a nightly rebuild workflow.</documentation>
+        </element>
+        <element xsi:type="archimate:WorkPackage" name="Persistent Memory Layer Project" id="id-persistent-memory-project">
+          <documentation>Zavedení dlouhodobé memory vrstvy.</documentation>
+        </element>
+        <element xsi:type="archimate:WorkPackage" name="Open Exchange XML Generation" id="id-archimate-generation-project">
+          <documentation>Generování ArchiMate Open Exchange XML modelů.</documentation>
+        </element>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Other" id="id-35b12342a1894d11b7419ed00e53a255" type="other">
+    <folder name="Elements" id="id-2708ed3b912d4b4ca25ae169a9bc43ce">
+      <folder name="motivation" id="id-3fd9adf6e41846458816bad93e73aec0">
+        <element xsi:type="archimate:Grouping" name="Stakeholders" id="id-spec-system-stakeholders"/>
+      </folder>
+    </folder>
+  </folder>
+  <folder name="Relations" id="id-9dac4bb46ec84b89a1cd66fe532aa03c" type="relations">
+    <folder name="Relationships" id="id-2d150855fea7498f8283321826418302">
+      <element xsi:type="archimate:FlowRelationship" name="rel-roam-source" id="rel-rel-roam-source" source="id-roam-research" target="id-source-evidence-repository">
+        <documentation>Projektový kontext a poznámky jsou ukládány do source evidence vrstvy.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-source-wiki" id="rel-rel-source-wiki" source="id-source-evidence-repository" target="id-llm-wiki">
+        <documentation>Zdrojové dokumenty slouží jako vstup pro wiki syntézu.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-source-memory" id="rel-rel-source-memory" source="id-source-evidence-repository" target="id-persistent-memory-layer">
+        <documentation>Source evidence poskytuje vstup pro extraction do memory.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-memory-spec" id="rel-rel-memory-spec" source="id-persistent-memory-layer" target="id-spec-system">
+        <documentation>Persistent memory poskytuje stabilní reasoning kontext pro SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-wiki-spec" id="rel-rel-wiki-spec" source="id-llm-wiki" target="id-spec-system">
+        <documentation>Wiki poskytuje interpretační vrstvu nad SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:RealizationRelationship" name="rel-spec-archimate" id="rel-rel-spec-archimate" source="id-spec-system" target="id-archimate-model-repository">
+        <documentation>SPEC je formalizována do ArchiMate modelu.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-archimate-spec-feedback" id="rel-rel-archimate-spec-feedback" source="id-archimate-model-repository" target="id-spec-system">
+        <documentation>Validace modelu může vést ke korekci SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-spec-output" id="rel-rel-spec-output" source="id-spec-system" target="id-output-generation-layer">
+        <documentation>SPEC slouží jako zdroj pro generování dokumentace.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-archimate-output" id="rel-rel-archimate-output" source="id-archimate-model-repository" target="id-output-generation-layer">
+        <documentation>ArchiMate model slouží jako zdroj pro architektonické výstupy.</documentation>
+      </element>
+      <element xsi:type="archimate:FlowRelationship" name="rel-output-projects" id="rel-rel-output-projects" source="id-output-generation-layer" target="id-implementation-projects">
+        <documentation>Výstupní dokumentace podporuje implementaci projektů.</documentation>
+      </element>
+      <element xsi:type="archimate:AggregationRelationship" name="rel-memory-concepts" id="rel-rel-memory-concepts" source="id-persistent-memory-layer" target="id-memory-files">
+        <documentation>Persistent memory obsahuje koncepty, constraints a decisions.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-memory-traceability" id="rel-rel-memory-traceability" source="id-persistent-memory-layer" target="id-spec-system-driver-traceability">
+        <documentation>Memory podporuje traceability systému.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-memory-regeneration" id="rel-rel-memory-regeneration" source="id-persistent-memory-layer" target="id-spec-system-goal-regeneration">
+        <documentation>Memory podporuje regeneraci znalostního kontextu.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-local-llm-ollama" id="rel-rel-local-llm-ollama" source="id-local-llm" target="id-ollama">
+        <documentation>Lokální LLM běží prostřednictvím Ollama runtime.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-ollama-qwen" id="rel-rel-ollama-qwen" source="id-ollama" target="id-qwen-14b">
+        <documentation>Ollama poskytuje reasoning model Qwen 2.5 14B.</documentation>
+      </element>
+      <element xsi:type="archimate:ServingRelationship" name="rel-ollama-embedding" id="rel-rel-ollama-embedding" source="id-ollama" target="id-nomic-embed-text">
+        <documentation>Ollama poskytuje embedding model pro retrieval.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-local-llm-memory" id="rel-rel-local-llm-memory" source="id-local-llm" target="id-persistent-memory-layer">
+        <documentation>Lokální LLM používá persistent memory jako kontext.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-local-llm-wiki" id="rel-rel-local-llm-wiki" source="id-local-llm" target="id-llm-wiki">
+        <documentation>Lokální LLM generuje a používá wiki obsah.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-openclaw-spec" id="rel-rel-openclaw-spec" source="id-openclaw" target="id-spec-system">
+        <documentation>OpenClaw agenti pracují nad SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-openclaw-memory" id="rel-rel-openclaw-memory" source="id-openclaw" target="id-persistent-memory-layer">
+        <documentation>OpenClaw používá memory jako dlouhodobý kontext.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-openclaw-wiki" id="rel-rel-openclaw-wiki" source="id-openclaw" target="id-llm-wiki">
+        <documentation>OpenClaw může využívat wiki pro navigaci a syntézu.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-macbook-spec" id="rel-rel-macbook-spec" source="id-macbook-local" target="id-spec-system">
+        <documentation>Lokální prostředí hostuje pracovní SPEC clone.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-macbook-memory" id="rel-rel-macbook-memory" source="id-macbook-local" target="id-persistent-memory-layer">
+        <documentation>Persistent memory běží lokálně.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-macbook-llm" id="rel-rel-macbook-llm" source="id-macbook-local" target="id-local-llm">
+        <documentation>Lokální LLM běží na MacBooku.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-vps-openclaw" id="rel-rel-vps-openclaw" source="id-hetzner-vps" target="id-openclaw">
+        <documentation>VPS hostuje OpenClaw orchestration.</documentation>
+      </element>
+      <element xsi:type="archimate:AssignmentRelationship" name="rel-vps-git" id="rel-rel-vps-git" source="id-hetzner-vps" target="id-git-repository">
+        <documentation>VPS hostuje centrální Git repozitáře.</documentation>
+      </element>
+      <element xsi:type="archimate:TriggeringRelationship" name="rel-cron-memory" id="rel-rel-cron-memory" source="id-cron-nightly-rebuild" target="id-persistent-memory-layer">
+        <documentation>Nightly rebuild aktualizuje persistent memory.</documentation>
+      </element>
+      <element xsi:type="archimate:TriggeringRelationship" name="rel-cron-wiki" id="rel-rel-cron-wiki" source="id-cron-nightly-rebuild" target="id-llm-wiki">
+        <documentation>Nightly rebuild generuje wiki projekci.</documentation>
+      </element>
+      <element xsi:type="archimate:TriggeringRelationship" name="rel-cron-report" id="rel-rel-cron-report" source="id-cron-nightly-rebuild" target="id-output-generation-layer">
+        <documentation>Nightly rebuild může generovat validační reporty.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-spec-files" id="rel-rel-spec-files" source="id-spec-system" target="id-spec-files">
+        <documentation>SPEC systém spravuje kanonické specifikační soubory.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-memory-files" id="rel-rel-memory-files" source="id-persistent-memory-layer" target="id-memory-files">
+        <documentation>Memory layer ukládá persistentní memory soubory.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-wiki-pages" id="rel-rel-wiki-pages" source="id-llm-wiki" target="id-wiki-pages">
+        <documentation>Wiki vrstva spravuje wiki stránky.</documentation>
+      </element>
+      <element xsi:type="archimate:AccessRelationship" name="rel-archimate-xml" id="rel-rel-archimate-xml" source="id-archimate-model-repository" target="id-archimate-open-exchange">
+        <documentation>ArchiMate repository exportuje Open Exchange XML.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-driver-traceability-goal" id="rel-rel-driver-traceability-goal" source="id-spec-system-driver-traceability" target="id-spec-system-goal-canonical-spec">
+        <documentation>Traceability podporuje vznik kanonické specifikace.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-driver-source-truth-goal" id="rel-rel-driver-source-truth-goal" source="id-spec-system-driver-source-of-truth" target="id-spec-system-goal-canonical-spec">
+        <documentation>Single source of truth podporuje vznik SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:RealizationRelationship" name="rel-goal-memory-requirement" id="rel-rel-goal-memory-requirement" source="id-spec-system-requirement-memory" target="id-spec-system-goal-regeneration">
+        <documentation>Persistent memory podporuje regeneraci systému.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-constraint-human-approval" id="rel-rel-constraint-human-approval" source="id-spec-system-constraint-human-approval" target="id-local-llm">
+        <documentation>LLM nesmí měnit SPEC bez potvrzení člověkem.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-principle-spec-authority" id="rel-rel-principle-spec-authority" source="id-spec-system-principle-spec-authority" target="id-spec-system">
+        <documentation>SPEC je jediná autoritativní vrstva systému.</documentation>
+      </element>
+      <element xsi:type="archimate:InfluenceRelationship" name="rel-principle-memory-separation" id="rel-rel-principle-memory-separation" source="id-spec-system-principle-memory-separation" target="id-persistent-memory-layer">
+        <documentation>Memory je oddělená od SPEC.</documentation>
+      </element>
+      <element xsi:type="archimate:TriggeringRelationship" name="rel-v01-v02" id="rel-rel-v01-v02" source="id-spec-system-v01" target="id-spec-system-v02">
+        <documentation>Evoluce z jednoduchého uložiště specifikací na vrstvený systém.</documentation>
+      </element>
+      <element xsi:type="archimate:TriggeringRelationship" name="rel-v02-v03" id="rel-rel-v02-v03" source="id-spec-system-v02" target="id-spec-system-v03">
+        <documentation>Zavedení persistent memory vrstvy.</documentation>
+      </element>
+      <element xsi:type="archimate:RealizationRelationship" name="rel-memory-project-v03" id="rel-rel-memory-project-v03" source="id-persistent-memory-project" target="id-spec-system-v03">
+        <documentation>Projekt persistent memory realizuje verzi v0.3.</documentation>
+      </element>
+      <element xsi:type="archimate:RealizationRelationship" name="rel-archimate-project" id="rel-rel-archimate-project" source="id-archimate-generation-project" target="id-archimate-model-repository">
+        <documentation>Projekt generování Open Exchange XML realizuje ArchiMate export.</documentation>
+      </element>
+    </folder>
+  </folder>
+  <folder name="Views" id="id-0385142a2182446a80a95d079ad9151c" type="diagrams">
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SpecSystem Motivation View" id="view-view-spec-system-motivation">
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-radim-pokorny" archimateElement="id-radim-pokorny">
+        <bounds x="100" y="100" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-openclaw-agents" archimateElement="id-openclaw-agents">
+        <bounds x="100" y="250" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-driver-traceability" archimateElement="id-spec-system-driver-traceability">
+        <bounds x="396" y="384" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-motivation-rel-driver-traceability-goal" source="node-view-spec-system-motivation-spec-system-driver-traceability" target="node-view-spec-system-motivation-spec-system-goal-canonical-spec" archimateRelationship="rel-rel-driver-traceability-goal"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-driver-source-of-truth" archimateElement="id-spec-system-driver-source-of-truth">
+        <bounds x="684" y="384" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-motivation-rel-driver-source-truth-goal" source="node-view-spec-system-motivation-spec-system-driver-source-of-truth" target="node-view-spec-system-motivation-spec-system-goal-canonical-spec" archimateRelationship="rel-rel-driver-source-truth-goal"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-assessment-fragmentation" archimateElement="id-spec-system-assessment-fragmentation">
+        <bounds x="100" y="396" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-goal-canonical-spec" targetConnections="conn-view-spec-system-motivation-rel-driver-traceability-goal conn-view-spec-system-motivation-rel-driver-source-truth-goal" archimateElement="id-spec-system-goal-canonical-spec">
+        <bounds x="100" y="850" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-goal-regeneration" targetConnections="conn-view-spec-system-motivation-rel-goal-memory-requirement" archimateElement="id-spec-system-goal-regeneration">
+        <bounds x="100" y="1000" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-requirement-memory" archimateElement="id-spec-system-requirement-memory">
+        <bounds x="100" y="1150" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-motivation-rel-goal-memory-requirement" source="node-view-spec-system-motivation-spec-system-requirement-memory" target="node-view-spec-system-motivation-spec-system-goal-regeneration" archimateRelationship="rel-rel-goal-memory-requirement"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-requirement-local-llm" archimateElement="id-spec-system-requirement-local-llm">
+        <bounds x="100" y="1300" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-constraint-local-first" archimateElement="id-spec-system-constraint-local-first">
+        <bounds x="100" y="1450" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-constraint-human-approval" archimateElement="id-spec-system-constraint-human-approval">
+        <bounds x="100" y="1600" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-principle-spec-authority" archimateElement="id-spec-system-principle-spec-authority">
+        <bounds x="100" y="1750" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-motivation-spec-system-principle-memory-separation" archimateElement="id-spec-system-principle-memory-separation">
+        <bounds x="100" y="1900" width="220" height="90"/>
+      </child>
+      <documentation>Motivace, cíle, principy a omezení systému SpecSystem.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SpecSystem Layered Architecture" id="view-view-spec-system-layered-architecture">
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-roam-research" archimateElement="id-roam-research">
+        <bounds x="24" y="132" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-roam-source" source="node-view-spec-system-layered-architecture-roam-research" target="node-view-spec-system-layered-architecture-source-evidence-repository" archimateRelationship="rel-rel-roam-source"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-source-evidence-repository" targetConnections="conn-view-spec-system-layered-architecture-rel-roam-source" archimateElement="id-source-evidence-repository">
+        <bounds x="24" y="378" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-source-wiki" source="node-view-spec-system-layered-architecture-source-evidence-repository" target="node-view-spec-system-layered-architecture-llm-wiki" archimateRelationship="rel-rel-source-wiki"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-source-memory" source="node-view-spec-system-layered-architecture-source-evidence-repository" target="node-view-spec-system-layered-architecture-persistent-memory-layer" archimateRelationship="rel-rel-source-memory"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-llm-wiki" targetConnections="conn-view-spec-system-layered-architecture-rel-source-wiki" archimateElement="id-llm-wiki">
+        <bounds x="336" y="264" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-wiki-spec" source="node-view-spec-system-layered-architecture-llm-wiki" target="node-view-spec-system-layered-architecture-spec-system" archimateRelationship="rel-rel-wiki-spec"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-persistent-memory-layer" targetConnections="conn-view-spec-system-layered-architecture-rel-source-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="504" y="576" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-memory-spec" source="node-view-spec-system-layered-architecture-persistent-memory-layer" target="node-view-spec-system-layered-architecture-spec-system" archimateRelationship="rel-rel-memory-spec"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-spec-system" targetConnections="conn-view-spec-system-layered-architecture-rel-memory-spec conn-view-spec-system-layered-architecture-rel-wiki-spec" archimateElement="id-spec-system">
+        <bounds x="480" y="84" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-spec-archimate" source="node-view-spec-system-layered-architecture-spec-system" target="node-view-spec-system-layered-architecture-archimate-model-repository" archimateRelationship="rel-rel-spec-archimate"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-spec-output" source="node-view-spec-system-layered-architecture-spec-system" target="node-view-spec-system-layered-architecture-output-generation-layer" archimateRelationship="rel-rel-spec-output"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-archimate-model-repository" targetConnections="conn-view-spec-system-layered-architecture-rel-spec-archimate" archimateElement="id-archimate-model-repository">
+        <bounds x="876" y="156" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-archimate-output" source="node-view-spec-system-layered-architecture-archimate-model-repository" target="node-view-spec-system-layered-architecture-output-generation-layer" archimateRelationship="rel-rel-archimate-output"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-output-generation-layer" targetConnections="conn-view-spec-system-layered-architecture-rel-spec-output conn-view-spec-system-layered-architecture-rel-archimate-output" archimateElement="id-output-generation-layer">
+        <bounds x="876" y="372" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-layered-architecture-rel-output-projects" source="node-view-spec-system-layered-architecture-output-generation-layer" target="node-view-spec-system-layered-architecture-implementation-projects" archimateRelationship="rel-rel-output-projects"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-layered-architecture-implementation-projects" targetConnections="conn-view-spec-system-layered-architecture-rel-output-projects" archimateElement="id-implementation-projects">
+        <bounds x="876" y="528" width="220" height="90"/>
+      </child>
+      <documentation>Hlavní vrstvy systému a dependency flow.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Persistent Memory Layer" id="view-view-persistent-memory">
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-persistent-memory-layer" targetConnections="conn-view-persistent-memory-rel-source-memory conn-view-persistent-memory-rel-local-llm-memory conn-view-persistent-memory-rel-cron-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="96" y="240" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-persistent-memory-rel-memory-files" source="node-view-persistent-memory-persistent-memory-layer" target="node-view-persistent-memory-memory-files" archimateRelationship="rel-rel-memory-files"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-persistent-memory-rel-memory-spec" source="node-view-persistent-memory-persistent-memory-layer" target="node-view-persistent-memory-spec-system" archimateRelationship="rel-rel-memory-spec"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-memory-files" targetConnections="conn-view-persistent-memory-rel-memory-files" archimateElement="id-memory-files">
+        <bounds x="624" y="120" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-source-evidence-repository" archimateElement="id-source-evidence-repository">
+        <bounds x="624" y="360" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-persistent-memory-rel-source-memory" source="node-view-persistent-memory-source-evidence-repository" target="node-view-persistent-memory-persistent-memory-layer" archimateRelationship="rel-rel-source-memory"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-llm-wiki" archimateElement="id-llm-wiki">
+        <bounds x="372" y="396" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-spec-system" targetConnections="conn-view-persistent-memory-rel-memory-spec" archimateElement="id-spec-system">
+        <bounds x="100" y="-12" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-local-llm" archimateElement="id-local-llm">
+        <bounds x="384" y="792" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-persistent-memory-rel-local-llm-memory" source="node-view-persistent-memory-local-llm" target="node-view-persistent-memory-persistent-memory-layer" archimateRelationship="rel-rel-local-llm-memory"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-persistent-memory-cron-nightly-rebuild" archimateElement="id-cron-nightly-rebuild">
+        <bounds x="100" y="1000" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-persistent-memory-rel-cron-memory" source="node-view-persistent-memory-cron-nightly-rebuild" target="node-view-persistent-memory-persistent-memory-layer" archimateRelationship="rel-rel-cron-memory"/>
+      </child>
+      <documentation>Persistent memory vrstva a její vztahy.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Local LLM Ecosystem" id="view-view-local-llm-ecosystem">
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-local-llm" archimateElement="id-local-llm">
+        <bounds x="100" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-local-llm-ecosystem-rel-local-llm-ollama" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-ollama" archimateRelationship="rel-rel-local-llm-ollama"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-local-llm-ecosystem-rel-local-llm-memory" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-persistent-memory-layer" archimateRelationship="rel-rel-local-llm-memory"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-local-llm-ecosystem-rel-local-llm-wiki" source="node-view-local-llm-ecosystem-local-llm" target="node-view-local-llm-ecosystem-llm-wiki" archimateRelationship="rel-rel-local-llm-wiki"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-ollama" targetConnections="conn-view-local-llm-ecosystem-rel-local-llm-ollama" archimateElement="id-ollama">
+        <bounds x="516" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-local-llm-ecosystem-rel-ollama-qwen" source="node-view-local-llm-ecosystem-ollama" target="node-view-local-llm-ecosystem-qwen-14b" archimateRelationship="rel-rel-ollama-qwen"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-local-llm-ecosystem-rel-ollama-embedding" source="node-view-local-llm-ecosystem-ollama" target="node-view-local-llm-ecosystem-nomic-embed-text" archimateRelationship="rel-rel-ollama-embedding"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-qwen-14b" targetConnections="conn-view-local-llm-ecosystem-rel-ollama-qwen" archimateElement="id-qwen-14b">
+        <bounds x="876" y="100" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-nomic-embed-text" targetConnections="conn-view-local-llm-ecosystem-rel-ollama-embedding" archimateElement="id-nomic-embed-text">
+        <bounds x="444" y="480" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-persistent-memory-layer" targetConnections="conn-view-local-llm-ecosystem-rel-local-llm-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="312" y="660" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-local-llm-ecosystem-llm-wiki" targetConnections="conn-view-local-llm-ecosystem-rel-local-llm-wiki" archimateElement="id-llm-wiki">
+        <bounds x="100" y="850" width="220" height="90"/>
+      </child>
+      <documentation>Lokální LLM infrastruktura.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="OpenClaw Integration" id="view-view-openclaw-integration">
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-openclaw" targetConnections="conn-view-openclaw-integration-rel-vps-openclaw" archimateElement="id-openclaw">
+        <bounds x="100" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-openclaw-integration-rel-openclaw-spec" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-spec-system" archimateRelationship="rel-rel-openclaw-spec"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-openclaw-integration-rel-openclaw-memory" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-persistent-memory-layer" archimateRelationship="rel-rel-openclaw-memory"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-openclaw-integration-rel-openclaw-wiki" source="node-view-openclaw-integration-openclaw" target="node-view-openclaw-integration-llm-wiki" archimateRelationship="rel-rel-openclaw-wiki"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-spec-system" targetConnections="conn-view-openclaw-integration-rel-openclaw-spec" archimateElement="id-spec-system">
+        <bounds x="100" y="-60" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-persistent-memory-layer" targetConnections="conn-view-openclaw-integration-rel-openclaw-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="540" y="100" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-llm-wiki" targetConnections="conn-view-openclaw-integration-rel-openclaw-wiki" archimateElement="id-llm-wiki">
+        <bounds x="528" y="384" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-hetzner-vps" archimateElement="id-hetzner-vps">
+        <bounds x="100" y="700" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-openclaw-integration-rel-vps-openclaw" source="node-view-openclaw-integration-hetzner-vps" target="node-view-openclaw-integration-openclaw" archimateRelationship="rel-rel-vps-openclaw"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-openclaw-integration-rel-vps-git" source="node-view-openclaw-integration-hetzner-vps" target="node-view-openclaw-integration-git-repository" archimateRelationship="rel-rel-vps-git"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-openclaw-integration-git-repository" targetConnections="conn-view-openclaw-integration-rel-vps-git" archimateElement="id-git-repository">
+        <bounds x="100" y="850" width="220" height="90"/>
+      </child>
+      <documentation>Integrace OpenClaw orchestrace.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SpecSystem Deployment" id="view-view-spec-system-deployment">
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-macbook-local" archimateElement="id-macbook-local">
+        <bounds x="708" y="1150" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-deployment-rel-macbook-spec" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-spec-system" archimateRelationship="rel-rel-macbook-spec"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-deployment-rel-macbook-memory" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-persistent-memory-layer" archimateRelationship="rel-rel-macbook-memory"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-deployment-rel-macbook-llm" source="node-view-spec-system-deployment-macbook-local" target="node-view-spec-system-deployment-local-llm" archimateRelationship="rel-rel-macbook-llm"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-hetzner-vps" archimateElement="id-hetzner-vps">
+        <bounds x="432" y="1150" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-deployment-rel-vps-openclaw" source="node-view-spec-system-deployment-hetzner-vps" target="node-view-spec-system-deployment-openclaw" archimateRelationship="rel-rel-vps-openclaw"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-deployment-rel-vps-git" source="node-view-spec-system-deployment-hetzner-vps" target="node-view-spec-system-deployment-git-repository" archimateRelationship="rel-rel-vps-git"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-local-llm" targetConnections="conn-view-spec-system-deployment-rel-macbook-llm" archimateElement="id-local-llm">
+        <bounds x="852" y="744" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-spec-system" targetConnections="conn-view-spec-system-deployment-rel-macbook-spec" archimateElement="id-spec-system">
+        <bounds x="600" y="540" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-persistent-memory-layer" targetConnections="conn-view-spec-system-deployment-rel-macbook-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="960" y="876" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-llm-wiki" archimateElement="id-llm-wiki">
+        <bounds x="48" y="816" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-openclaw" targetConnections="conn-view-spec-system-deployment-rel-vps-openclaw" archimateElement="id-openclaw">
+        <bounds x="48" y="984" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-deployment-git-repository" targetConnections="conn-view-spec-system-deployment-rel-vps-git" archimateElement="id-git-repository">
+        <bounds x="36" y="1150" width="220" height="90"/>
+      </child>
+      <documentation>Hybridní lokální + VPS deployment model.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Nightly Rebuild Workflow" id="view-view-nightly-rebuild">
+      <child xsi:type="archimate:DiagramObject" id="node-view-nightly-rebuild-cron-nightly-rebuild" archimateElement="id-cron-nightly-rebuild">
+        <bounds x="100" y="100" width="621" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-nightly-rebuild-rel-cron-memory" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-persistent-memory-layer" archimateRelationship="rel-rel-cron-memory"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-nightly-rebuild-rel-cron-wiki" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-llm-wiki" archimateRelationship="rel-rel-cron-wiki"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-nightly-rebuild-rel-cron-report" source="node-view-nightly-rebuild-cron-nightly-rebuild" target="node-view-nightly-rebuild-output-generation-layer" archimateRelationship="rel-rel-cron-report"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-nightly-rebuild-persistent-memory-layer" targetConnections="conn-view-nightly-rebuild-rel-cron-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="336" y="341" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-nightly-rebuild-llm-wiki" targetConnections="conn-view-nightly-rebuild-rel-cron-wiki" archimateElement="id-llm-wiki">
+        <bounds x="612" y="341" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-nightly-rebuild-output-generation-layer" targetConnections="conn-view-nightly-rebuild-rel-cron-report" archimateElement="id-output-generation-layer">
+        <bounds x="48" y="341" width="220" height="90"/>
+      </child>
+      <documentation>Automatizovaný nightly rebuild workflow.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Traceability View" id="view-view-traceability">
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-source-evidence-repository" archimateElement="id-source-evidence-repository">
+        <bounds x="100" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-source-memory" source="node-view-traceability-source-evidence-repository" target="node-view-traceability-persistent-memory-layer" archimateRelationship="rel-rel-source-memory"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-source-wiki" source="node-view-traceability-source-evidence-repository" target="node-view-traceability-llm-wiki" archimateRelationship="rel-rel-source-wiki"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-persistent-memory-layer" targetConnections="conn-view-traceability-rel-source-memory" archimateElement="id-persistent-memory-layer">
+        <bounds x="468" y="288" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-memory-spec" source="node-view-traceability-persistent-memory-layer" target="node-view-traceability-spec-system" archimateRelationship="rel-rel-memory-spec"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-llm-wiki" targetConnections="conn-view-traceability-rel-source-wiki" archimateElement="id-llm-wiki">
+        <bounds x="100" y="400" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-wiki-spec" source="node-view-traceability-llm-wiki" target="node-view-traceability-spec-system" archimateRelationship="rel-rel-wiki-spec"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-spec-system" targetConnections="conn-view-traceability-rel-memory-spec conn-view-traceability-rel-wiki-spec" archimateElement="id-spec-system">
+        <bounds x="100" y="550" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-spec-archimate" source="node-view-traceability-spec-system" target="node-view-traceability-archimate-model-repository" archimateRelationship="rel-rel-spec-archimate"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-spec-output" source="node-view-traceability-spec-system" target="node-view-traceability-output-generation-layer" archimateRelationship="rel-rel-spec-output"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-archimate-model-repository" targetConnections="conn-view-traceability-rel-spec-archimate" archimateElement="id-archimate-model-repository">
+        <bounds x="360" y="696" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-output-generation-layer" targetConnections="conn-view-traceability-rel-spec-output" archimateElement="id-output-generation-layer">
+        <bounds x="100" y="850" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-traceability-rel-output-projects" source="node-view-traceability-output-generation-layer" target="node-view-traceability-implementation-projects" archimateRelationship="rel-rel-output-projects"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-traceability-implementation-projects" targetConnections="conn-view-traceability-rel-output-projects" archimateElement="id-implementation-projects">
+        <bounds x="100" y="1000" width="220" height="90"/>
+      </child>
+      <documentation>Dohledatelnost mezi evidence, memory, SPEC a výstupy.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SpecSystem Evolution" id="view-view-spec-system-evolution">
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-evolution-spec-system-v01" archimateElement="id-spec-system-v01">
+        <bounds x="100" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-evolution-rel-v01-v02" source="node-view-spec-system-evolution-spec-system-v01" target="node-view-spec-system-evolution-spec-system-v02" archimateRelationship="rel-rel-v01-v02"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-evolution-spec-system-v02" targetConnections="conn-view-spec-system-evolution-rel-v01-v02" archimateElement="id-spec-system-v02">
+        <bounds x="100" y="250" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-evolution-rel-v02-v03" source="node-view-spec-system-evolution-spec-system-v02" target="node-view-spec-system-evolution-spec-system-v03" archimateRelationship="rel-rel-v02-v03"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-evolution-spec-system-v03" targetConnections="conn-view-spec-system-evolution-rel-v02-v03 conn-view-spec-system-evolution-rel-memory-project-v03" archimateElement="id-spec-system-v03">
+        <bounds x="100" y="400" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-evolution-persistent-memory-project" archimateElement="id-persistent-memory-project">
+        <bounds x="100" y="550" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-spec-system-evolution-rel-memory-project-v03" source="node-view-spec-system-evolution-persistent-memory-project" target="node-view-spec-system-evolution-spec-system-v03" archimateRelationship="rel-rel-memory-project-v03"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-spec-system-evolution-archimate-generation-project" archimateElement="id-archimate-generation-project">
+        <bounds x="100" y="700" width="220" height="90"/>
+      </child>
+      <documentation>Evoluce systému SpecSystem.</documentation>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Output Generation" id="view-view-output-generation">
+      <child xsi:type="archimate:DiagramObject" id="node-view-output-generation-spec-system" archimateElement="id-spec-system">
+        <bounds x="100" y="100" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-output-generation-rel-spec-output" source="node-view-output-generation-spec-system" target="node-view-output-generation-output-generation-layer" archimateRelationship="rel-rel-spec-output"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-output-generation-archimate-model-repository" archimateElement="id-archimate-model-repository">
+        <bounds x="480" y="468" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-output-generation-rel-archimate-output" source="node-view-output-generation-archimate-model-repository" target="node-view-output-generation-output-generation-layer" archimateRelationship="rel-rel-archimate-output"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-output-generation-rel-archimate-xml" source="node-view-output-generation-archimate-model-repository" target="node-view-output-generation-archimate-open-exchange" archimateRelationship="rel-rel-archimate-xml"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-output-generation-output-generation-layer" targetConnections="conn-view-output-generation-rel-spec-output conn-view-output-generation-rel-archimate-output" archimateElement="id-output-generation-layer">
+        <bounds x="480" y="216" width="220" height="90"/>
+        <sourceConnection xsi:type="archimate:Connection" id="conn-view-output-generation-rel-output-projects" source="node-view-output-generation-output-generation-layer" target="node-view-output-generation-implementation-projects" archimateRelationship="rel-rel-output-projects"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-output-generation-archimate-open-exchange" targetConnections="conn-view-output-generation-rel-archimate-xml" archimateElement="id-archimate-open-exchange">
+        <bounds x="480" y="660" width="220" height="90"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="node-view-output-generation-implementation-projects" targetConnections="conn-view-output-generation-rel-output-projects" archimateElement="id-implementation-projects">
+        <bounds x="108" y="348" width="220" height="90"/>
+      </child>
+      <documentation>Generování formálních výstupů systému.</documentation>
+    </element>
+  </folder>
+</archimate:model>

@@ -1,0 +1,119 @@
+motivation:
+  stakeholders:
+    - name: Management organizace
+      role: Definuje strategii služeb, schvaluje investice, SLA a provozní model
+
+    - name: Finanční oddělení
+      role: Odpovídá za costing, chargeback, forecasting a ekonomické řízení služeb
+
+    - name: Enterprise architekt
+      role: Navrhuje metamodel služeb, vazby mezi objekty a dlouhodobou architekturu
+
+    - name: Provozní tým infrastruktury
+      role: Provozuje elementární služby a odpovídá za jejich dostupnost
+
+    - name: Service manager
+      role: Definuje agregační a zákaznické služby a jejich SLA
+
+    - name: Aplikační tým
+      role: Konzumuje zákaznické služby a objednává provozní capability
+
+    - name: Bezpečnostní tým
+      role: Definuje bezpečnostní požadavky, governance a dohled
+
+    - name: Dodavatelé technologií
+      role: Dodávají hardware, software a podporu elementárních služeb
+
+  drivers:
+    - Potřeba standardizace provozu infrastruktury a služeb
+    - Potřeba transparentního costing modelu
+    - Potřeba měřitelného a auditovatelného service modelu
+    - Potřeba sjednocení architektonického modelu a katalogu služeb
+    - Potřeba řídit SLA a dostupnost služeb systematicky
+    - Potřeba opakovatelně skládat služby ze standardních stavebních jednotek
+    - Potřeba automatizovat kalkulaci ceny služeb
+    - Potřeba řídit změny infrastruktury finančně i provozně
+    - Potřeba zavést jednotný model pro provisioning a objednávky služeb
+    - Potřeba oddělit technologické objekty od business služeb
+
+  assessment:
+    - Současný katalog služeb míchá technologické capability, platformy a business služby
+    - Současný model není dostatečně měřitelný pro costing a forecasting
+    - Současný model neumožňuje jednoduché inventory-driven oceňování
+    - SLA nejsou systematicky odvozována z topologie a redundance
+    - Chybí jednotný model vazeb mezi architekturou, CMDB a katalogem služeb
+    - Technologické platformy jsou obtížně mapovatelné na business služby
+    - Chybí standardní model pro skládání agregačních služeb
+    - Pricing je příliš navázán na technologickou implementaci
+    - Chybí jednotná evidence provozních stavebních objektů
+    - Chybí jednotný model pro změnové řízení nákladů
+    - Chybí automatizovatelný model pro výpočet dostupnosti služeb
+
+  goals:
+    - Zavést jednotný service model založený na ArchiMate objektovém metamodelu
+    - Definovat elementární služby jako standardizované stavební objekty
+    - Definovat agregační služby jako runtime kompozice elementárních služeb
+    - Definovat zákaznické služby jako objednatelné business produkty
+    - Zavést inventory-driven costing model
+    - Umožnit automatizovaný výpočet ceny zákaznických služeb
+    - Umožnit automatizovaný výpočet SLA a dostupnosti
+    - Zavést jednotný model dependency mezi službami
+    - Zavést jednotný model pro změnové řízení služeb
+    - Umožnit jednoduché přidávání nových technologických objektů
+    - Umožnit jednoduché skládání nových agregačních služeb
+    - Zajistit auditovatelnost všech nákladových a SLA výpočtů
+    - Propojit architektonický model, CMDB a katalog služeb
+    - Připravit datový model pro budoucí webovou aplikaci a provisioning
+
+  constraints:
+    - Systém musí respektovat existující ArchiMate metamodel organizace
+    - Systém musí být dlouhodobě provozně udržitelný
+    - Systém nesmí být závislý na konkrétním vendorovi
+    - Systém musí podporovat změnové řízení infrastruktury
+    - Systém musí umožnit audit finančních výpočtů
+    - Systém musí umožnit rozšiřování katalogu bez redesignu databáze
+    - Elementární služby nesmí obsahovat business SLA
+    - Zákazník nesmí konfigurovat interní provozní operace elementárních služeb
+    - Monitoring, patching, backup a logging jsou inherentní součástí elementárních služeb
+    - SLA musí vznikat z topologie agregačních služeb
+    - Cena zákaznické služby musí být odvoditelná z elementárních a agregačních služeb
+    - Agregační služby nesmí vytvářet duplicitní costing
+    - Model musí podporovat budoucí automatizaci provisioning workflow
+
+  principles:
+    - ArchiMate objekt odpovídá katalogovému listu a databázové entitě
+    - Elementární služby představují standardizované provozní stavební jednotky
+    - Elementární služby jsou inventory-driven a měřitelné
+    - Agregační služby představují runtime kompozici elementárních služeb
+    - SLA vzniká z redundance a topologie agregačních služeb
+    - Zákaznické služby představují objednatelné business produkty
+    - Technologické provozní operace jsou inherentní součástí elementárních služeb
+    - Business overhead vzniká pouze na úrovni zákaznických služeb
+    - Pricing musí být auditovatelný a vysvětlitelný
+    - Každá změna infrastruktury musí mít jednoznačný finanční dopad
+    - Model musí podporovat automatizované skládání služeb
+    - Model musí oddělovat technologickou implementaci od business prezentace
+    - Agregační služby nesmí obsahovat duplicitní business costing
+    - Každá vyšší vrstva musí být odvoditelná z nižší vrstvy
+
+  requirements:
+    - Systém musí evidovat katalog elementárních služeb
+    - Systém musí evidovat katalog agregačních služeb
+    - Systém musí evidovat katalog zákaznických služeb
+    - Systém musí evidovat vazby mezi elementárními a agregačními službami
+    - Systém musí evidovat vazby mezi agregačními a zákaznickými službami
+    - Systém musí umožnit definovat topology a redundancy groups
+    - Systém musí umožnit definovat SLA profily
+    - Systém musí automaticky počítat dostupnost agregačních služeb
+    - Systém musí automaticky počítat cenu zákaznických služeb
+    - Systém musí podporovat versioning katalogových listů
+    - Systém musí podporovat lifecycle management služeb
+    - Systém musí podporovat inventory-based costing
+    - Systém musí podporovat evidenci provozních atributů objektů
+    - Systém musí podporovat evidenci business atributů služeb
+    - Systém musí umožnit simulaci změn infrastruktury
+    - Systém musí umožnit simulaci změn SLA
+    - Systém musí podporovat export pricing modelu pro finance
+    - Systém musí podporovat budoucí provisioning workflow
+    - Systém musí poskytovat API pro integraci s CMDB a monitoringem
+    - Systém musí umožnit budoucí implementaci webové aplikace pro objednávku služeb

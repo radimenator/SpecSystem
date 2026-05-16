@@ -17,8 +17,13 @@ if [[ ! "$PROJECT_ID" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
   exit 1
 fi
 
-TEMPLATE_DIR="$HOME/SpecSystem/templates/project-spec"
-TARGET_DIR="$HOME/SpecSystem/projects/$PROJECT_ID"
+ROOT="$HOME/SpecSystem"
+TEMPLATE_DIR="$ROOT/shared/templates/project-spec"
+TARGET_DIR="$ROOT/projects/$PROJECT_ID"
+
+WIKI_PROJECT_DIR="$ROOT/shared/wiki/projects/$PROJECT_ID"
+ARCHIMATE_PROJECT_DIR="$ROOT/shared/models/archimate/projects/$PROJECT_ID"
+
 TODAY="$(date +%F)"
 
 if [ ! -d "$TEMPLATE_DIR" ]; then
@@ -49,28 +54,90 @@ fi
 python3 <<PY
 from pathlib import Path
 
-spec_file = Path("$SPEC_FILE")
-links_file = Path("$LINKS_FILE")
+project_id = "$PROJECT_ID"
+project_name = "$PROJECT_NAME"
+today = "$TODAY"
 
-spec_text = spec_file.read_text(encoding="utf-8")
-spec_text = spec_text.replace("<project-id>", "$PROJECT_ID")
-spec_text = spec_text.replace("<human-readable-name>", "$PROJECT_NAME")
-spec_text = spec_text.replace("YYYY-MM-DD", "$TODAY", 2)
-spec_text = spec_text.replace("<owner>", "Radim")
-spec_file.write_text(spec_text, encoding="utf-8")
+files = [
+    Path("$SPEC_FILE"),
+    Path("$LINKS_FILE"),
+]
 
-links_text = links_file.read_text(encoding="utf-8")
-links_text = links_text.replace("<project>", "$PROJECT_ID")
-links_file.write_text(links_text, encoding="utf-8")
+for path in files:
+    text = path.read_text(encoding="utf-8")
+    text = text.replace("<project-id>", project_id)
+    text = text.replace("<human-readable-name>", project_name)
+    text = text.replace("<project>", project_id)
+    text = text.replace("YYYY-MM-DD", today)
+    text = text.replace("<owner>", "Radim")
+    path.write_text(text, encoding="utf-8")
 PY
 
-mkdir -p "$TARGET_DIR/dist"
+mkdir -p "$TARGET_DIR/sources/raw"
+mkdir -p "$TARGET_DIR/sources/processed"
+mkdir -p "$TARGET_DIR/outputs/spec"
+mkdir -p "$TARGET_DIR/outputs/oha"
+mkdir -p "$TARGET_DIR/outputs/procurement"
+mkdir -p "$TARGET_DIR/outputs/architecture"
+mkdir -p "$TARGET_DIR/outputs/exports"
+
+mkdir -p "$WIKI_PROJECT_DIR"
+
+mkdir -p "$ARCHIMATE_PROJECT_DIR/generated"
+mkdir -p "$ARCHIMATE_PROJECT_DIR/reference"
+mkdir -p "$ARCHIMATE_PROJECT_DIR/validation"
+
+touch "$ARCHIMATE_PROJECT_DIR/elements.yaml"
+touch "$ARCHIMATE_PROJECT_DIR/relationships.yaml"
+touch "$ARCHIMATE_PROJECT_DIR/views.yaml"
+touch "$ARCHIMATE_PROJECT_DIR/graph.json"
+
+for MEMORY_TYPE in architecture concepts constraints decisions entities open-questions; do
+  mkdir -p "$ROOT/shared/memory/$MEMORY_TYPE"
+  if [ ! -f "$ROOT/shared/memory/$MEMORY_TYPE/$PROJECT_ID.md" ]; then
+    cat > "$ROOT/shared/memory/$MEMORY_TYPE/$PROJECT_ID.md" <<EOF
+# $PROJECT_NAME
+
+_Zatím nevygenerováno._
+EOF
+  fi
+done
+
+cat > "$WIKI_PROJECT_DIR/index.md" <<EOF
+# $PROJECT_NAME
+
+Projektový wiki prostor pro \`$PROJECT_ID\`.
+
+Wiki není kanonická specifikace.  
+Kanonická specifikace je v:
+
+\`projects/$PROJECT_ID/\`
+EOF
+
+cat > "$WIKI_PROJECT_DIR/README.md" <<EOF
+# $PROJECT_NAME Wiki
+
+Tento adresář obsahuje projektový prostor ve společné LLM Wiki.
+
+Primární zdroje:
+
+- SPEC: \`projects/$PROJECT_ID/\`
+- Memory: \`shared/memory/*/$PROJECT_ID.md\`
+- ArchiMate model: \`shared/models/archimate/projects/$PROJECT_ID/\`
+EOF
 
 echo "Projektová specifikace vytvořena:"
 echo "  $TARGET_DIR"
 echo
+echo "Vytvořené související prostory:"
+echo "  $WIKI_PROJECT_DIR"
+echo "  $ARCHIMATE_PROJECT_DIR"
+echo "  $ROOT/shared/memory/*/$PROJECT_ID.md"
+echo
 echo "Další kroky:"
-echo "  1. doplň Roam project v 00-meta/spec.yaml"
+echo "  1. doplň 00-meta/spec.yaml"
 echo "  2. doplň motivation, scope a architecture"
 echo "  3. vygeneruj view dokument:"
-echo "     ~/SpecSystem/build-spec-doc.sh $PROJECT_ID html"
+echo "     ./build-spec-doc.sh $PROJECT_ID html"
+echo "  4. rebuild memory:"
+echo "     ./shared/scripts/rebuild-memory.sh $PROJECT_ID"
