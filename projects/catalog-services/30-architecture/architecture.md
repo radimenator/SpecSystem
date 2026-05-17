@@ -2,26 +2,16 @@
 
 ## Účel architektury
 
-Architektura systému je navržena jako vícevrstvý service composition model,
-který propojuje:
+Architektura systému je navržena jako vícevrstvý service composition model, který propojuje enterprise architekturu, katalog služeb, inventory technologických objektů, SLA model, costing model a zákaznické služby.
 
-- enterprise architekturu,
-- katalog služeb,
-- inventory technologických objektů,
-- SLA model,
-- costing model,
-- zákaznické služby.
+Základní tok:
 
-Architektura vychází z principu:
-
-```text
-ArchiMate objekt
-→ katalogový list
-→ elementární služba
-→ agregační služba
-→ zákaznická služba
-→ pricing
-```
+    ArchiMate objekt
+    → katalogový list
+    → elementární služba
+    → agregační služba
+    → zákaznická služba
+    → SLA / pricing / simulace
 
 Cílem architektury je:
 
@@ -31,288 +21,539 @@ Cílem architektury je:
 - automatizovat pricing,
 - zajistit auditovatelnost costing modelu,
 - propojit enterprise architekturu s provozním modelem,
-- umožnit budoucí provisioning a objednávkový portál.
+- připravit datový model pro budoucí provisioning a objednávkový portál.
 
-Architektura je navržena jako:
+Architektura je:
+
 - inventory-driven,
 - service-oriented,
 - topology-aware,
 - SLA-aware,
-- pricing-aware.
+- pricing-aware,
+- auditovatelná,
+- verzovatelná.
 
 ---
 
 # Architektonické vrstvy
 
-## Motivation
+## ES — Elementární služby
 
-Vrstva Motivation popisuje:
-- stakeholdery,
-- business cíle,
+Elementární služby představují standardizované technologické stavební položky.
+
+ES jsou:
+
+- inventory-driven,
+- technické,
+- nákladově měřitelné,
+- samostatně neprodávané jako business produkt,
+- vstupem pro agregační služby.
+
+Příklady:
+
+- lokalita,
+- rack,
+- server,
+- router,
+- WAN linka,
+- virtualizační node,
+- Kubernetes node,
+- F5 appliance,
+- storage,
+- monitoring profile,
+- backup capability.
+
+ES poskytuje:
+
+- raw cost,
+- technické capability,
+- provozní atributy,
 - omezení,
-- principy,
-- požadavky,
-- architektonická rozhodnutí.
+- dostupnostní vstupy.
 
-Obsahuje:
-- ADR rozhodnutí,
-- service governance,
-- costing principy,
-- SLA principy,
-- provozní principy.
+ES sama o sobě nevytváří výsledné SLA zákaznické služby.
 
 ---
 
-## Business
+## AG — Agregační služby
 
-Business vrstva reprezentuje:
-- zákaznické služby,
-- business produkty,
-- SLA,
-- pricing,
-- business operace,
-- objednávkové capability.
+Agregační služby skládají elementární služby do technické kompozice.
 
-Business vrstva:
-- nekonzumuje infrastrukturu přímo,
-- využívá agregační služby,
-- prezentuje business hodnotu.
+AG vrstva definuje:
+
+- použité elementární služby,
+- topology,
+- dependency graph,
+- redundancy groups,
+- mandatory/optional prvky,
+- availability profile,
+- technical SLA model.
+
+AG je technická kompoziční vrstva.
+
+AG není primárně obchodně oceňovaný zákaznický produkt.
 
 Příklady:
-- Publikovaná aplikace
-- VDI Workspace
-- DR Application
-- HA Hosting
+
+- UPAAS platforma,
+- publikační platforma,
+- virtualizační cluster,
+- backup platform,
+- application delivery platform,
+- HA runtime prostředí.
+
+UPAAS je v tomto modelu agregační služba, pokud reprezentuje technické prostředí složené z elementárních položek.
 
 ---
 
-## Application
+## CS — Zákaznické služby
 
-Application vrstva reprezentuje:
-- agregační služby,
-- runtime kompozice,
-- topology model,
-- availability model,
-- SLA inheritance,
-- pricing orchestration.
+Zákaznické služby představují business-facing nabídku nad agregačními službami.
 
-Application vrstva:
-- skládá elementární služby,
-- definuje redundanci,
-- odvozuje SLA,
-- poskytuje runtime capability.
+CS vrstva přidává:
 
-Příklady:
-- Publikační platforma
-- Virtualizační cluster
-- Security Monitoring
-- Backup Platform
-- Application Delivery Platform
-
----
-
-## Technology
-
-Technology vrstva reprezentuje:
-- elementární služby,
-- inventory objekty,
-- technologické stavební jednotky.
-
-Každý významný ArchiMate objekt:
-- odpovídá katalogovému listu,
-- odpovídá databázové entitě,
-- odpovídá elementární službě.
+- business význam,
+- business SLA,
+- business overhead,
+- volitelné business operace,
+- zákaznický popis,
+- finální cenu,
+- governance,
+- order-readiness.
 
 Příklady:
-- Lokalita
-- Rack
-- Server
-- Router
-- WAN linka
-- Virtualizační node
-- Kubernetes node
-- F5 appliance
+
+- Publikovaná aplikace GOLD,
+- VDI Workspace,
+- DR Application,
+- HA Hosting,
+- Managed Application Runtime.
+
+CS využívá jednu nebo více AG služeb.
+
+CS nevytváří technickou dostupnost z ničeho; business SLA vychází z technického SLA / availability modelu AG vrstvy.
 
 ---
 
 # Hlavní komponenty
 
-## 1. Katalog elementárních služeb
+## 1. Catalog Core / Metadata Service
 
 Odpovědnost:
-- evidence technologických stavebních objektů,
-- inventory-driven costing,
-- operational profile,
-- lifecycle management.
 
-Obsahuje:
+- společná metadata katalogových objektů,
+- lifecycle,
+- versioning,
+- publikace,
+- audit log,
+- ownership,
+- schvalování změn.
+
+Tato komponenta je cross-layer capability pro ES, AG i CS.
+
+---
+
+## 2. Elementary Services Catalog
+
+Odpovědnost:
+
+- evidence elementárních služeb,
+- evidence katalogových listů ES,
+- operational profile,
+- raw cost,
+- technologické atributy,
+- JSON import/export ES položek.
+
+Obsahuje například:
+
 - lokality,
-- zařízení,
+- racky,
 - servery,
 - linky,
-- platform nodes,
-- runtime objekty.
+- routery,
+- runtime platformy,
+- technologické capability.
 
 ---
 
-## 2. Katalog agregačních služeb
+## 3. Aggregation Services Catalog
 
 Odpovědnost:
-- runtime composition,
+
+- evidence agregačních služeb,
+- skládání ES do AG,
 - topology model,
 - redundancy model,
-- SLA inheritance,
-- availability calculation.
+- dependency graph,
+- availability input model,
+- JSON import/export AG položek.
 
-Obsahuje:
-- kompozice elementárních služeb,
-- redundancy groups,
-- topology rules,
-- SLA profiles.
+AG katalog je klíčová kompoziční vrstva systému.
 
 ---
 
-## 3. Katalog zákaznických služeb
+## 4. Customer Services Catalog
 
 Odpovědnost:
-- business produkty,
-- business pricing,
-- business SLA,
-- volitelné business operace.
 
-Obsahuje:
-- business offerings,
+- evidence zákaznických služeb,
+- vazby CS → AG,
 - business overhead,
-- pricing rules,
-- customer options.
+- business options,
+- zákaznický popis,
+- JSON import/export CS položek.
+
+CS katalog je business-facing vrstva.
 
 ---
 
-## 4. SLA Engine
+## 5. SLA Engine
 
 Odpovědnost:
-- výpočet SLA,
-- výpočet dostupnosti,
-- odvození redundancy impact,
-- simulace výpadků.
 
-Výpočet probíhá:
-- z topology modelu,
-- z redundancy groups,
-- z počtu lokalit,
-- z počtu linek,
-- z HA modelu.
+- výpočet technické dostupnosti,
+- výpočet SLA z AG topologie,
+- vyhodnocení redundancy groups,
+- simulace výpadků,
+- výpočet dopadů změn topologie.
+
+SLA vzniká primárně na AG vrstvě.
+
+Vstupy:
+
+- topology model,
+- redundancy groups,
+- locality distribution,
+- HA model,
+- mandatory/optional prvky,
+- technické capability ES.
+
+Výstupy:
+
+- availability result,
+- SLA profile evaluation,
+- failure impact,
+- explainability trace.
 
 ---
 
-## 5. Pricing Engine
+## 6. Pricing Engine
 
 Odpovědnost:
+
 - výpočet ceny zákaznických služeb,
 - costing inheritance,
-- business overhead calculation,
-- simulace změn.
+- topology multiplier,
+- business overhead,
+- volitelné business operace,
+- pricing trace,
+- simulace změn nákladů.
 
-Pricing model:
+Základní model:
 
-```text
-ES raw cost
-× AG topology
-+ CS business overhead
-= customer price
-```
+    ES raw cost
+    × AG topology
+    + CS business overhead
+    = customer price
 
----
+Pricing musí být auditovatelný.
 
-## 6. Web Application
-
-Odpovědnost:
-- správa katalogových listů,
-- skládání agregačních služeb,
-- kalkulace ceny,
-- simulace změn,
-- objednávka zákaznických služeb.
+Každý výpočet ceny musí být vysvětlitelný přes pricing trace.
 
 ---
 
-## 7. Integration Layer
+## 7. Simulation / Impact Analysis Service
 
 Odpovědnost:
+
+- simulace změn infrastruktury,
+- simulace změn SLA,
+- simulace změn nákladů,
+- dopad změny ES do AG,
+- dopad změny AG do CS,
+- what-if scénáře.
+
+Příklady:
+
+- změna ceny serverového typu,
+- výpadek lokality,
+- přidání redundancy group,
+- změna SLA profilu,
+- změna business overhead.
+
+---
+
+## 8. Integration Layer
+
+Odpovědnost:
+
 - integrace s CMDB,
 - integrace s monitoring systémy,
-- integrace s provisioning workflow,
-- export pricing modelů.
+- export pricing modelů,
+- synchronizace referenčních dat,
+- reconciliation,
+- conflict detection.
+
+Source-of-truth boundary:
+
+- CMDB vlastní technologickou evidenci konkrétních objektů.
+- Catalog Services systém vlastní katalogové typy, kompozice, costing, SLA a business nabídku.
+- Monitoring poskytuje provozní fakta, ale nenahrazuje katalog ani SLA engine.
+
+---
+
+## 9. Web Application
+
+Odpovědnost:
+
+- správa ES katalogu,
+- skládání AG služeb,
+- správa CS nabídky,
+- kalkulace ceny,
+- simulace změn,
+- review pricing/SLA trace,
+- lifecycle workflow,
+- import/export JSON.
+
+Webová aplikace má minimálně tyto pracovní oblasti:
+
+- ES Catalog Console,
+- AG Composition Workspace,
+- CS Offering Workspace,
+- Pricing Workspace,
+- SLA Workspace,
+- Simulation Workspace,
+- Integration Operations Console.
 
 ---
 
 # Hlavní vztahy
 
-## Elementární → Agregační
+## ES → AG
 
-Agregační služby:
-- skládají elementární služby,
-- definují topology,
-- definují redundanci,
-- definují runtime composition.
+Agregační služby skládají elementární služby.
+
+Vazba ES → AG obsahuje:
+
+- typ ES,
+- referenci na ES položku,
+- quantity,
+- topology role,
+- redundancy group,
+- mandatory flag.
 
 Příklad:
 
-```text
-Publikační platforma
-=
-2× Lokalita
-2× Router
-2× WAN linka
-2× F5
-1× Monitoring profile
-```
+    Publikační platforma HA
+    =
+    2× Lokalita
+    2× Router
+    2× WAN linka
+    2× F5
+    1× Monitoring profile
+
+AG z ES přebírá:
+
+- technické capability,
+- raw cost,
+- availability vstupy,
+- provozní omezení.
 
 ---
 
-## Agregační → Zákaznické
+## AG → CS
 
-Zákaznické služby:
-- využívají agregační služby,
-- přidávají business SLA,
-- přidávají business operace,
-- přidávají governance.
+Zákaznické služby využívají agregační služby.
+
+CS přidává:
+
+- business SLA,
+- business overhead,
+- zákaznický popis,
+- volitelné operace,
+- governance.
 
 Příklad:
 
-```text
-Publikovaná aplikace GOLD
-=
-Publikační platforma HA
-+
-24x7 support
-+
-Reporting
-+
-Security governance
-```
+    Publikovaná aplikace GOLD
+    =
+    Publikační platforma HA
+    +
+    24x7 support
+    +
+    Reporting
+    +
+    Security governance
 
 ---
 
 ## SLA inheritance
 
-SLA:
-- nevzniká na úrovni elementárních služeb,
-- vzniká až z runtime composition agregačních služeb.
+SLA nevzniká na úrovni ES.
 
-Výsledné SLA je odvozeno:
-- z redundancy,
-- z topology,
-- z geografické distribuce,
-- z HA modelu.
+SLA vzniká z AG vrstvy podle:
+
+- redundancy,
+- topology,
+- geografické distribuce,
+- HA modelu,
+- mandatory/optional prvků,
+- failure impact pravidel.
+
+CS může SLA businessově prezentovat, ale nemá ji vytvářet bez technického základu.
 
 ---
 
 ## Pricing inheritance
 
-Pricing:
-- vychází z raw cost elementárních služeb,
-- je násoben topology agregačních služeb,
-- je doplněn business overhead zákaznických služeb.
+Pricing vychází z vícevrstvého modelu:
+
+- ES poskytuje raw cost.
+- AG určuje topology multiplier a množství.
+- CS přidává business overhead a volitelné business operace.
+
+Výpočet musí být:
+
+- verzovaný,
+- auditovatelný,
+- vysvětlitelný,
+- reprodukovatelný.
+
+---
+
+# Datový model
+
+## Princip návrhu
+
+Datový model je založen na principu:
+
+    ArchiMate objekt = katalogový list = databázová entita / typová položka
+
+Neexistuje jedna univerzální tabulka pro všechny služby.
+
+Každý významný typ objektu má:
+
+- vlastní katalogový list,
+- vlastní atributy,
+- vlastní costing model,
+- vlastní operational profile,
+- vlastní lifecycle.
+
+Výhody:
+
+- kompatibilita s enterprise architekturou,
+- kompatibilita s CMDB,
+- auditovatelnost,
+- jasné ownership,
+- rozšiřitelnost,
+- lepší validace.
+
+---
+
+## Katalogové typy vs runtime instance
+
+Systém v aktuálním scope primárně modeluje:
+
+- katalogové typy,
+- katalogové listy,
+- kompozice služeb,
+- pricing/SLA profily,
+- dependency modely.
+
+Systém zatím nemodeluje plnohodnotně:
+
+- zákaznické subscription,
+- objednávkové instance,
+- provisioning runs,
+- fakturaci,
+- incidenty.
+
+Datový model však má být připraven pro budoucí napojení objednávkového portálu a provisioning workflow.
+
+---
+
+# Lifecycle a versioning
+
+Každý katalogový objekt musí mít lifecycle.
+
+Typické stavy:
+
+- draft,
+- in_review,
+- approved,
+- published,
+- deprecated,
+- retired.
+
+Lifecycle se týká:
+
+- ES typů,
+- AG typů,
+- CS typů,
+- pricing profilů,
+- SLA profilů,
+- JSON schémat,
+- import/export kontraktů.
+
+Změny musí být verzované.
+
+Změna ES může mít dopad na:
+
+- AG kompozice,
+- SLA výpočty,
+- CS pricing,
+- publikované katalogové nabídky.
+
+Proto systém musí podporovat impact analysis před publikací změny.
+
+---
+
+# Import / export JSON
+
+Systém musí podporovat import a export do JSON pro:
+
+- elementární položky,
+- agregační položky,
+- zákaznické služby,
+- pricing profily,
+- SLA profily,
+- dependency modely,
+- simulation scénáře.
+
+JSON kontrakty musí být:
+
+- verzované,
+- validovatelné,
+- zpětně dohledatelné,
+- použitelné pro migraci i integraci.
+
+Import nesmí tiše přepsat publikovaná data bez lifecycle pravidel.
+
+---
+
+# API a integrační kontrakty
+
+Architektura předpokládá API pro:
+
+- správu ES katalogu,
+- správu AG katalogu,
+- správu CS katalogu,
+- výpočet pricing,
+- výpočet SLA,
+- simulace,
+- import/export JSON,
+- integraci s CMDB,
+- integraci s monitoringem.
+
+API musí definovat:
+
+- resource model,
+- request/response schema,
+- error model,
+- idempotency pravidla,
+- auth/authz model,
+- versioning,
+- audit trail.
 
 ---
 
@@ -511,25 +752,18 @@ CREATE TABLE cs_service_option (
 
 # ArchiMate model
 
-## Nástroj
+## Účel
 
-Archi
+ArchiMate model slouží jako formální projekce služby a její kompozice.
 
----
-
-## Soubor
-
-```text
-upaas-service-model.archimate
-```
-
----
+Model není source of truth místo SPEC, ale musí být dohledatelný na katalogové položky.
 
 ## Hlavní pohledy
 
 ### 1. Motivation View
 
 Obsahuje:
+
 - stakeholdery,
 - cíle,
 - principy,
@@ -537,74 +771,90 @@ Obsahuje:
 - requirements,
 - ADR rozhodnutí.
 
----
-
 ### 2. Technology Layer View
 
 Obsahuje:
+
 - elementární služby,
 - inventory objekty,
 - lokality,
 - zařízení,
 - runtime nodes.
 
----
-
 ### 3. Application Layer View
 
 Obsahuje:
+
 - agregační služby,
 - runtime composition,
 - SLA model,
 - availability model,
 - topology model.
 
----
-
 ### 4. Business Layer View
 
 Obsahuje:
+
 - zákaznické služby,
 - business products,
 - pricing model,
 - SLA offerings.
 
----
-
 ### 5. Service Composition View
 
 Obsahuje:
-- dependency graph,
-- inheritance model,
+
+- ES → AG → CS dependency graph,
 - SLA inheritance,
 - pricing inheritance.
-
----
 
 ### 6. Pricing View
 
 Obsahuje:
-- costing chain,
-- resource costing,
-- topology costing,
-- business overhead.
 
----
+- ES raw cost,
+- AG topology costing,
+- CS business overhead,
+- customer price.
 
 ### 7. Runtime Topology View
 
 Obsahuje:
+
 - redundancy groups,
 - HA topology,
 - DR topology,
 - locality distribution.
 
----
-
 ### 8. Change Impact View
 
 Obsahuje:
+
 - dopad změn infrastruktury,
 - dopad změn SLA,
 - costing impact,
 - dependency impact.
+
+---
+
+# Regeneration relevance
+
+Architektura musí být dostatečně přesná pro budoucí regeneraci:
+
+- komponentového modelu,
+- databázového modelu,
+- API kontraktů,
+- JSON schémat,
+- pricing engine,
+- SLA engine,
+- ArchiMate modelu,
+- validačních pravidel.
+
+Každá schopnost deklarovaná v architektuře musí mít později odpovídající:
+
+- komponentu,
+- datový model,
+- API kontrakt,
+- validační pravidlo,
+- lifecycle pravidlo,
+- traceability vazbu.

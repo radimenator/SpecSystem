@@ -1,23 +1,332 @@
 components:
-  - id: example_component
-    name: Example Component
-
-    type: application_component # application_component | data_object | service
-    layer: application # business | application | technology
-
-    purpose: Popis účelu komponenty
-
+  - id: element_template_editor
+    name: Element Template Editor
+    type: application_component
+    layer: application
+    purpose: Správa šablon elementárních položek podle typů.
     responsibilities:
-      - odpovědnost 1
-      - odpovědnost 2
+      - definice typů elementárních položek
+      - definice povinných a volitelných atributů
+      - definice validačních pravidel šablon
+      - správa verzí šablon
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
 
+  - id: elementary_items_catalog
+    name: Elementary Items Catalog
+    type: application_component
+    layer: application
+    purpose: Evidence konkrétních elementárních položek vytvořených podle šablon.
+    responsibilities:
+      - evidence elementárních položek
+      - validace položek proti šablonám
+      - správa provozních atributů
+      - správa nákladových atributů
+      - správa povinných provozních činností
+      - import a export položek do JSON
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+
+  - id: aggregation_builder
+    name: Aggregation Builder
+    type: application_component
+    layer: application
+    purpose: Skládání elementárních položek do agregačních služeb a prostředí.
+    responsibilities:
+      - výběr elementárních položek
+      - skládání položek do agregací
+      - definice množství položek
+      - definice rolí v topologii
+      - definice redundancy groups
+      - validace kompozice
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+
+  - id: aggregated_services_catalog
+    name: Aggregated Services Catalog
+    type: application_component
+    layer: application
+    purpose: Evidence agregačních služeb složených z elementárních položek.
+    responsibilities:
+      - evidence agregačních služeb
+      - evidence složení agregace
+      - evidence dependency graphu
+      - evidence topology modelu
+      - evidence povinných provozních činností
+      - import a export agregačních služeb do JSON
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+
+  - id: customer_services_catalog
+    name: Customer Services Catalog
+    type: application_component
+    layer: business
+    purpose: Evidence zákaznických služeb postavených nad agregačními službami.
+    responsibilities:
+      - evidence zákaznických služeb
+      - vazba zákaznických služeb na agregační služby
+      - evidence business atributů
+      - evidence business overhead
+      - evidence volitelných business operací
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+
+  - id: mandatory_service_activities
+    name: Mandatory Service Activities
+    type: application_component
+    layer: application
+    purpose: Evidence povinných provozních činností, které jsou nedílnou součástí elementárních i agregačních položek.
+    responsibilities:
+      - evidence povinných činností pro elementární položky
+      - evidence povinných činností pro agregační služby
+      - definice činností, které zákazník nemůže odmítnout
+      - zahrnutí povinných činností do pricing výpočtu
+      - zahrnutí povinných činností do SLA a provozního modelu
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+
+  - id: pricing_calculator
+    name: Pricing Calculator
+    type: application_component
+    layer: application
+    purpose: Výpočet ceny z elementárních položek, agregační kompozice, povinných činností a business overhead.
+    responsibilities:
+      - výpočet raw cost elementárních položek
+      - výpočet ceny povinných provozních činností
+      - výpočet ceny agregační služby
+      - výpočet business overhead
+      - výpočet ceny zákaznické služby
+      - vytvoření pricing trace
     interfaces:
       - api
-      - cli
+      - web_ui
+
+  - id: sla_calculator
+    name: SLA Calculator
+    type: application_component
+    layer: application
+    purpose: Výpočet dostupnosti a SLA z topologie agregační služby.
+    responsibilities:
+      - výpočet dostupnosti agregační služby
+      - vyhodnocení redundancy modelu
+      - vyhodnocení dopadu povinných a volitelných prvků
+      - zohlednění povinných provozních činností
+      - vytvoření SLA trace
+    interfaces:
+      - api
+      - web_ui
+
+  - id: json_import_export_service
+    name: JSON Import / Export Service
+    type: application_component
+    layer: application
+    purpose: Import a export šablon, elementárních položek, agregací, povinných činností a zákaznických služeb ve formátu JSON.
+    responsibilities:
+      - export šablon do JSON
+      - import šablon z JSON
+      - export elementárních položek do JSON
+      - import elementárních položek z JSON
+      - export agregačních služeb do JSON
+      - import agregačních služeb z JSON
+      - export povinných provozních činností do JSON
+      - import povinných provozních činností z JSON
+      - validace JSON struktury
+    interfaces:
+      - api
+      - file_import
+      - file_export
+
+  - id: catalog_database
+    name: Catalog Database
+    type: data_object
+    layer: application
+    purpose: Datové úložiště šablon, elementárních položek, agregací, zákaznických služeb, povinných činností a výpočtů.
+    responsibilities:
+      - ukládání šablon elementárních položek
+      - ukládání elementárních položek
+      - ukládání agregačních služeb
+      - ukládání zákaznických služeb
+      - ukládání povinných provozních činností
+      - ukládání pricing a SLA výpočtů
+    interfaces:
+      - sql
+
+  - id: web_application
+    name: Web Application
+    type: application_component
+    layer: application
+    purpose: Uživatelské rozhraní pro správu šablon, elementárních položek, agregací, povinných činností a výpočtů.
+    responsibilities:
+      - správa šablon
+      - správa elementárních položek
+      - skládání agregačních služeb
+      - správa zákaznických služeb
+      - správa povinných provozních činností
+      - spuštění pricing výpočtu
+      - spuštění SLA výpočtu
+      - import a export JSON
+    interfaces:
+      - web_ui
 
 relations:
-  - source: example_component
-    target: another_component
+  - source: web_application
+    target: element_template_editor
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu šablon elementárních položek.
 
-    type: association # association | flow | access | serving
-    description: vztah mezi komponentami
+  - source: web_application
+    target: elementary_items_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu elementárních položek.
+
+  - source: web_application
+    target: aggregation_builder
+    type: serving
+    description: Webová aplikace poskytuje UI pro skládání agregačních služeb.
+
+  - source: web_application
+    target: aggregated_services_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu agregačních služeb.
+
+  - source: web_application
+    target: customer_services_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu zákaznických služeb.
+
+  - source: web_application
+    target: mandatory_service_activities
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu povinných provozních činností.
+
+  - source: element_template_editor
+    target: elementary_items_catalog
+    type: serving
+    description: Šablony určují strukturu a validaci elementárních položek.
+
+  - source: elementary_items_catalog
+    target: aggregation_builder
+    type: serving
+    description: Elementární položky jsou stavebními bloky pro agregace.
+
+  - source: aggregation_builder
+    target: aggregated_services_catalog
+    type: flow
+    description: Výsledkem skládání je agregační služba uložená v katalogu.
+
+  - source: aggregated_services_catalog
+    target: customer_services_catalog
+    type: serving
+    description: Zákaznické služby jsou stavěny nad agregačními službami.
+
+  - source: mandatory_service_activities
+    target: elementary_items_catalog
+    type: access
+    description: Povinné činnosti jsou přiřazeny k elementárním položkám jako součást jejich provozního profilu.
+
+  - source: mandatory_service_activities
+    target: aggregated_services_catalog
+    type: access
+    description: Povinné činnosti jsou přiřazeny k agregačním službám jako součást jejich provozního modelu.
+
+  - source: pricing_calculator
+    target: elementary_items_catalog
+    type: access
+    description: Pricing Calculator čte nákladové atributy elementárních položek.
+
+  - source: pricing_calculator
+    target: aggregated_services_catalog
+    type: access
+    description: Pricing Calculator čte složení agregačních služeb.
+
+  - source: pricing_calculator
+    target: customer_services_catalog
+    type: access
+    description: Pricing Calculator čte business overhead zákaznických služeb.
+
+  - source: pricing_calculator
+    target: mandatory_service_activities
+    type: access
+    description: Pricing Calculator zahrnuje náklady povinných činností do výsledné ceny.
+
+  - source: sla_calculator
+    target: aggregated_services_catalog
+    type: access
+    description: SLA Calculator čte topologii a redundanci agregačních služeb.
+
+  - source: sla_calculator
+    target: mandatory_service_activities
+    type: access
+    description: SLA Calculator zohledňuje povinné činnosti při vyhodnocení provozního modelu služby.
+
+  - source: json_import_export_service
+    target: element_template_editor
+    type: access
+    description: JSON služba importuje a exportuje šablony elementárních položek.
+
+  - source: json_import_export_service
+    target: elementary_items_catalog
+    type: access
+    description: JSON služba importuje a exportuje elementární položky.
+
+  - source: json_import_export_service
+    target: aggregated_services_catalog
+    type: access
+    description: JSON služba importuje a exportuje agregační služby.
+
+  - source: json_import_export_service
+    target: customer_services_catalog
+    type: access
+    description: JSON služba importuje a exportuje zákaznické služby.
+
+  - source: json_import_export_service
+    target: mandatory_service_activities
+    type: access
+    description: JSON služba importuje a exportuje definice povinných provozních činností.
+
+  - source: element_template_editor
+    target: catalog_database
+    type: access
+    description: Editor šablon ukládá definice šablon do databáze.
+
+  - source: elementary_items_catalog
+    target: catalog_database
+    type: access
+    description: Katalog elementárních položek ukládá položky do databáze.
+
+  - source: aggregated_services_catalog
+    target: catalog_database
+    type: access
+    description: Katalog agregačních služeb ukládá agregace do databáze.
+
+  - source: customer_services_catalog
+    target: catalog_database
+    type: access
+    description: Katalog zákaznických služeb ukládá zákaznické služby do databáze.
+
+  - source: mandatory_service_activities
+    target: catalog_database
+    type: access
+    description: Povinné provozní činnosti jsou ukládány do katalogové databáze.
+
+  - source: pricing_calculator
+    target: catalog_database
+    type: access
+    description: Pricing Calculator ukládá pricing trace a výsledky výpočtů.
+
+  - source: sla_calculator
+    target: catalog_database
+    type: access
+    description: SLA Calculator ukládá SLA trace a výsledky výpočtů.
