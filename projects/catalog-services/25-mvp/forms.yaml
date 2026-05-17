@@ -1,0 +1,183 @@
+```yaml
+forms:
+  - id: es_location
+    title: Lokalita
+    layer: elementary
+    entity: es_location
+    fields:
+      - name: id
+        label: ID
+        type: text
+        required: true
+      - name: name
+        label: Název lokality
+        type: text
+        required: true
+      - name: physical_security_level
+        label: Úroveň fyzické bezpečnosti
+        type: select
+        required: true
+        options:
+          - basic
+          - standard
+          - high
+          - critical
+      - name: geo_redundancy_supported
+        label: Podpora geografické redundance
+        type: boolean
+      - name: monthly_cost
+        label: Měsíční cena
+        type: number
+        required: true
+  - id: es_server
+    title: Server
+    layer: elementary
+    entity: es_server
+    fields:
+      - name: id
+        label: ID
+        type: text
+        required: true
+      - name: name
+        label: Název serverového typu
+        type: text
+        required: true
+      - name: cpu_count_min
+        label: CPU min
+        type: number
+      - name: cpu_count_max
+        label: CPU max
+        type: number
+      - name: ram_gb_min
+        label: RAM GB min
+        type: number
+      - name: ram_gb_max
+        label: RAM GB max
+        type: number
+      - name: storage_tb_min
+        label: Storage TB min
+        type: number
+      - name: storage_tb_max
+        label: Storage TB max
+        type: number
+      - name: monthly_cost
+        label: Měsíční cena
+        type: number
+        required: true
+  - id: ag_service
+    title: Agregační služba
+    layer: aggregation
+    entity: ag_service
+    fields:
+      - name: id
+        label: ID
+        type: text
+        required: true
+      - name: name
+        label: Název AG služby
+        type: text
+        required: true
+      - name: category
+        label: Kategorie
+        type: text
+      - name: sla_set
+        label: SLA set
+        type: text
+      - name: availability
+        label: Dostupnost
+        type: number
+        readonly: true
+      - name: items
+        label: Položky služby
+        type: relation_list
+        relation:
+          target_layer: elementary
+          allowed_entities:
+            - es_location
+            - es_rack
+            - es_wan_link
+            - es_server
+            - es_router
+            - es_switch
+            - es_load_balancer
+            - es_firewall
+            - es_virtualization
+            - es_containerization
+          fields:
+            - name: reference_id
+              label: Vybraná ES služba
+              type: reference
+              required: true
+            - name: quantity
+              label: Počet
+              type: number
+              required: true
+              default: 1
+            - name: topology_role
+              label: Role v topologii
+              type: text
+            - name: mandatory
+              label: Povinné
+              type: boolean
+              default: true
+  - id: cs_service
+    title: Zákaznická služba
+    layer: customer
+    entity: cs_service
+    fields:
+      - name: id
+        label: ID
+        type: text
+        required: true
+      - name: name
+        label: Název CS služby
+        type: text
+        required: true
+      - name: business_owner
+        label: Business vlastník
+        type: text
+      - name: service_unit
+        label: Jednotka služby
+        type: text
+      - name: business_overhead
+        label: Business overhead
+        type: number
+        default: 0
+      - name: ag_dependencies
+        label: Agregační služby
+        type: relation_list
+        relation:
+          target_layer: aggregation
+          allowed_entities:
+            - ag_service
+          fields:
+            - name: ag_id
+              label: Vybraná AG služba
+              type: reference
+              required: true
+            - name: quantity
+              label: Počet
+              type: number
+              default: 1
+            - name: mandatory
+              label: Povinné
+              type: boolean
+              default: true
+      - name: options
+        label: Volitelné položky
+        type: embedded_list
+        fields:
+          - name: option_name
+            label: Název položky
+            type: text
+            required: true
+          - name: unit
+            label: Jednotka
+            type: text
+          - name: unit_price
+            label: Jednotková cena
+            type: number
+          - name: optional
+            label: Volitelné
+            type: boolean
+            default: true
