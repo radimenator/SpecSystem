@@ -1,16 +1,33 @@
-links:
-  roam:
-    project_page: "PO/..."
+implementation_repositories:
+  - id: catalog-services-app
+    type: application
 
-  local_paths:
-    project_root: "~/Projects/catalog-services"
-    spec_root: "~/SpecSystem/projects/catalog-services"
+    git:
+      remote: git@github.com:radimenator/catalog-services-app.git
+      default_branch: main
 
-  repositories:
-    - url: https://github.com/...
-      description: hlavní repo
+    specification:
+      project_path: /srv/workspace/spec-system/projects/catalog-services
 
-  services:
-    - name: VPS
-      type: infra
-      provider: Hetzner
+    environments:
+      local_macbook:
+        role: primary-development
+        workspace_root: /Users/radimpokorny/Projects/catalog-services-app
+
+      vps_workspace:
+        role: ai-execution-and-runtime
+        workspace_root: /srv/workspace/repos/catalog-services-app
+
+    regeneration:
+      allowed_target:
+        - vps_workspace
+
+    ownership:
+      canonical_source: git_remote
+      runtime_execution: vps_workspace
+      specification_source: spec-system
+
+    notes:
+      - SPEC repository and implementation repository must remain separated
+      - AI regeneration runs must target only implementation repository
+      - generated code must never be written into spec-system
