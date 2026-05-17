@@ -1,1 +1,153 @@
+metadata:
+  rule_set_id: catalog-services-consistency-rules
+  version: 1.0.0
+  status: active
+  owner_role: Contract Owner
+  approval_role: Approval Owner
+  contract_reference: validation-contract
 
+rule_categories:
+  - structure
+  - semantics
+  - governance
+  - contracts
+  - traceability
+  - regeneration
+
+rules:
+  - id: STR-001
+    title: Required hardening artifact families exist
+    description: Required governance, contracts, validation and regeneration files must exist.
+    category: structure
+    severity: critical
+    applies_to:
+      - 55-governance/*
+      - 65-contracts/*
+      - 90-validation/*
+      - 70-regeneration/regeneration.md
+    preconditions: []
+    automated_check: true
+    manual_check: false
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - file existence
+    remediation_hint: Create missing hardening artifacts before publication.
+
+  - id: STR-002
+    title: Aggregated SPEC synchronization
+    description: Aggregated spec must contain governance, contracts, validation and regeneration sections aligned with source SPEC.
+    category: traceability
+    severity: critical
+    applies_to:
+      - outputs/spec/spec.md
+    preconditions:
+      - source files present
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - aggregated view references current source sections
+    remediation_hint: Regenerate aggregated SPEC from current approved sources.
+
+  - id: CON-001
+    title: Pricing contract is active and normative
+    description: Pricing contract must define required inputs, required outputs, normative rules and persistence implications.
+    category: contracts
+    severity: critical
+    applies_to:
+      - 65-contracts/pricing-contract.yaml
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - contract fields present
+    remediation_hint: Complete pricing contract fields before regeneration readiness.
+
+  - id: CON-002
+    title: SLA contract is active and normative
+    description: SLA contract must define required inputs, required outputs, normative rules and persistence implications.
+    category: contracts
+    severity: critical
+    applies_to:
+      - 65-contracts/sla-contract.yaml
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - contract fields present
+    remediation_hint: Complete SLA contract fields before regeneration readiness.
+
+  - id: GOV-001
+    title: Publishable artifacts have ownership and approval semantics
+    description: Publishable artifact families must have owner role and approval role defined.
+    category: governance
+    severity: high
+    applies_to:
+      - 55-governance/governance.md
+      - 65-contracts/*.yaml
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - owner and approval assignments documented
+    remediation_hint: Add or correct ownership mappings.
+
+  - id: REG-001
+    title: Regeneration zones are explicitly distinguished
+    description: Regeneration rules must distinguish stable zones, regenerable zones, contract-first zones and human approval gates.
+    category: regeneration
+    severity: critical
+    applies_to:
+      - 70-regeneration/regeneration.md
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - all four zone types explicitly present
+    remediation_hint: Expand regeneration rules to include all required zone classes.
+
+  - id: SEM-001
+    title: ES AG CS model remains canonical
+    description: Hardening changes must preserve the canonical ES → AG → CS layering and meaning.
+    category: semantics
+    severity: critical
+    applies_to:
+      - 20-scope/scope.md
+      - 30-architecture/architecture.md
+      - 40-components/components.yaml
+      - outputs/spec/spec.md
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - consistent references to ES AG CS layering
+    remediation_hint: Remove or correct changes that collapse or reorder the service layers.
+
+  - id: CMP-001
+    title: Components are treated as deployment-neutral capabilities
+    description: Component model must not force a deployment interpretation.
+    category: semantics
+    severity: medium
+    applies_to:
+      - 30-architecture/architecture.md
+      - 40-components/components.yaml
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: false
+    expected_evidence:
+      - logical capability wording
+    remediation_hint: Clarify logical vs deployment-neutral interpretation.

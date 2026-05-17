@@ -1,0 +1,61 @@
+contract:
+  id: sla-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro SLA a availability boundary. Contract je deployment-neutral
+    a určuje významové vstupy, výstupy, failure semantics a explainability expectation.
+
+scope:
+  applies_to:
+    - AG topology-based availability evaluation
+    - redundancy semantics
+    - failure impact evaluation
+    - SLA profile interpretation
+    - technical availability to business SLA dependency
+  excludes:
+    - monitoring transport design
+    - runtime incident handling workflow
+    - specific mathematical implementation detail beyond required semantics
+
+required_inputs:
+  - SLA subject identifier
+  - AG topology reference
+  - redundancy groups reference
+  - locality distribution reference
+  - mandatory and optional element semantics
+  - technical capability input references from ES
+  - SLA profile reference
+  - lifecycle and version context
+
+required_outputs:
+  - availability_result
+  - SLA_profile_evaluation
+  - failure_impact_view
+  - explainability_trace
+  - source_version_references
+  - evaluation_status
+  - publication_eligibility_flag
+
+normative_rules:
+  - SLA nevzniká na úrovni ES, ale z AG topologie.
+  - Business SLA v CS musí mít technický základ v AG availability modelu.
+  - Failure impact musí být vysvětlitelný vzhledem k redundancy a topology modelu.
+  - SLA evaluation musí být reprodukovatelná ze stejných vstupních verzí.
+  - Contract neurčuje deployment ani konkrétní API design.
+
+persistence_implications:
+  required_domains:
+    - sla_profiles
+    - availability_evaluations
+    - failure_impact_records
+    - sla_traces
+    - source_version_references
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Technical Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking

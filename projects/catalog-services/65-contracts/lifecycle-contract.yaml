@@ -1,0 +1,61 @@
+contract:
+  id: lifecycle-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro lifecycle semantics artefaktů v katalogovém systému.
+
+applies_to_artifacts:
+  - ES types
+  - AG types
+  - CS types
+  - pricing profiles
+  - SLA profiles
+  - import/export contracts
+  - validation rules
+  - aggregated spec publications
+
+states:
+  - draft
+  - in_review
+  - approved
+  - published
+  - deprecated
+  - retired
+
+required_inputs:
+  - artifact_identifier
+  - artifact_family
+  - current_state
+  - requested_transition
+  - actor_role
+  - dependency_validation_status
+  - approval_status
+  - version_context
+
+required_outputs:
+  - transition_decision
+  - resulting_state
+  - required_follow_up_actions
+  - impact_flags
+  - approval_requirements
+
+normative_rules:
+  - Publikace je možná jen ze stavu approved.
+  - Deprecated a retired artefakty nesmí být použity jako nový canonical input bez explicitního lidského schválení.
+  - Contract-breaking změna musí být posouzena jako semantic nebo vyšší lifecycle event.
+  - Lifecycle semantics musí být konzistentní napříč source a aggregated SPEC.
+
+persistence_implications:
+  required_domains:
+    - lifecycle_state_history
+    - approval_links
+    - transition_evidence
+    - artifact_version_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking

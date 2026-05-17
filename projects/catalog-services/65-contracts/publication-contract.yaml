@@ -1,0 +1,50 @@
+contract:
+  id: publication-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro publication readiness a publishable artifact semantics.
+
+publishable_artifact_families:
+  - source SPEC chapters
+  - canonical contracts
+  - validation rules
+  - validation reports
+  - aggregated SPEC view
+  - regeneration readiness artifacts
+
+required_inputs:
+  - artifact_identifier
+  - artifact_family
+  - lifecycle_state
+  - owner_assignment
+  - validation_result
+  - approval_status
+  - version_context
+
+required_outputs:
+  - publication_decision
+  - publication_record
+  - published_version_marker
+  - publication_blockers
+  - invalidation_or_rollback_flags
+
+normative_rules:
+  - Draft-only artefakt nesmí být publikován jako canonical source.
+  - Aggregated SPEC může být publikován pouze pokud je synchronizovaný se schválenými source artefakty.
+  - Publishable artefakt musí mít ownera a validační výsledek bez blocking issues.
+  - Publication contract nesmí definovat deployment pipeline nebo konkrétní nástroj.
+
+persistence_implications:
+  required_domains:
+    - publication_records
+    - published_version_snapshots
+    - publication_lineage
+    - publication_blockers
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking

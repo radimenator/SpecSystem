@@ -1,0 +1,63 @@
+metadata:
+  contract_family: catalog-services-canonical-contracts
+  version: 1.0.0
+  status: active
+  owner_role: Contract Owner
+  approval_role: Approval Owner
+
+contracts:
+  - id: pricing-contract
+    file: 65-contracts/pricing-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: sla-contract
+    file: 65-contracts/sla-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: lifecycle-contract
+    file: 65-contracts/lifecycle-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: publication-contract
+    file: 65-contracts/publication-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: ownership-contract
+    file: 65-contracts/ownership-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: import-export-contract
+    file: 65-contracts/import-export-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: validation-contract
+    file: 65-contracts/validation-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: null

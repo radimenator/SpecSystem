@@ -858,3 +858,125 @@ Každá schopnost deklarovaná v architektuře musí mít později odpovídajíc
 - validační pravidlo,
 - lifecycle pravidlo,
 - traceability vazbu.
+---
+
+# Canonical contracts overview
+
+Canonical contracts jsou deployment-neutral artefakty, které uzavírají významové boundary systému.
+
+V systému `catalog-services` jsou canonical contracts povinné pro:
+- pricing,
+- SLA,
+- lifecycle,
+- publication,
+- ownership,
+- validation,
+- import/export.
+
+Každý canonical contract musí mít:
+- identifier,
+- verzi,
+- ownera,
+- approval role,
+- normative rules,
+- persistence implications.
+
+Contracts nejsou fake API design.
+Contracts neurčují endpointy, transport ani deployment.
+Contracts určují významové a governance hranice systému.
+
+---
+
+# Logical modules vs deployment-neutral capabilities
+
+Architektura rozlišuje:
+
+- **logical capability** — významová schopnost systému,
+- **component** — modelovaná architektonická jednotka ve SPEC,
+- **deployment unit** — budoucí implementační rozhodnutí mimo tento SPEC.
+
+Tento SPEC definuje logical capabilities a komponentové boundary.
+Tento SPEC vědomě nedefinuje fyzický deployment model.
+
+To znamená:
+- Pricing Engine je canonical capability,
+- SLA Engine je canonical capability,
+- Contract Governance je canonical capability,
+- ale SPEC neurčuje, zda půjde o samostatné služby, moduly nebo jinou implementační formu.
+
+---
+
+# Persistence domains and cross-cutting records
+
+Pro bezpečnou implementaci a regeneraci musí být persistence chápána jako sada logických domén, nikoliv jen jednotlivé tabulky.
+
+Povinné logické persistence domény:
+- katalogové typy ES,
+- katalogové typy AG,
+- katalogové typy CS,
+- pricing profiles,
+- SLA profiles,
+- lifecycle history,
+- publication records,
+- owner assignments,
+- validation rule sets,
+- validation runs,
+- pricing traces,
+- SLA traces,
+- import/export history.
+
+Cross-cutting records musí minimálně podporovat:
+- version references,
+- audit evidence,
+- approval evidence,
+- traceability evidence.
+
+SPEC tímto neurčuje fyzický storage engine.
+Určuje pouze logické persistence boundary, které nesmí být v implementaci ztraceny.
+
+---
+
+# Traceability and publication boundaries
+
+Každá publishable schopnost deklarovaná v architektuře musí být dohledatelná na:
+- source SPEC artefakt,
+- canonical contract, pokud je relevantní,
+- validační pravidla,
+- lifecycle pravidla,
+- ownership assignment.
+
+Aggregated SPEC view je publishable artifact pouze tehdy, pokud:
+- je synchronizovaný se source SPEC,
+- odráží schválené contracts a governance,
+- neobsahuje stale nebo placeholder části v publishable sekcích.
+
+---
+
+# Change propagation across ES → AG → CS
+
+## ES change propagation
+Změna ES musí být posouzena na dopad do:
+- AG composition,
+- pricing input chain,
+- availability input chain,
+- import/export compatibility.
+
+## AG change propagation
+Změna AG musí být posouzena na dopad do:
+- CS offering modelu,
+- SLA evaluation,
+- pricing topology semantics,
+- simulation scenarios.
+
+## CS change propagation
+Změna CS musí být posouzena na dopad do:
+- publication readiness,
+- pricing outputs,
+- order-readiness artefaktů.
+
+## Contract change propagation
+Změna contractu musí být posouzena na dopad do:
+- validation layer,
+- regeneration rules,
+- aggregated SPEC,
+- implementation planning inputs.

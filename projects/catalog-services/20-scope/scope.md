@@ -218,3 +218,41 @@ Tento scope musí umožnit budoucí regeneraci:
 - pricing/SLA enginů,
 - ArchiMate modelu,
 - validačních pravidel.
+## Contracted boundaries in current phase
+
+V aktuální fázi musí být jako canonical boundary explicitně uzavřeny:
+
+- pricing contract boundary,
+- SLA contract boundary,
+- lifecycle boundary,
+- publication boundary,
+- ownership boundary,
+- validation boundary,
+- import/export boundary.
+
+Tyto boundary jsou součástí scope hardeningu SPEC.
+Neznamenají implementaci API ani deployment design.
+
+## Explicit not-yet-modeled areas
+
+V aktuální fázi nejsou normativně modelovány:
+
+- runtime orchestrace,
+- provisioning execution,
+- subscription lifecycle runtime instancí,
+- incident workflow,
+- billing logika,
+- vendor-specific transportní mechanismy.
+
+Tyto oblasti nesmí být domýšleny jako součást canonical business scope tohoto SPEC.
+
+## Import/export scope constraints
+
+Import/export je v aktuálním scope povolen pouze jako contract-governed artifact boundary.
+
+To znamená:
+- musí být verzovaný,
+- musí mít validační pravidla,
+- musí respektovat lifecycle a publication governance,
+- nesmí obcházet ownership nebo approval model,
+- nesmí být zaměněn za implementační API design.

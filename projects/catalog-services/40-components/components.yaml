@@ -1,8 +1,22 @@
+metadata:
+  model_id: catalog-services-components
+  version: 1.0.0
+  interpretation: deployment-neutral logical capability model
+  owner_role: Technical Owner
+  approval_role: Approval Owner
+  contract_dependencies:
+    - ownership-contract
+    - validation-contract
+
 components:
   - id: element_template_editor
     name: Element Template Editor
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
     purpose: Správa šablon elementárních položek podle typů.
     responsibilities:
       - definice typů elementárních položek
@@ -13,11 +27,20 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
 
   - id: elementary_items_catalog
     name: Elementary Items Catalog
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+      - Integration Owner
     purpose: Evidence konkrétních elementárních položek vytvořených podle šablon.
     responsibilities:
       - evidence elementárních položek
@@ -30,11 +53,20 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
+      - validation-contract
 
   - id: aggregation_builder
     name: Aggregation Builder
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
     purpose: Skládání elementárních položek do agregačních služeb a prostředí.
     responsibilities:
       - výběr elementárních položek
@@ -47,11 +79,19 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - validation-contract
 
   - id: aggregated_services_catalog
     name: Aggregated Services Catalog
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
     purpose: Evidence agregačních služeb složených z elementárních položek.
     responsibilities:
       - evidence agregačních služeb
@@ -64,11 +104,21 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
+      - sla-contract
 
   - id: customer_services_catalog
     name: Customer Services Catalog
     type: application_component
     layer: business
+    interpretation: logical capability
+    primary_owner_role: Business Owner
+    supporting_roles:
+      - Technical Owner
+      - Data Steward
     purpose: Evidence zákaznických služeb postavených nad agregačními službami.
     responsibilities:
       - evidence zákaznických služeb
@@ -80,11 +130,20 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - pricing-contract
+      - publication-contract
 
   - id: mandatory_service_activities
     name: Mandatory Service Activities
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
     purpose: Evidence povinných provozních činností, které jsou nedílnou součástí elementárních i agregačních položek.
     responsibilities:
       - evidence povinných činností pro elementární položky
@@ -96,11 +155,20 @@ components:
       - web_ui
       - api
       - json_import_export
+    contract_dependencies:
+      - lifecycle-contract
+      - pricing-contract
+      - sla-contract
 
   - id: pricing_calculator
     name: Pricing Calculator
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Contract Owner
+    supporting_roles:
+      - Business Owner
+      - Data Steward
     purpose: Výpočet ceny z elementárních položek, agregační kompozice, povinných činností a business overhead.
     responsibilities:
       - výpočet raw cost elementárních položek
@@ -112,11 +180,20 @@ components:
     interfaces:
       - api
       - web_ui
+    contract_dependencies:
+      - pricing-contract
+      - validation-contract
+      - publication-contract
 
   - id: sla_calculator
     name: SLA Calculator
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Contract Owner
+    supporting_roles:
+      - Technical Owner
+      - Data Steward
     purpose: Výpočet dostupnosti a SLA z topologie agregační služby.
     responsibilities:
       - výpočet dostupnosti agregační služby
@@ -127,11 +204,20 @@ components:
     interfaces:
       - api
       - web_ui
+    contract_dependencies:
+      - sla-contract
+      - validation-contract
+      - publication-contract
 
   - id: json_import_export_service
     name: JSON Import / Export Service
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Integration Owner
+    supporting_roles:
+      - Contract Owner
+      - Data Steward
     purpose: Import a export šablon, elementárních položek, agregací, povinných činností a zákaznických služeb ve formátu JSON.
     responsibilities:
       - export šablon do JSON
@@ -147,11 +233,19 @@ components:
       - api
       - file_import
       - file_export
+    contract_dependencies:
+      - import-export-contract
+      - validation-contract
+      - publication-contract
 
   - id: catalog_database
     name: Catalog Database
     type: data_object
     layer: application
+    interpretation: logical persistence domain
+    primary_owner_role: Data Steward
+    supporting_roles:
+      - Technical Owner
     purpose: Datové úložiště šablon, elementárních položek, agregací, zákaznických služeb, povinných činností a výpočtů.
     responsibilities:
       - ukládání šablon elementárních položek
@@ -160,13 +254,25 @@ components:
       - ukládání zákaznických služeb
       - ukládání povinných provozních činností
       - ukládání pricing a SLA výpočtů
+      - ukládání validation a publication evidence
     interfaces:
       - sql
+    contract_dependencies:
+      - pricing-contract
+      - sla-contract
+      - lifecycle-contract
+      - publication-contract
+      - validation-contract
 
   - id: web_application
     name: Web Application
     type: application_component
     layer: application
+    interpretation: logical capability
+    primary_owner_role: Approval Owner
+    supporting_roles:
+      - Business Owner
+      - Technical Owner
     purpose: Uživatelské rozhraní pro správu šablon, elementárních položek, agregací, povinných činností a výpočtů.
     responsibilities:
       - správa šablon
@@ -177,8 +283,13 @@ components:
       - spuštění pricing výpočtu
       - spuštění SLA výpočtu
       - import a export JSON
+      - review publication a validation statusu
     interfaces:
       - web_ui
+    contract_dependencies:
+      - publication-contract
+      - validation-contract
+      - ownership-contract
 
 relations:
   - source: web_application

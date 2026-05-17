@@ -32,7 +32,6 @@ links:
   code_repositories: []
   related_specs: []
   archimate_model: ""
-
 ```
 
 
@@ -158,127 +157,287 @@ motivation:
     - Systém musí podporovat budoucí provisioning workflow
     - Systém musí poskytovat API pro integraci s CMDB a monitoringem
     - Systém musí umožnit budoucí implementaci webové aplikace pro objednávku služeb
-
 ```
 
 
-# Scope:
+# Scope
 
-## Účel:
-    Systém slouží pro evidenci, skládání, oceňování a správu podnikových služeb
-    založených na vícevrstvém service modelu.
+# Scope
 
-    Systém propojuje:
-    - architektonický model,
-    - katalog služeb,
-    - inventory technologických objektů,
-    - SLA model,
-    - costing model,
-    - zákaznické služby.
+## Účel
 
-    Systém umožňuje:
-    - definovat elementární služby jako standardizované stavební objekty,
-    - skládat agregační služby z elementárních služeb,
-    - vytvářet zákaznické služby nad agregačními službami,
-    - automaticky odvozovat SLA a dostupnost,
-    - automaticky počítat cenu služeb,
-    - simulovat změny infrastruktury a jejich finanční dopad.
+Systém slouží pro evidenci, skládání, oceňování a správu podnikových služeb založených na vícevrstvém service modelu.
 
-## in_scope:
-    - Evidence katalogových listů elementárních služeb
-    - Evidence katalogových listů agregačních služeb
-    - Evidence katalogových listů zákaznických služeb
-    - Správa ArchiMate objektového modelu relevantního pro služby
-    - Vazby mezi elementárními, agregačními a zákaznickými službami
-    - Runtime kompozice agregačních služeb
-    - Definice topology a redundancy modelu
-    - Definice SLA profilů
-    - Výpočet dostupnosti agregačních služeb
-    - Výpočet ceny zákaznických služeb
-    - Inventory-driven costing model
-    - Správa provozních atributů technologických objektů
-    - Správa business atributů zákaznických služeb
-    - Definice volitelných business operací zákaznických služeb
-    - Simulace změn infrastruktury
-    - Simulace změn SLA
-    - Simulace změn nákladů
-    - Lifecycle management katalogových objektů
-    - Versioning katalogových listů
-    - Export pricing modelu pro finanční oddělení
-    - API pro integraci s CMDB
-    - API pro integraci s monitoring systémy
-    - Příprava datového modelu pro provisioning workflow
-    - Příprava datového modelu pro budoucí objednávkový portál
-    - Webová aplikace pro správu katalogových objektů
-    - Webová aplikace pro skládání agregačních služeb
-    - Webová aplikace pro kalkulaci ceny zákaznických služeb
-
-## out_of_scope:
-    - Real-time monitoring infrastruktury
-    - Nahrazení CMDB systému
-    - Nahrazení monitoring systému
-    - Nahrazení ITSM nástroje
-    - Automatické provisioning workflow infrastruktury
-    - Automatické deployment workflow aplikací
-    - Orchestrace Kubernetes nebo virtualizace
-    - Technická konfigurace síťových prvků
-    - Technická konfigurace serverů
-    - Billing externích zákazníků
-    - Fakturace
-    - Asset management mimo služby
-    - Procurement management
-    - Správa smluv s dodavateli
-    - Správa incidentů a requestů
-    - SIEM funkcionalita
-    - Security operations
-    - IAM implementace
-    - Capacity monitoring v reálném čase
-    - Performance monitoring aplikací
-    - Detailní technická dokumentace infrastruktury
-    - Nahrazení enterprise architektonického repository
-
-## non_goals:
-    - Cílem není vytvořit další CMDB systém
-    - Cílem není vytvořit hyperscaler cloud platformu
-    - Cílem není modelovat kompletní enterprise architekturu organizace
-    - Cílem není detailní technická evidence všech konfigurací
-    - Cílem není nahrazení provozních nástrojů infrastruktury
-    - Cílem není vytvořit univerzální ITIL katalog
-    - Cílem není modelovat všechny interní procesy organizace
-    - Cílem není vytvořit billing systém pro externí zákazníky
-    - Cílem není řešit deployment automation
-    - Cílem není řešit orchestration engine
-    - Cílem není umožnit zákazníkovi konfigurovat interní provozní operace
-    - Cílem není účtovat jednotlivé technologické capability samostatně
-    - Cílem není modelovat každou technologickou komponentu jako business službu
-    - Cílem není vytvořit vendor-specific model infrastruktury
-    - Cílem není řešit low-level network nebo server management
-
-
-# Architektura
-
-## Účel architektury
-
-Architektura systému je navržena jako vícevrstvý service composition model,
-který propojuje:
-
-- enterprise architekturu,
+Systém propojuje:
+- architektonický model,
 - katalog služeb,
 - inventory technologických objektů,
 - SLA model,
 - costing model,
 - zákaznické služby.
 
-Architektura vychází z principu:
+Systém umožňuje:
+- definovat elementární služby jako standardizované stavební objekty,
+- skládat agregační služby z elementárních služeb,
+- vytvářet zákaznické služby nad agregačními službami,
+- automaticky odvozovat SLA a dostupnost,
+- automaticky počítat cenu služeb,
+- simulovat změny infrastruktury a jejich finanční dopad.
 
-```text
-ArchiMate objekt
-→ katalogový list
-→ elementární služba
-→ agregační služba
-→ zákaznická služba
-→ pricing
-```
+## Vymezení modelu
+
+Systém v této fázi modeluje katalogové typy a jejich kompozice.
+
+Primární modelované vrstvy jsou:
+
+- ES = Elementární služby
+- AG = Agregační služby
+- CS = Zákaznické služby
+
+### Elementární služby
+
+Elementární služby představují standardizované stavební položky katalogu.
+
+Typicky jde o technologické nebo provozní capability, například:
+
+- server,
+- databázový běh,
+- síťová konektivita,
+- storage,
+- zálohování,
+- monitoring,
+- provozní podpora.
+
+Elementární služba není samostatně zákaznicky oceňovaný produkt.
+
+### Agregační služby
+
+Agregační služby skládají elementární služby do technické kompozice.
+
+Agregační služba definuje:
+
+- použité elementární položky,
+- topology,
+- redundancy model,
+- dependency graph,
+- availability profile,
+- provozní složení služby.
+
+Příklad: UPAAS může být modelována jako agregační služba, pokud reprezentuje technickou platformní kompozici prostředí složenou z elementárních položek.
+
+### Zákaznické služby
+
+Zákaznické služby představují objednatelné nebo prezentovatelné business služby postavené nad agregačními službami.
+
+Zákaznická služba přidává:
+
+- business význam,
+- business SLA,
+- business overhead,
+- volitelné business operace,
+- zákaznický popis,
+- finální cenu.
+
+## Katalogové typy vs runtime instance
+
+Systém v aktuálním scope modeluje především:
+
+- katalogové typy,
+- katalogové listy,
+- kompozice služeb,
+- pricing/SLA modely,
+- dependency modely.
+
+Systém v aktuálním scope nemodeluje plnohodnotně:
+
+- objednávkové instance,
+- zákaznické subscription,
+- runtime provisioning,
+- billing kontrakty,
+- provozní incidenty,
+- detailní runtime monitoring.
+
+Datový model má být připraven tak, aby bylo možné v budoucnu navázat provisioning workflow a objednávkový portál.
+
+## In scope
+
+- Evidence katalogových listů elementárních služeb
+- Evidence katalogových listů agregačních služeb
+- Evidence katalogových listů zákaznických služeb
+- Správa ArchiMate objektového modelu relevantního pro služby
+- Vazby mezi elementárními, agregačními a zákaznickými službami
+- Runtime kompozice agregačních služeb
+- Definice topology a redundancy modelu
+- Definice SLA profilů
+- Výpočet dostupnosti agregačních služeb
+- Výpočet ceny zákaznických služeb
+- Inventory-driven costing model
+- Správa provozních atributů technologických objektů
+- Správa business atributů zákaznických služeb
+- Definice volitelných business operací zákaznických služeb
+- Simulace změn infrastruktury
+- Simulace změn SLA
+- Simulace změn nákladů
+- Lifecycle management katalogových objektů
+- Versioning katalogových listů
+- Import elementárních položek ve formátu JSON
+- Export elementárních položek ve formátu JSON
+- Import agregačních položek ve formátu JSON
+- Export agregačních položek ve formátu JSON
+- Export pricing modelu pro finanční oddělení
+- API pro integraci s CMDB
+- API pro integraci s monitoring systémy
+- Příprava datového modelu pro provisioning workflow
+- Příprava datového modelu pro budoucí objednávkový portál
+- Webová aplikace pro správu katalogových objektů
+- Webová aplikace pro skládání agregačních služeb
+- Webová aplikace pro kalkulaci ceny zákaznických služeb
+
+## Out of scope
+
+- Real-time monitoring infrastruktury
+- Nahrazení CMDB systému
+- Nahrazení monitoring systému
+- Nahrazení ITSM nástroje
+- Automatické provisioning workflow infrastruktury
+- Automatické deployment workflow aplikací
+- Orchestrace Kubernetes nebo virtualizace
+- Technická konfigurace síťových prvků
+- Technická konfigurace serverů
+- Billing externích zákazníků
+- Fakturace
+- Asset management mimo služby
+- Procurement management
+- Správa smluv s dodavateli
+- Správa incidentů a requestů
+- SIEM funkcionalita
+- Security operations
+- IAM implementace
+- Capacity monitoring v reálném čase
+- Performance monitoring aplikací
+- Detailní technická dokumentace infrastruktury
+- Nahrazení enterprise architektonického repository
+
+## Non-goals
+
+- Cílem není vytvořit další CMDB systém
+- Cílem není vytvořit hyperscaler cloud platformu
+- Cílem není modelovat kompletní enterprise architekturu organizace
+- Cílem není detailní technická evidence všech konfigurací
+- Cílem není nahrazení provozních nástrojů infrastruktury
+- Cílem není vytvořit univerzální ITIL katalog
+- Cílem není modelovat všechny interní procesy organizace
+- Cílem není vytvořit billing systém pro externí zákazníky
+- Cílem není řešit deployment automation
+- Cílem není řešit orchestration engine
+- Cílem není umožnit zákazníkovi konfigurovat interní provozní operace
+- Cílem není účtovat jednotlivé technologické capability samostatně
+- Cílem není modelovat každou technologickou komponentu jako business službu
+- Cílem není vytvořit vendor-specific model infrastruktury
+- Cílem není řešit low-level network nebo server management
+
+## Hraniční rozhodnutí
+
+### Runtime kompozice agregačních služeb
+
+Runtime kompozice v tomto systému znamená modelované složení služby, nikoliv skutečné spuštění nebo orchestrace infrastruktury.
+
+Systém tedy eviduje a vyhodnocuje:
+
+- z čeho je služba složena,
+- jaké má dependency,
+- jaké má redundantní části,
+- jaký má dostupnostní dopad,
+- jaký má nákladový dopad.
+
+Systém nespouští infrastrukturu.
+
+### UPAAS
+
+UPAAS je v tomto modelu primárně agregační služba, pokud reprezentuje technické prostředí složené z elementárních položek.
+
+Nad UPAAS může vzniknout zákaznická služba, pokud má být prezentována jako objednatelný business produkt.
+
+### JSON import/export
+
+Import a export do JSON je součástí scope pro:
+
+- elementární služby,
+- agregační služby,
+- zákaznické služby,
+- pricing profily,
+- SLA profily,
+- dependency modely.
+
+JSON formát musí být verzovaný a validovatelný.
+
+## Regeneration relevance
+
+Tento scope musí umožnit budoucí regeneraci:
+
+- komponentového modelu,
+- datového modelu,
+- API kontraktů,
+- JSON schémat,
+- pricing/SLA enginů,
+- ArchiMate modelu,
+- validačních pravidel.
+## Contracted boundaries in current phase
+
+V aktuální fázi musí být jako canonical boundary explicitně uzavřeny:
+
+- pricing contract boundary,
+- SLA contract boundary,
+- lifecycle boundary,
+- publication boundary,
+- ownership boundary,
+- validation boundary,
+- import/export boundary.
+
+Tyto boundary jsou součástí scope hardeningu SPEC.
+Neznamenají implementaci API ani deployment design.
+
+## Explicit not-yet-modeled areas
+
+V aktuální fázi nejsou normativně modelovány:
+
+- runtime orchestrace,
+- provisioning execution,
+- subscription lifecycle runtime instancí,
+- incident workflow,
+- billing logika,
+- vendor-specific transportní mechanismy.
+
+Tyto oblasti nesmí být domýšleny jako součást canonical business scope tohoto SPEC.
+
+## Import/export scope constraints
+
+Import/export je v aktuálním scope povolen pouze jako contract-governed artifact boundary.
+
+To znamená:
+- musí být verzovaný,
+- musí mít validační pravidla,
+- musí respektovat lifecycle a publication governance,
+- nesmí obcházet ownership nebo approval model,
+- nesmí být zaměněn za implementační API design.
+
+
+# Architektura
+
+# Architektura
+
+## Účel architektury
+
+Architektura systému je navržena jako vícevrstvý service composition model, který propojuje enterprise architekturu, katalog služeb, inventory technologických objektů, SLA model, costing model a zákaznické služby.
+
+Základní tok:
+
+    ArchiMate objekt
+    → katalogový list
+    → elementární služba
+    → agregační služba
+    → zákaznická služba
+    → SLA / pricing / simulace
 
 Cílem architektury je:
 
@@ -288,288 +447,539 @@ Cílem architektury je:
 - automatizovat pricing,
 - zajistit auditovatelnost costing modelu,
 - propojit enterprise architekturu s provozním modelem,
-- umožnit budoucí provisioning a objednávkový portál.
+- připravit datový model pro budoucí provisioning a objednávkový portál.
 
-Architektura je navržena jako:
+Architektura je:
+
 - inventory-driven,
 - service-oriented,
 - topology-aware,
 - SLA-aware,
-- pricing-aware.
+- pricing-aware,
+- auditovatelná,
+- verzovatelná.
 
 ---
 
 # Architektonické vrstvy
 
-## Motivation
+## ES — Elementární služby
 
-Vrstva Motivation popisuje:
-- stakeholdery,
-- business cíle,
+Elementární služby představují standardizované technologické stavební položky.
+
+ES jsou:
+
+- inventory-driven,
+- technické,
+- nákladově měřitelné,
+- samostatně neprodávané jako business produkt,
+- vstupem pro agregační služby.
+
+Příklady:
+
+- lokalita,
+- rack,
+- server,
+- router,
+- WAN linka,
+- virtualizační node,
+- Kubernetes node,
+- F5 appliance,
+- storage,
+- monitoring profile,
+- backup capability.
+
+ES poskytuje:
+
+- raw cost,
+- technické capability,
+- provozní atributy,
 - omezení,
-- principy,
-- požadavky,
-- architektonická rozhodnutí.
+- dostupnostní vstupy.
 
-Obsahuje:
-- ADR rozhodnutí,
-- service governance,
-- costing principy,
-- SLA principy,
-- provozní principy.
+ES sama o sobě nevytváří výsledné SLA zákaznické služby.
 
 ---
 
-## Business
+## AG — Agregační služby
 
-Business vrstva reprezentuje:
-- zákaznické služby,
-- business produkty,
-- SLA,
-- pricing,
-- business operace,
-- objednávkové capability.
+Agregační služby skládají elementární služby do technické kompozice.
 
-Business vrstva:
-- nekonzumuje infrastrukturu přímo,
-- využívá agregační služby,
-- prezentuje business hodnotu.
+AG vrstva definuje:
+
+- použité elementární služby,
+- topology,
+- dependency graph,
+- redundancy groups,
+- mandatory/optional prvky,
+- availability profile,
+- technical SLA model.
+
+AG je technická kompoziční vrstva.
+
+AG není primárně obchodně oceňovaný zákaznický produkt.
 
 Příklady:
-- Publikovaná aplikace
-- VDI Workspace
-- DR Application
-- HA Hosting
+
+- UPAAS platforma,
+- publikační platforma,
+- virtualizační cluster,
+- backup platform,
+- application delivery platform,
+- HA runtime prostředí.
+
+UPAAS je v tomto modelu agregační služba, pokud reprezentuje technické prostředí složené z elementárních položek.
 
 ---
 
-## Application
+## CS — Zákaznické služby
 
-Application vrstva reprezentuje:
-- agregační služby,
-- runtime kompozice,
-- topology model,
-- availability model,
-- SLA inheritance,
-- pricing orchestration.
+Zákaznické služby představují business-facing nabídku nad agregačními službami.
 
-Application vrstva:
-- skládá elementární služby,
-- definuje redundanci,
-- odvozuje SLA,
-- poskytuje runtime capability.
+CS vrstva přidává:
 
-Příklady:
-- Publikační platforma
-- Virtualizační cluster
-- Security Monitoring
-- Backup Platform
-- Application Delivery Platform
-
----
-
-## Technology
-
-Technology vrstva reprezentuje:
-- elementární služby,
-- inventory objekty,
-- technologické stavební jednotky.
-
-Každý významný ArchiMate objekt:
-- odpovídá katalogovému listu,
-- odpovídá databázové entitě,
-- odpovídá elementární službě.
+- business význam,
+- business SLA,
+- business overhead,
+- volitelné business operace,
+- zákaznický popis,
+- finální cenu,
+- governance,
+- order-readiness.
 
 Příklady:
-- Lokalita
-- Rack
-- Server
-- Router
-- WAN linka
-- Virtualizační node
-- Kubernetes node
-- F5 appliance
+
+- Publikovaná aplikace GOLD,
+- VDI Workspace,
+- DR Application,
+- HA Hosting,
+- Managed Application Runtime.
+
+CS využívá jednu nebo více AG služeb.
+
+CS nevytváří technickou dostupnost z ničeho; business SLA vychází z technického SLA / availability modelu AG vrstvy.
 
 ---
 
 # Hlavní komponenty
 
-## 1. Katalog elementárních služeb
+## 1. Catalog Core / Metadata Service
 
 Odpovědnost:
-- evidence technologických stavebních objektů,
-- inventory-driven costing,
-- operational profile,
-- lifecycle management.
 
-Obsahuje:
+- společná metadata katalogových objektů,
+- lifecycle,
+- versioning,
+- publikace,
+- audit log,
+- ownership,
+- schvalování změn.
+
+Tato komponenta je cross-layer capability pro ES, AG i CS.
+
+---
+
+## 2. Elementary Services Catalog
+
+Odpovědnost:
+
+- evidence elementárních služeb,
+- evidence katalogových listů ES,
+- operational profile,
+- raw cost,
+- technologické atributy,
+- JSON import/export ES položek.
+
+Obsahuje například:
+
 - lokality,
-- zařízení,
+- racky,
 - servery,
 - linky,
-- platform nodes,
-- runtime objekty.
+- routery,
+- runtime platformy,
+- technologické capability.
 
 ---
 
-## 2. Katalog agregačních služeb
+## 3. Aggregation Services Catalog
 
 Odpovědnost:
-- runtime composition,
+
+- evidence agregačních služeb,
+- skládání ES do AG,
 - topology model,
 - redundancy model,
-- SLA inheritance,
-- availability calculation.
+- dependency graph,
+- availability input model,
+- JSON import/export AG položek.
 
-Obsahuje:
-- kompozice elementárních služeb,
-- redundancy groups,
-- topology rules,
-- SLA profiles.
+AG katalog je klíčová kompoziční vrstva systému.
 
 ---
 
-## 3. Katalog zákaznických služeb
+## 4. Customer Services Catalog
 
 Odpovědnost:
-- business produkty,
-- business pricing,
-- business SLA,
-- volitelné business operace.
 
-Obsahuje:
-- business offerings,
+- evidence zákaznických služeb,
+- vazby CS → AG,
 - business overhead,
-- pricing rules,
-- customer options.
+- business options,
+- zákaznický popis,
+- JSON import/export CS položek.
+
+CS katalog je business-facing vrstva.
 
 ---
 
-## 4. SLA Engine
+## 5. SLA Engine
 
 Odpovědnost:
-- výpočet SLA,
-- výpočet dostupnosti,
-- odvození redundancy impact,
-- simulace výpadků.
 
-Výpočet probíhá:
-- z topology modelu,
-- z redundancy groups,
-- z počtu lokalit,
-- z počtu linek,
-- z HA modelu.
+- výpočet technické dostupnosti,
+- výpočet SLA z AG topologie,
+- vyhodnocení redundancy groups,
+- simulace výpadků,
+- výpočet dopadů změn topologie.
+
+SLA vzniká primárně na AG vrstvě.
+
+Vstupy:
+
+- topology model,
+- redundancy groups,
+- locality distribution,
+- HA model,
+- mandatory/optional prvky,
+- technické capability ES.
+
+Výstupy:
+
+- availability result,
+- SLA profile evaluation,
+- failure impact,
+- explainability trace.
 
 ---
 
-## 5. Pricing Engine
+## 6. Pricing Engine
 
 Odpovědnost:
+
 - výpočet ceny zákaznických služeb,
 - costing inheritance,
-- business overhead calculation,
-- simulace změn.
+- topology multiplier,
+- business overhead,
+- volitelné business operace,
+- pricing trace,
+- simulace změn nákladů.
 
-Pricing model:
+Základní model:
 
-```text
-ES raw cost
-× AG topology
-+ CS business overhead
-= customer price
-```
+    ES raw cost
+    × AG topology
+    + CS business overhead
+    = customer price
 
----
+Pricing musí být auditovatelný.
 
-## 6. Web Application
-
-Odpovědnost:
-- správa katalogových listů,
-- skládání agregačních služeb,
-- kalkulace ceny,
-- simulace změn,
-- objednávka zákaznických služeb.
+Každý výpočet ceny musí být vysvětlitelný přes pricing trace.
 
 ---
 
-## 7. Integration Layer
+## 7. Simulation / Impact Analysis Service
 
 Odpovědnost:
+
+- simulace změn infrastruktury,
+- simulace změn SLA,
+- simulace změn nákladů,
+- dopad změny ES do AG,
+- dopad změny AG do CS,
+- what-if scénáře.
+
+Příklady:
+
+- změna ceny serverového typu,
+- výpadek lokality,
+- přidání redundancy group,
+- změna SLA profilu,
+- změna business overhead.
+
+---
+
+## 8. Integration Layer
+
+Odpovědnost:
+
 - integrace s CMDB,
 - integrace s monitoring systémy,
-- integrace s provisioning workflow,
-- export pricing modelů.
+- export pricing modelů,
+- synchronizace referenčních dat,
+- reconciliation,
+- conflict detection.
+
+Source-of-truth boundary:
+
+- CMDB vlastní technologickou evidenci konkrétních objektů.
+- Catalog Services systém vlastní katalogové typy, kompozice, costing, SLA a business nabídku.
+- Monitoring poskytuje provozní fakta, ale nenahrazuje katalog ani SLA engine.
+
+---
+
+## 9. Web Application
+
+Odpovědnost:
+
+- správa ES katalogu,
+- skládání AG služeb,
+- správa CS nabídky,
+- kalkulace ceny,
+- simulace změn,
+- review pricing/SLA trace,
+- lifecycle workflow,
+- import/export JSON.
+
+Webová aplikace má minimálně tyto pracovní oblasti:
+
+- ES Catalog Console,
+- AG Composition Workspace,
+- CS Offering Workspace,
+- Pricing Workspace,
+- SLA Workspace,
+- Simulation Workspace,
+- Integration Operations Console.
 
 ---
 
 # Hlavní vztahy
 
-## Elementární → Agregační
+## ES → AG
 
-Agregační služby:
-- skládají elementární služby,
-- definují topology,
-- definují redundanci,
-- definují runtime composition.
+Agregační služby skládají elementární služby.
+
+Vazba ES → AG obsahuje:
+
+- typ ES,
+- referenci na ES položku,
+- quantity,
+- topology role,
+- redundancy group,
+- mandatory flag.
 
 Příklad:
 
-```text
-Publikační platforma
-=
-2× Lokalita
-2× Router
-2× WAN linka
-2× F5
-1× Monitoring profile
-```
+    Publikační platforma HA
+    =
+    2× Lokalita
+    2× Router
+    2× WAN linka
+    2× F5
+    1× Monitoring profile
+
+AG z ES přebírá:
+
+- technické capability,
+- raw cost,
+- availability vstupy,
+- provozní omezení.
 
 ---
 
-## Agregační → Zákaznické
+## AG → CS
 
-Zákaznické služby:
-- využívají agregační služby,
-- přidávají business SLA,
-- přidávají business operace,
-- přidávají governance.
+Zákaznické služby využívají agregační služby.
+
+CS přidává:
+
+- business SLA,
+- business overhead,
+- zákaznický popis,
+- volitelné operace,
+- governance.
 
 Příklad:
 
-```text
-Publikovaná aplikace GOLD
-=
-Publikační platforma HA
-+
-24x7 support
-+
-Reporting
-+
-Security governance
-```
+    Publikovaná aplikace GOLD
+    =
+    Publikační platforma HA
+    +
+    24x7 support
+    +
+    Reporting
+    +
+    Security governance
 
 ---
 
 ## SLA inheritance
 
-SLA:
-- nevzniká na úrovni elementárních služeb,
-- vzniká až z runtime composition agregačních služeb.
+SLA nevzniká na úrovni ES.
 
-Výsledné SLA je odvozeno:
-- z redundancy,
-- z topology,
-- z geografické distribuce,
-- z HA modelu.
+SLA vzniká z AG vrstvy podle:
+
+- redundancy,
+- topology,
+- geografické distribuce,
+- HA modelu,
+- mandatory/optional prvků,
+- failure impact pravidel.
+
+CS může SLA businessově prezentovat, ale nemá ji vytvářet bez technického základu.
 
 ---
 
 ## Pricing inheritance
 
-Pricing:
-- vychází z raw cost elementárních služeb,
-- je násoben topology agregačních služeb,
-- je doplněn business overhead zákaznických služeb.
+Pricing vychází z vícevrstvého modelu:
+
+- ES poskytuje raw cost.
+- AG určuje topology multiplier a množství.
+- CS přidává business overhead a volitelné business operace.
+
+Výpočet musí být:
+
+- verzovaný,
+- auditovatelný,
+- vysvětlitelný,
+- reprodukovatelný.
+
+---
+
+# Datový model
+
+## Princip návrhu
+
+Datový model je založen na principu:
+
+    ArchiMate objekt = katalogový list = databázová entita / typová položka
+
+Neexistuje jedna univerzální tabulka pro všechny služby.
+
+Každý významný typ objektu má:
+
+- vlastní katalogový list,
+- vlastní atributy,
+- vlastní costing model,
+- vlastní operational profile,
+- vlastní lifecycle.
+
+Výhody:
+
+- kompatibilita s enterprise architekturou,
+- kompatibilita s CMDB,
+- auditovatelnost,
+- jasné ownership,
+- rozšiřitelnost,
+- lepší validace.
+
+---
+
+## Katalogové typy vs runtime instance
+
+Systém v aktuálním scope primárně modeluje:
+
+- katalogové typy,
+- katalogové listy,
+- kompozice služeb,
+- pricing/SLA profily,
+- dependency modely.
+
+Systém zatím nemodeluje plnohodnotně:
+
+- zákaznické subscription,
+- objednávkové instance,
+- provisioning runs,
+- fakturaci,
+- incidenty.
+
+Datový model však má být připraven pro budoucí napojení objednávkového portálu a provisioning workflow.
+
+---
+
+# Lifecycle a versioning
+
+Každý katalogový objekt musí mít lifecycle.
+
+Typické stavy:
+
+- draft,
+- in_review,
+- approved,
+- published,
+- deprecated,
+- retired.
+
+Lifecycle se týká:
+
+- ES typů,
+- AG typů,
+- CS typů,
+- pricing profilů,
+- SLA profilů,
+- JSON schémat,
+- import/export kontraktů.
+
+Změny musí být verzované.
+
+Změna ES může mít dopad na:
+
+- AG kompozice,
+- SLA výpočty,
+- CS pricing,
+- publikované katalogové nabídky.
+
+Proto systém musí podporovat impact analysis před publikací změny.
+
+---
+
+# Import / export JSON
+
+Systém musí podporovat import a export do JSON pro:
+
+- elementární položky,
+- agregační položky,
+- zákaznické služby,
+- pricing profily,
+- SLA profily,
+- dependency modely,
+- simulation scénáře.
+
+JSON kontrakty musí být:
+
+- verzované,
+- validovatelné,
+- zpětně dohledatelné,
+- použitelné pro migraci i integraci.
+
+Import nesmí tiše přepsat publikovaná data bez lifecycle pravidel.
+
+---
+
+# API a integrační kontrakty
+
+Architektura předpokládá API pro:
+
+- správu ES katalogu,
+- správu AG katalogu,
+- správu CS katalogu,
+- výpočet pricing,
+- výpočet SLA,
+- simulace,
+- import/export JSON,
+- integraci s CMDB,
+- integraci s monitoringem.
+
+API musí definovat:
+
+- resource model,
+- request/response schema,
+- error model,
+- idempotency pravidla,
+- auth/authz model,
+- versioning,
+- audit trail.
 
 ---
 
@@ -768,25 +1178,18 @@ CREATE TABLE cs_service_option (
 
 # ArchiMate model
 
-## Nástroj
+## Účel
 
-Archi
+ArchiMate model slouží jako formální projekce služby a její kompozice.
 
----
-
-## Soubor
-
-```text
-upaas-service-model.archimate
-```
-
----
+Model není source of truth místo SPEC, ale musí být dohledatelný na katalogové položky.
 
 ## Hlavní pohledy
 
 ### 1. Motivation View
 
 Obsahuje:
+
 - stakeholdery,
 - cíle,
 - principy,
@@ -794,124 +1197,667 @@ Obsahuje:
 - requirements,
 - ADR rozhodnutí.
 
----
-
 ### 2. Technology Layer View
 
 Obsahuje:
+
 - elementární služby,
 - inventory objekty,
 - lokality,
 - zařízení,
 - runtime nodes.
 
----
-
 ### 3. Application Layer View
 
 Obsahuje:
+
 - agregační služby,
 - runtime composition,
 - SLA model,
 - availability model,
 - topology model.
 
----
-
 ### 4. Business Layer View
 
 Obsahuje:
+
 - zákaznické služby,
 - business products,
 - pricing model,
 - SLA offerings.
 
----
-
 ### 5. Service Composition View
 
 Obsahuje:
-- dependency graph,
-- inheritance model,
+
+- ES → AG → CS dependency graph,
 - SLA inheritance,
 - pricing inheritance.
-
----
 
 ### 6. Pricing View
 
 Obsahuje:
-- costing chain,
-- resource costing,
-- topology costing,
-- business overhead.
 
----
+- ES raw cost,
+- AG topology costing,
+- CS business overhead,
+- customer price.
 
 ### 7. Runtime Topology View
 
 Obsahuje:
+
 - redundancy groups,
 - HA topology,
 - DR topology,
 - locality distribution.
 
----
-
 ### 8. Change Impact View
 
 Obsahuje:
+
 - dopad změn infrastruktury,
 - dopad změn SLA,
 - costing impact,
 - dependency impact.
 
+---
 
+# Regeneration relevance
 
+Architektura musí být dostatečně přesná pro budoucí regeneraci:
 
+- komponentového modelu,
+- databázového modelu,
+- API kontraktů,
+- JSON schémat,
+- pricing engine,
+- SLA engine,
+- ArchiMate modelu,
+- validačních pravidel.
 
+Každá schopnost deklarovaná v architektuře musí mít později odpovídající:
 
+- komponentu,
+- datový model,
+- API kontrakt,
+- validační pravidlo,
+- lifecycle pravidlo,
+- traceability vazbu.
+---
 
+# Canonical contracts overview
 
+Canonical contracts jsou deployment-neutral artefakty, které uzavírají významové boundary systému.
 
+V systému `catalog-services` jsou canonical contracts povinné pro:
+- pricing,
+- SLA,
+- lifecycle,
+- publication,
+- ownership,
+- validation,
+- import/export.
 
+Každý canonical contract musí mít:
+- identifier,
+- verzi,
+- ownera,
+- approval role,
+- normative rules,
+- persistence implications.
 
+Contracts nejsou fake API design.
+Contracts neurčují endpointy, transport ani deployment.
+Contracts určují významové a governance hranice systému.
 
+---
 
+# Logical modules vs deployment-neutral capabilities
 
+Architektura rozlišuje:
 
+- **logical capability** — významová schopnost systému,
+- **component** — modelovaná architektonická jednotka ve SPEC,
+- **deployment unit** — budoucí implementační rozhodnutí mimo tento SPEC.
 
+Tento SPEC definuje logical capabilities a komponentové boundary.
+Tento SPEC vědomě nedefinuje fyzický deployment model.
+
+To znamená:
+- Pricing Engine je canonical capability,
+- SLA Engine je canonical capability,
+- Contract Governance je canonical capability,
+- ale SPEC neurčuje, zda půjde o samostatné služby, moduly nebo jinou implementační formu.
+
+---
+
+# Persistence domains and cross-cutting records
+
+Pro bezpečnou implementaci a regeneraci musí být persistence chápána jako sada logických domén, nikoliv jen jednotlivé tabulky.
+
+Povinné logické persistence domény:
+- katalogové typy ES,
+- katalogové typy AG,
+- katalogové typy CS,
+- pricing profiles,
+- SLA profiles,
+- lifecycle history,
+- publication records,
+- owner assignments,
+- validation rule sets,
+- validation runs,
+- pricing traces,
+- SLA traces,
+- import/export history.
+
+Cross-cutting records musí minimálně podporovat:
+- version references,
+- audit evidence,
+- approval evidence,
+- traceability evidence.
+
+SPEC tímto neurčuje fyzický storage engine.
+Určuje pouze logické persistence boundary, které nesmí být v implementaci ztraceny.
+
+---
+
+# Traceability and publication boundaries
+
+Každá publishable schopnost deklarovaná v architektuře musí být dohledatelná na:
+- source SPEC artefakt,
+- canonical contract, pokud je relevantní,
+- validační pravidla,
+- lifecycle pravidla,
+- ownership assignment.
+
+Aggregated SPEC view je publishable artifact pouze tehdy, pokud:
+- je synchronizovaný se source SPEC,
+- odráží schválené contracts a governance,
+- neobsahuje stale nebo placeholder části v publishable sekcích.
+
+---
+
+# Change propagation across ES → AG → CS
+
+## ES change propagation
+Změna ES musí být posouzena na dopad do:
+- AG composition,
+- pricing input chain,
+- availability input chain,
+- import/export compatibility.
+
+## AG change propagation
+Změna AG musí být posouzena na dopad do:
+- CS offering modelu,
+- SLA evaluation,
+- pricing topology semantics,
+- simulation scenarios.
+
+## CS change propagation
+Změna CS musí být posouzena na dopad do:
+- publication readiness,
+- pricing outputs,
+- order-readiness artefaktů.
+
+## Contract change propagation
+Změna contractu musí být posouzena na dopad do:
+- validation layer,
+- regeneration rules,
+- aggregated SPEC,
+- implementation planning inputs.
 
 
 # Komponenty
 
 ```yaml
+metadata:
+  model_id: catalog-services-components
+  version: 1.0.0
+  interpretation: deployment-neutral logical capability model
+  owner_role: Technical Owner
+  approval_role: Approval Owner
+  contract_dependencies:
+    - ownership-contract
+    - validation-contract
+
 components:
-  - id: example_component
-    name: Example Component
-
-    type: application_component # application_component | data_object | service
-    layer: application # business | application | technology
-
-    purpose: Popis účelu komponenty
-
+  - id: element_template_editor
+    name: Element Template Editor
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+    purpose: Správa šablon elementárních položek podle typů.
     responsibilities:
-      - odpovědnost 1
-      - odpovědnost 2
+      - definice typů elementárních položek
+      - definice povinných a volitelných atributů
+      - definice validačních pravidel šablon
+      - správa verzí šablon
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
 
+  - id: elementary_items_catalog
+    name: Elementary Items Catalog
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+      - Integration Owner
+    purpose: Evidence konkrétních elementárních položek vytvořených podle šablon.
+    responsibilities:
+      - evidence elementárních položek
+      - validace položek proti šablonám
+      - správa provozních atributů
+      - správa nákladových atributů
+      - správa povinných provozních činností
+      - import a export položek do JSON
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
+      - validation-contract
+
+  - id: aggregation_builder
+    name: Aggregation Builder
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+    purpose: Skládání elementárních položek do agregačních služeb a prostředí.
+    responsibilities:
+      - výběr elementárních položek
+      - skládání položek do agregací
+      - definice množství položek
+      - definice rolí v topologii
+      - definice redundancy groups
+      - validace kompozice
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - validation-contract
+
+  - id: aggregated_services_catalog
+    name: Aggregated Services Catalog
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+    purpose: Evidence agregačních služeb složených z elementárních položek.
+    responsibilities:
+      - evidence agregačních služeb
+      - evidence složení agregace
+      - evidence dependency graphu
+      - evidence topology modelu
+      - evidence povinných provozních činností
+      - import a export agregačních služeb do JSON
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - import-export-contract
+      - sla-contract
+
+  - id: customer_services_catalog
+    name: Customer Services Catalog
+    type: application_component
+    layer: business
+    interpretation: logical capability
+    primary_owner_role: Business Owner
+    supporting_roles:
+      - Technical Owner
+      - Data Steward
+    purpose: Evidence zákaznických služeb postavených nad agregačními službami.
+    responsibilities:
+      - evidence zákaznických služeb
+      - vazba zákaznických služeb na agregační služby
+      - evidence business atributů
+      - evidence business overhead
+      - evidence volitelných business operací
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - ownership-contract
+      - lifecycle-contract
+      - pricing-contract
+      - publication-contract
+
+  - id: mandatory_service_activities
+    name: Mandatory Service Activities
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Technical Owner
+    supporting_roles:
+      - Data Steward
+    purpose: Evidence povinných provozních činností, které jsou nedílnou součástí elementárních i agregačních položek.
+    responsibilities:
+      - evidence povinných činností pro elementární položky
+      - evidence povinných činností pro agregační služby
+      - definice činností, které zákazník nemůže odmítnout
+      - zahrnutí povinných činností do pricing výpočtu
+      - zahrnutí povinných činností do SLA a provozního modelu
+    interfaces:
+      - web_ui
+      - api
+      - json_import_export
+    contract_dependencies:
+      - lifecycle-contract
+      - pricing-contract
+      - sla-contract
+
+  - id: pricing_calculator
+    name: Pricing Calculator
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Contract Owner
+    supporting_roles:
+      - Business Owner
+      - Data Steward
+    purpose: Výpočet ceny z elementárních položek, agregační kompozice, povinných činností a business overhead.
+    responsibilities:
+      - výpočet raw cost elementárních položek
+      - výpočet ceny povinných provozních činností
+      - výpočet ceny agregační služby
+      - výpočet business overhead
+      - výpočet ceny zákaznické služby
+      - vytvoření pricing trace
     interfaces:
       - api
-      - cli
+      - web_ui
+    contract_dependencies:
+      - pricing-contract
+      - validation-contract
+      - publication-contract
+
+  - id: sla_calculator
+    name: SLA Calculator
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Contract Owner
+    supporting_roles:
+      - Technical Owner
+      - Data Steward
+    purpose: Výpočet dostupnosti a SLA z topologie agregační služby.
+    responsibilities:
+      - výpočet dostupnosti agregační služby
+      - vyhodnocení redundancy modelu
+      - vyhodnocení dopadu povinných a volitelných prvků
+      - zohlednění povinných provozních činností
+      - vytvoření SLA trace
+    interfaces:
+      - api
+      - web_ui
+    contract_dependencies:
+      - sla-contract
+      - validation-contract
+      - publication-contract
+
+  - id: json_import_export_service
+    name: JSON Import / Export Service
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Integration Owner
+    supporting_roles:
+      - Contract Owner
+      - Data Steward
+    purpose: Import a export šablon, elementárních položek, agregací, povinných činností a zákaznických služeb ve formátu JSON.
+    responsibilities:
+      - export šablon do JSON
+      - import šablon z JSON
+      - export elementárních položek do JSON
+      - import elementárních položek z JSON
+      - export agregačních služeb do JSON
+      - import agregačních služeb z JSON
+      - export povinných provozních činností do JSON
+      - import povinných provozních činností z JSON
+      - validace JSON struktury
+    interfaces:
+      - api
+      - file_import
+      - file_export
+    contract_dependencies:
+      - import-export-contract
+      - validation-contract
+      - publication-contract
+
+  - id: catalog_database
+    name: Catalog Database
+    type: data_object
+    layer: application
+    interpretation: logical persistence domain
+    primary_owner_role: Data Steward
+    supporting_roles:
+      - Technical Owner
+    purpose: Datové úložiště šablon, elementárních položek, agregací, zákaznických služeb, povinných činností a výpočtů.
+    responsibilities:
+      - ukládání šablon elementárních položek
+      - ukládání elementárních položek
+      - ukládání agregačních služeb
+      - ukládání zákaznických služeb
+      - ukládání povinných provozních činností
+      - ukládání pricing a SLA výpočtů
+      - ukládání validation a publication evidence
+    interfaces:
+      - sql
+    contract_dependencies:
+      - pricing-contract
+      - sla-contract
+      - lifecycle-contract
+      - publication-contract
+      - validation-contract
+
+  - id: web_application
+    name: Web Application
+    type: application_component
+    layer: application
+    interpretation: logical capability
+    primary_owner_role: Approval Owner
+    supporting_roles:
+      - Business Owner
+      - Technical Owner
+    purpose: Uživatelské rozhraní pro správu šablon, elementárních položek, agregací, povinných činností a výpočtů.
+    responsibilities:
+      - správa šablon
+      - správa elementárních položek
+      - skládání agregačních služeb
+      - správa zákaznických služeb
+      - správa povinných provozních činností
+      - spuštění pricing výpočtu
+      - spuštění SLA výpočtu
+      - import a export JSON
+      - review publication a validation statusu
+    interfaces:
+      - web_ui
+    contract_dependencies:
+      - publication-contract
+      - validation-contract
+      - ownership-contract
 
 relations:
-  - source: example_component
-    target: another_component
+  - source: web_application
+    target: element_template_editor
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu šablon elementárních položek.
 
-    type: association # association | flow | access | serving
-    description: vztah mezi komponentami
+  - source: web_application
+    target: elementary_items_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu elementárních položek.
 
+  - source: web_application
+    target: aggregation_builder
+    type: serving
+    description: Webová aplikace poskytuje UI pro skládání agregačních služeb.
+
+  - source: web_application
+    target: aggregated_services_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu agregačních služeb.
+
+  - source: web_application
+    target: customer_services_catalog
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu zákaznických služeb.
+
+  - source: web_application
+    target: mandatory_service_activities
+    type: serving
+    description: Webová aplikace poskytuje UI pro správu povinných provozních činností.
+
+  - source: element_template_editor
+    target: elementary_items_catalog
+    type: serving
+    description: Šablony určují strukturu a validaci elementárních položek.
+
+  - source: elementary_items_catalog
+    target: aggregation_builder
+    type: serving
+    description: Elementární položky jsou stavebními bloky pro agregace.
+
+  - source: aggregation_builder
+    target: aggregated_services_catalog
+    type: flow
+    description: Výsledkem skládání je agregační služba uložená v katalogu.
+
+  - source: aggregated_services_catalog
+    target: customer_services_catalog
+    type: serving
+    description: Zákaznické služby jsou stavěny nad agregačními službami.
+
+  - source: mandatory_service_activities
+    target: elementary_items_catalog
+    type: access
+    description: Povinné činnosti jsou přiřazeny k elementárním položkám jako součást jejich provozního profilu.
+
+  - source: mandatory_service_activities
+    target: aggregated_services_catalog
+    type: access
+    description: Povinné činnosti jsou přiřazeny k agregačním službám jako součást jejich provozního modelu.
+
+  - source: pricing_calculator
+    target: elementary_items_catalog
+    type: access
+    description: Pricing Calculator čte nákladové atributy elementárních položek.
+
+  - source: pricing_calculator
+    target: aggregated_services_catalog
+    type: access
+    description: Pricing Calculator čte složení agregačních služeb.
+
+  - source: pricing_calculator
+    target: customer_services_catalog
+    type: access
+    description: Pricing Calculator čte business overhead zákaznických služeb.
+
+  - source: pricing_calculator
+    target: mandatory_service_activities
+    type: access
+    description: Pricing Calculator zahrnuje náklady povinných činností do výsledné ceny.
+
+  - source: sla_calculator
+    target: aggregated_services_catalog
+    type: access
+    description: SLA Calculator čte topologii a redundanci agregačních služeb.
+
+  - source: sla_calculator
+    target: mandatory_service_activities
+    type: access
+    description: SLA Calculator zohledňuje povinné činnosti při vyhodnocení provozního modelu služby.
+
+  - source: json_import_export_service
+    target: element_template_editor
+    type: access
+    description: JSON služba importuje a exportuje šablony elementárních položek.
+
+  - source: json_import_export_service
+    target: elementary_items_catalog
+    type: access
+    description: JSON služba importuje a exportuje elementární položky.
+
+  - source: json_import_export_service
+    target: aggregated_services_catalog
+    type: access
+    description: JSON služba importuje a exportuje agregační služby.
+
+  - source: json_import_export_service
+    target: customer_services_catalog
+    type: access
+    description: JSON služba importuje a exportuje zákaznické služby.
+
+  - source: json_import_export_service
+    target: mandatory_service_activities
+    type: access
+    description: JSON služba importuje a exportuje definice povinných provozních činností.
+
+  - source: element_template_editor
+    target: catalog_database
+    type: access
+    description: Editor šablon ukládá definice šablon do databáze.
+
+  - source: elementary_items_catalog
+    target: catalog_database
+    type: access
+    description: Katalog elementárních položek ukládá položky do databáze.
+
+  - source: aggregated_services_catalog
+    target: catalog_database
+    type: access
+    description: Katalog agregačních služeb ukládá agregace do databáze.
+
+  - source: customer_services_catalog
+    target: catalog_database
+    type: access
+    description: Katalog zákaznických služeb ukládá zákaznické služby do databáze.
+
+  - source: mandatory_service_activities
+    target: catalog_database
+    type: access
+    description: Povinné provozní činnosti jsou ukládány do katalogové databáze.
+
+  - source: pricing_calculator
+    target: catalog_database
+    type: access
+    description: Pricing Calculator ukládá pricing trace a výsledky výpočtů.
+
+  - source: sla_calculator
+    target: catalog_database
+    type: access
+    description: SLA Calculator ukládá SLA trace a výsledky výpočtů.
 ```
 
+
+# Rozhodnutí
 
 # Rozhodnutí
 
@@ -1200,66 +2146,1238 @@ Agregační služby budou:
 - nikoliv obchodním produktem.
 
 
-# Vazby
+# Governance
+
+# Governance
+
+## Účel
+
+Tento dokument definuje technology-neutral governance model pro SPEC projektu `catalog-services`.
+
+Governance vrstva řídí:
+- ownership,
+- approval model,
+- publication pravidla,
+- change governance,
+- versioning governance,
+- validační odpovědnosti.
+
+Governance nemění business scope systému.
+Governance pouze určuje, kdo a za jakých podmínek může měnit canonical SPEC artefakty.
+
+---
+
+## Governance principy
+
+- Canonical source of truth je pouze publikovaný SPEC.
+- Draft artefakty nesmí být použity jako vstup pro řízenou regeneraci bez explicitního lidského schválení.
+- Kontrakty jsou deployment-neutral a definují významové boundary, nikoliv konkrétní implementační rozhraní.
+- Každý publishable artefakt musí mít ownera, lifecycle stav, verzi a validační výsledek.
+- Contract-breaking změny musí procházet zesíleným approval režimem.
+- Změna lower-layer artefaktu musí být posouzena na dopad do vyšších vrstev ES → AG → CS.
+
+---
+
+## Ownership model
+
+### Role typy
+
+#### Business Owner
+Odpovídá za:
+- business význam zákaznických služeb,
+- business overhead a business-facing interpretaci,
+- schválení business dopadů změny.
+
+#### Technical Owner
+Odpovídá za:
+- technickou správnost ES a AG modelu,
+- topology a dependency logiku,
+- technické dopady změn.
+
+#### Data Steward
+Odpovídá za:
+- kvalitu katalogových dat,
+- konzistenci metadat,
+- správnost verzí, stavů a referencí.
+
+#### Contract Owner
+Odpovídá za:
+- canonical contracts,
+- semantic stabilitu contract boundary,
+- změnovou kompatibilitu contract family.
+
+#### Approval Owner
+Odpovídá za:
+- lifecycle a publication gates,
+- potvrzení, že změna splnila požadované validace,
+- rozhodnutí publish / hold / reject.
+
+#### Integration Owner
+Odpovídá za:
+- boundary vůči CMDB,
+- boundary vůči monitoringu,
+- boundary vůči exportům a importům,
+- reconciliation pravidla.
+
+---
+
+## Ownership assignments by domain
+
+### ES katalog
+- Primary role: Technical Owner
+- Supporting roles: Data Steward, Approval Owner
+
+### AG katalog
+- Primary role: Technical Owner
+- Supporting roles: Data Steward, Approval Owner
+
+### CS katalog
+- Primary role: Business Owner
+- Supporting roles: Technical Owner, Data Steward, Approval Owner
+
+### Pricing contracts a pricing pravidla
+- Primary role: Contract Owner
+- Supporting roles: Business Owner, Data Steward, Approval Owner
+
+### SLA contracts a SLA pravidla
+- Primary role: Contract Owner
+- Supporting roles: Technical Owner, Data Steward, Approval Owner
+
+### Validation layer
+- Primary role: Contract Owner
+- Supporting roles: Data Steward, Approval Owner
+
+### Regeneration rules
+- Primary role: Approval Owner
+- Supporting roles: Contract Owner, Data Steward
+
+### Integration boundary
+- Primary role: Integration Owner
+- Supporting roles: Technical Owner, Contract Owner, Approval Owner
+
+---
+
+## Approval model
+
+### Approval classes
+
+#### Low-risk change
+Typicky:
+- editorial change,
+- upřesnění bez změny významu,
+- doplnění chybějící reference bez změny semantics.
+
+Vyžaduje:
+- Data Steward review,
+- standard validation.
+
+#### Semantic change
+Typicky:
+- změna významu katalogového atributu,
+- změna pricing nebo SLA semantics,
+- změna governance expectation.
+
+Vyžaduje:
+- domain owner review,
+- Contract Owner review pokud se dotýká contract boundary,
+- Approval Owner publication gate.
+
+#### Contract-breaking change
+Typicky:
+- změna required fieldů contractu,
+- změna compatibility expectation,
+- změna publication nebo lifecycle semantics.
+
+Vyžaduje:
+- Contract Owner approval,
+- Approval Owner approval,
+- explicitní evidence dopadu,
+- aktualizovaný validation report.
+
+#### Regeneration-risk change
+Typicky:
+- změna stable zones,
+- změna contract-first zones,
+- změna pravidel pro agentické zásahy.
+
+Vyžaduje:
+- Approval Owner approval,
+- Contract Owner review,
+- aktualizovaný regeneration readiness check.
+
+---
+
+## Publication governance
+
+Publishable artefakt musí mít vždy:
+- jednoznačný identifier,
+- verzi,
+- lifecycle stav způsobilý k publikaci,
+- určeného ownera,
+- validační výsledek bez blocking issues,
+- splněný approval režim dle change class.
+
+### Publishable artifact families
+- source SPEC kapitoly,
+- canonical contracts,
+- validation rules,
+- validation report,
+- aggregated SPEC view,
+- regeneration readiness artifacts.
+
+### Draft-only artifacts
+Za draft-only se považují artefakty, které:
+- nemají approval,
+- nemají final validation,
+- mají lifecycle nižší než `approved`,
+- jsou explicitně označené jako pracovní návrh.
+
+Draft-only artefakt nesmí být použit jako canonical input pro řízenou regeneraci.
+
+---
+
+## Versioning governance
+
+Governance rozlišuje:
+- SPEC version,
+- contract version,
+- validation rule-set version,
+- publication version aggregated view.
+
+### Versioning expectations
+- Každá semantic change musí mít verzový dopad.
+- Každá contract-breaking change musí mít explicitní version bump contract family.
+- Validation report musí odkazovat na konkrétní rule-set version i SPEC version.
+- Aggregated SPEC musí být odvoditelný ze schválených source artefaktů stejné publikační generace.
+
+---
+
+## Validation responsibilities
+
+### Automatické validace
+Odpovídá za ně:
+- Data Steward,
+- nástroje validation workflow.
+
+### Agentické validace
+Odpovídá za ně:
+- Contract Owner,
+- Approval Owner jako reviewer výsledku.
+
+### Manuální validace
+Odpovídá za ně:
+- Business Owner,
+- Technical Owner,
+- Approval Owner podle typu změny.
+
+---
+
+## Escalation
+
+Pokud se role neshodnou:
+- semantic konflikt business vs technical řeší Approval Owner,
+- contract konflikt řeší Contract Owner + Approval Owner,
+- regeneration-risk konflikt má prioritu Approval Owner.
+
+---
+
+## Governance output expectation
+
+Governance je splněná pouze tehdy, pokud:
+- canonical contracts existují,
+- ownership je explicitní,
+- validation layer je aktivní,
+- publication rules jsou doložitelné,
+- regeneration rules rozlišují stable zones, regenerable zones, contract-first zones a human approval gates.
+
+
+# Change Governance
+
+# Change Governance
+
+## Účel
+
+Tento dokument definuje change governance pro SPEC projektu `catalog-services`.
+
+Řeší:
+- klasifikaci změn,
+- required review depth,
+- required validation depth,
+- publication constraints,
+- dopad změn napříč ES → AG → CS.
+
+---
+
+## Change classes
+
+### 1. Editorial change
+Bez změny významu.
+Příklady:
+- oprava překlepu,
+- zlepšení formulace,
+- doplnění nefunkční reference bez semantic změny.
+
+Vyžaduje:
+- základní validation,
+- Data Steward review.
+
+### 2. Structural non-breaking change
+Mění strukturu SPEC, ale ne contractual meaning.
+Příklady:
+- přesun kapitoly,
+- doplnění nového vysvětlujícího oddílu,
+- doplnění indexu nebo traceability odkazu.
+
+Vyžaduje:
+- structural validation,
+- Data Steward review,
+- Approval Owner potvrzení, pokud je změněn publishable artifact.
+
+### 3. Semantic change
+Mění význam modelu bez rozbití contract family.
+Příklady:
+- zpřesnění ownership,
+- zpřesnění lifecycle expectation,
+- rozšíření pravidel impact analysis.
+
+Vyžaduje:
+- domain review,
+- agent consistency review,
+- updated validation report.
+
+### 4. Contract-breaking change
+Mění canonical boundary contractu.
+Příklady:
+- změna required inputů pricing contractu,
+- změna required outputs SLA contractu,
+- změna compatibility expectation import/export contractu.
+
+Vyžaduje:
+- Contract Owner approval,
+- explicitní change impact evidence,
+- updated validation report,
+- Approval Owner gate.
+
+### 5. Regeneration-risk change
+Mění pravidla agentického zásahu nebo stabilitu zón.
+Příklady:
+- přesun artefaktu ze stable zone do regenerable zone,
+- změna human approval gate,
+- uvolnění contract-first boundary.
+
+Vyžaduje:
+- regeneration review,
+- Approval Owner approval,
+- readiness re-check.
+
+---
+
+## Change propagation rules
+
+### ES change
+Musí být posouzena na dopad do:
+- AG composition,
+- SLA input model,
+- pricing inheritance,
+- import/export compatibility.
+
+### AG change
+Musí být posouzena na dopad do:
+- CS offerings,
+- SLA evaluation,
+- pricing topology multiplier semantics,
+- simulation scenarios.
+
+### CS change
+Musí být posouzena na dopad do:
+- business-facing pricing,
+- publication readiness,
+- order-readiness artifacts.
+
+### Contract change
+Musí být posouzena na dopad do:
+- validation rules,
+- regeneration rules,
+- aggregated SPEC,
+- downstream implementation planning.
+
+---
+
+## Required evidence by change type
+
+- Editorial: evidence of structural validity
+- Structural non-breaking: evidence of updated references and canonical sync
+- Semantic: evidence of domain review and affected artifacts
+- Contract-breaking: evidence of compatibility decision and approval chain
+- Regeneration-risk: evidence of readiness impact and human approval gate outcome
+
+---
+
+## Publication constraints
+
+Změna nesmí být publikována, pokud:
+- má blocking validation finding,
+- chybí owner,
+- chybí odpovídající contract reference tam, kde je vyžadována,
+- mění stable zones bez regeneration review,
+- mění contract-first oblast bez Contract Owner approval.
+
+
+# Contracts Index
 
 ```yaml
-links:
-  roam:
-    project_page: "PO/..."
+metadata:
+  contract_family: catalog-services-canonical-contracts
+  version: 1.0.0
+  status: active
+  owner_role: Contract Owner
+  approval_role: Approval Owner
 
-  local_paths:
-    project_root: "~/Projects/catalog-services"
-    spec_root: "~/SpecSystem/projects/catalog-services"
+contracts:
+  - id: pricing-contract
+    file: 65-contracts/pricing-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
 
-  repositories:
-    - url: https://github.com/...
-      description: hlavní repo
+  - id: sla-contract
+    file: 65-contracts/sla-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
 
-  services:
-    - name: VPS
-      type: infra
-      provider: Hetzner
+  - id: lifecycle-contract
+    file: 65-contracts/lifecycle-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
 
+  - id: publication-contract
+    file: 65-contracts/publication-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: ownership-contract
+    file: 65-contracts/ownership-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: import-export-contract
+    file: 65-contracts/import-export-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: validation-contract
+
+  - id: validation-contract
+    file: 65-contracts/validation-contract.yaml
+    status: active
+    stability: stable
+    owner_role: Contract Owner
+    approval_role: Approval Owner
+    validation_dependency: null
+```
+
+
+# Pricing Contract
+
+```yaml
+contract:
+  id: pricing-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro pricing boundary. Contract je deployment-neutral a
+    určuje povinné významové vstupy, povinné výstupy, auditovatelnost a
+    persistence expectations pricing výpočtu.
+
+scope:
+  applies_to:
+    - ES raw cost interpretation
+    - AG topology costing interpretation
+    - CS business overhead interpretation
+    - pricing trace and explainability
+  excludes:
+    - API endpoint design
+    - transport protocol
+    - UI workflow design
+    - physical storage engine selection
+
+required_inputs:
+  - pricing_subject_identifier
+  - subject_layer_context
+  - ES cost basis reference
+  - AG composition reference
+  - AG quantity and topology multiplier basis
+  - CS overhead reference when applicable
+  - mandatory service activity cost basis when applicable
+  - pricing profile reference
+  - lifecycle and version context
+
+required_outputs:
+  - pricing_result
+  - pricing_result_unit
+  - pricing_trace
+  - calculation_explainability_markers
+  - source_version_references
+  - calculation_status
+  - pricing_publication_eligibility_flag
+
+normative_rules:
+  - Pricing musí být odvoditelný z ES → AG → CS modelu.
+  - Pricing nesmí zavádět business overhead na AG vrstvě jako samostatný obchodní produkt.
+  - Pricing trace musí umožnit reprodukovat výsledek ze stejných vstupních verzí.
+  - Každý pricing výstup musí být auditovatelný a verzovaný.
+  - Pricing contract nesmí určovat deployment nebo API transport.
+
+persistence_implications:
+  required_domains:
+    - pricing_profiles
+    - pricing_runs
+    - pricing_traces
+    - pricing_publication_state
+    - pricing_version_references
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Business Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
+```
+
+
+# SLA Contract
+
+```yaml
+contract:
+  id: sla-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro SLA a availability boundary. Contract je deployment-neutral
+    a určuje významové vstupy, výstupy, failure semantics a explainability expectation.
+
+scope:
+  applies_to:
+    - AG topology-based availability evaluation
+    - redundancy semantics
+    - failure impact evaluation
+    - SLA profile interpretation
+    - technical availability to business SLA dependency
+  excludes:
+    - monitoring transport design
+    - runtime incident handling workflow
+    - specific mathematical implementation detail beyond required semantics
+
+required_inputs:
+  - SLA subject identifier
+  - AG topology reference
+  - redundancy groups reference
+  - locality distribution reference
+  - mandatory and optional element semantics
+  - technical capability input references from ES
+  - SLA profile reference
+  - lifecycle and version context
+
+required_outputs:
+  - availability_result
+  - SLA_profile_evaluation
+  - failure_impact_view
+  - explainability_trace
+  - source_version_references
+  - evaluation_status
+  - publication_eligibility_flag
+
+normative_rules:
+  - SLA nevzniká na úrovni ES, ale z AG topologie.
+  - Business SLA v CS musí mít technický základ v AG availability modelu.
+  - Failure impact musí být vysvětlitelný vzhledem k redundancy a topology modelu.
+  - SLA evaluation musí být reprodukovatelná ze stejných vstupních verzí.
+  - Contract neurčuje deployment ani konkrétní API design.
+
+persistence_implications:
+  required_domains:
+    - sla_profiles
+    - availability_evaluations
+    - failure_impact_records
+    - sla_traces
+    - source_version_references
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Technical Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
+```
+
+
+# Lifecycle Contract
+
+```yaml
+contract:
+  id: lifecycle-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro lifecycle semantics artefaktů v katalogovém systému.
+
+applies_to_artifacts:
+  - ES types
+  - AG types
+  - CS types
+  - pricing profiles
+  - SLA profiles
+  - import/export contracts
+  - validation rules
+  - aggregated spec publications
+
+states:
+  - draft
+  - in_review
+  - approved
+  - published
+  - deprecated
+  - retired
+
+required_inputs:
+  - artifact_identifier
+  - artifact_family
+  - current_state
+  - requested_transition
+  - actor_role
+  - dependency_validation_status
+  - approval_status
+  - version_context
+
+required_outputs:
+  - transition_decision
+  - resulting_state
+  - required_follow_up_actions
+  - impact_flags
+  - approval_requirements
+
+normative_rules:
+  - Publikace je možná jen ze stavu approved.
+  - Deprecated a retired artefakty nesmí být použity jako nový canonical input bez explicitního lidského schválení.
+  - Contract-breaking změna musí být posouzena jako semantic nebo vyšší lifecycle event.
+  - Lifecycle semantics musí být konzistentní napříč source a aggregated SPEC.
+
+persistence_implications:
+  required_domains:
+    - lifecycle_state_history
+    - approval_links
+    - transition_evidence
+    - artifact_version_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
+```
+
+
+# Publication Contract
+
+```yaml
+contract:
+  id: publication-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro publication readiness a publishable artifact semantics.
+
+publishable_artifact_families:
+  - source SPEC chapters
+  - canonical contracts
+  - validation rules
+  - validation reports
+  - aggregated SPEC view
+  - regeneration readiness artifacts
+
+required_inputs:
+  - artifact_identifier
+  - artifact_family
+  - lifecycle_state
+  - owner_assignment
+  - validation_result
+  - approval_status
+  - version_context
+
+required_outputs:
+  - publication_decision
+  - publication_record
+  - published_version_marker
+  - publication_blockers
+  - invalidation_or_rollback_flags
+
+normative_rules:
+  - Draft-only artefakt nesmí být publikován jako canonical source.
+  - Aggregated SPEC může být publikován pouze pokud je synchronizovaný se schválenými source artefakty.
+  - Publishable artefakt musí mít ownera a validační výsledek bez blocking issues.
+  - Publication contract nesmí definovat deployment pipeline nebo konkrétní nástroj.
+
+persistence_implications:
+  required_domains:
+    - publication_records
+    - published_version_snapshots
+    - publication_lineage
+    - publication_blockers
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
+```
+
+
+# Ownership Contract
+
+```yaml
+contract:
+  id: ownership-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro přiřazení accountability a stewardship k artifactům a doménám.
+
+role_types:
+  - Business Owner
+  - Technical Owner
+  - Data Steward
+  - Contract Owner
+  - Approval Owner
+  - Integration Owner
+
+required_inputs:
+  - artifact_or_domain_identifier
+  - artifact_family
+  - primary_owner_role
+  - supporting_owner_roles
+  - approval_role
+  - escalation_path
+
+required_outputs:
+  - authoritative_owner_assignment
+  - approval_path
+  - escalation_mapping
+  - stewardship_mapping
+
+normative_rules:
+  - Každý publishable artefakt musí mít primary owner role.
+  - Každý contract musí mít Contract Owner a Approval Owner.
+  - Každý integration boundary artefakt musí mít Integration Owner.
+  - Ownership contract je technology-neutral a neurčuje organizační toolset.
+
+persistence_implications:
+  required_domains:
+    - owner_registry
+    - approval_role_registry
+    - escalation_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: semantic
+```
+
+
+# Import Export Contract
+
+```yaml
+contract:
+  id: import-export-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro import/export artifact families. Contract je deployment-neutral
+    a neurčuje konkrétní payloady ani endpointy.
+
+artifact_families:
+  - ES artifacts
+  - AG artifacts
+  - CS artifacts
+  - pricing profiles
+  - SLA profiles
+  - dependency models
+  - simulation scenarios
+
+required_inputs:
+  - artifact_family_identifier
+  - contract_version
+  - import_or_export_intent
+  - compatibility_mode
+  - lifecycle_context
+  - publication_context
+
+required_outputs:
+  - accepted_contract_version
+  - compatibility_status
+  - validation_expectations
+  - publication_eligibility
+  - traceability_requirements
+
+normative_rules:
+  - Import/export contract musí být verzovaný.
+  - Import nesmí tiše přepsat publikovaná data bez lifecycle pravidel.
+  - Export musí být dohledatelný ke zdrojové verzi artefaktu.
+  - Contract neurčuje konkrétní JSON payload shape, ale určuje požadované boundary a governance.
+
+persistence_implications:
+  required_domains:
+    - contract_family_registry
+    - schema_version_registry
+    - import_history
+    - export_history
+    - compatibility_decisions
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Integration Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
+```
+
+
+# Validation Contract
+
+```yaml
+contract:
+  id: validation-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro validation boundary. Definuje typy pravidel, severity,
+    enforcement a execution modes bez vazby na konkrétní validační nástroj.
+
+rule_categories:
+  - structure
+  - semantics
+  - governance
+  - contracts
+  - traceability
+  - regeneration
+
+required_inputs:
+  - validation_target
+  - rule_set_version
+  - artifact_metadata
+  - evidence_inputs
+  - execution_mode
+
+required_outputs:
+  - validation_result
+  - severity_summary
+  - blocking_findings
+  - warnings
+  - evidence_references
+  - recommendation_flags
+
+execution_modes:
+  - automated
+  - agent
+  - manual
+
+normative_rules:
+  - Každé pravidlo musí mít severity a enforcement level.
+  - Blocking pravidlo musí být schopné zastavit publication readiness.
+  - Validation musí odlišovat automated, agent a manual checks.
+  - Validation contract musí být referencí pro consistency-rules.yaml a validation-report.md.
+
+persistence_implications:
+  required_domains:
+    - validation_rule_sets
+    - validation_run_history
+    - finding_registry
+    - evidence_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
 ```
 
 
 # Regenerace
 
+# Regenerace
+
 ## Princip
-Systém je regenerovatelný ze specifikace.
+Systém je regenerovatelný ze specifikace pouze tehdy, pokud jsou stabilní canonical boundary a aktivní validační governance.
 
 ## Vstupy pro regeneraci
 - specifikace
-- kontext
+- canonical contracts
+- validation layer
+- governance context
 - data
 
-## Regenerovatelné části
-- backend
-- frontend
-- testy
+## Stable zones
+Stable zones jsou oblasti, které musí být explicitně stabilní před řízenou regenerací.
+
+Patří sem:
+- ES → AG → CS doménové hranice
+- pricing contract
+- SLA contract
+- lifecycle contract
+- publication contract
+- ownership contract
+- validation contract
+- active validation rule set
+- approval governance
+
+Stable zones nesmí být měněny agenticky bez explicitního lidského schválení.
+
+## Regenerable zones
+Regenerable zones jsou oblasti, které lze po splnění preconditions bezpečně regenerovat.
+
+Patří sem zejména:
+- backend scaffolding odvozený z canonical contracts
+- frontend admin moduly odvozené ze schválených katalogových boundary
+- persistence adapters odvozené z logických persistence domén
+- validation utilities
+- reporting a traceability read-model vrstvy
+
+Regenerable zones musí vždy respektovat stable zones a contract-first zones.
+
+## Contract-first zones
+Contract-first zones jsou oblasti, kde implementace nebo regenerace nesmí předběhnout normativní contract.
+
+Patří sem:
+- pricing
+- SLA
+- import/export
+- publication
+- validation
+- ownership
+- change propagation semantics
+
+Pokud contract-first zone nemá schválený canonical contract, regenerace se nesmí spustit.
+
+## Human approval gates
+Lidské schválení je povinné pro:
+- změnu stable zone
+- změnu contract-first zone
+- contract-breaking change
+- publication aggregated SPEC view
+- první regeneration test nové contract family
+- změnu validation enforcement level u blocking pravidel
 
 ## Neregenerovatelné části
-- data
-- externí integrace
+Neregenerovatelné části v rámci tohoto SPEC:
+- produkční data
+- externí integrace jako konkrétní implementace
+- runtime incident handling
+- vendor-specific deployment topologie
 
-## Pravidla
-- malé komponenty
-- jasné hranice
-- izolace změn
+## Preconditions for regeneration runs
+Před každým regeneration runem musí být splněno:
+- aggregated SPEC je synchronizovaný se source SPEC
+- validation report je aktuální
+- neexistuje blocking validation finding
+- pricing a SLA contracts jsou active
+- lifecycle a publication governance jsou active
+- stable zones a regenerable zones jsou explicitně označené
+
+## Validation dependency
+Regenerace závisí na:
+- active validation contract
+- active consistency rules
+- evidence, že target artifacts nejsou v rozporu s canonical contracts
 
 ## Triggery regenerace
-- změna specifikace
-- pokles metrik
-- refactoring
+- změna specifikace mimo stable zones
+- schválená structural nebo semantic změna s dopadem do regenerable zones
+- pokles metrik kvality implementace
+- refactoring v regenerable zones
+
+## Stop conditions
+Regeneration run musí být zastaven, pokud:
+- je porušena stable zone
+- chybí contract-first artifact
+- validation vrátí blocking issue
+- aggregated SPEC není synchronizovaný
+- chybí required human approval gate
 
 
+# Validation Rules
+
+```yaml
+metadata:
+  rule_set_id: catalog-services-consistency-rules
+  version: 1.0.0
+  status: active
+  owner_role: Contract Owner
+  approval_role: Approval Owner
+  contract_reference: validation-contract
+
+rule_categories:
+  - structure
+  - semantics
+  - governance
+  - contracts
+  - traceability
+  - regeneration
+
+rules:
+  - id: STR-001
+    title: Required hardening artifact families exist
+    description: Required governance, contracts, validation and regeneration files must exist.
+    category: structure
+    severity: critical
+    applies_to:
+      - 55-governance/*
+      - 65-contracts/*
+      - 90-validation/*
+      - 70-regeneration/regeneration.md
+    preconditions: []
+    automated_check: true
+    manual_check: false
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - file existence
+    remediation_hint: Create missing hardening artifacts before publication.
+
+  - id: STR-002
+    title: Aggregated SPEC synchronization
+    description: Aggregated spec must contain governance, contracts, validation and regeneration sections aligned with source SPEC.
+    category: traceability
+    severity: critical
+    applies_to:
+      - outputs/spec/spec.md
+    preconditions:
+      - source files present
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - aggregated view references current source sections
+    remediation_hint: Regenerate aggregated SPEC from current approved sources.
+
+  - id: CON-001
+    title: Pricing contract is active and normative
+    description: Pricing contract must define required inputs, required outputs, normative rules and persistence implications.
+    category: contracts
+    severity: critical
+    applies_to:
+      - 65-contracts/pricing-contract.yaml
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - contract fields present
+    remediation_hint: Complete pricing contract fields before regeneration readiness.
+
+  - id: CON-002
+    title: SLA contract is active and normative
+    description: SLA contract must define required inputs, required outputs, normative rules and persistence implications.
+    category: contracts
+    severity: critical
+    applies_to:
+      - 65-contracts/sla-contract.yaml
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - contract fields present
+    remediation_hint: Complete SLA contract fields before regeneration readiness.
+
+  - id: GOV-001
+    title: Publishable artifacts have ownership and approval semantics
+    description: Publishable artifact families must have owner role and approval role defined.
+    category: governance
+    severity: high
+    applies_to:
+      - 55-governance/governance.md
+      - 65-contracts/*.yaml
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - owner and approval assignments documented
+    remediation_hint: Add or correct ownership mappings.
+
+  - id: REG-001
+    title: Regeneration zones are explicitly distinguished
+    description: Regeneration rules must distinguish stable zones, regenerable zones, contract-first zones and human approval gates.
+    category: regeneration
+    severity: critical
+    applies_to:
+      - 70-regeneration/regeneration.md
+    preconditions: []
+    automated_check: true
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - all four zone types explicitly present
+    remediation_hint: Expand regeneration rules to include all required zone classes.
+
+  - id: SEM-001
+    title: ES AG CS model remains canonical
+    description: Hardening changes must preserve the canonical ES → AG → CS layering and meaning.
+    category: semantics
+    severity: critical
+    applies_to:
+      - 20-scope/scope.md
+      - 30-architecture/architecture.md
+      - 40-components/components.yaml
+      - outputs/spec/spec.md
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: true
+    expected_evidence:
+      - consistent references to ES AG CS layering
+    remediation_hint: Remove or correct changes that collapse or reorder the service layers.
+
+  - id: CMP-001
+    title: Components are treated as deployment-neutral capabilities
+    description: Component model must not force a deployment interpretation.
+    category: semantics
+    severity: medium
+    applies_to:
+      - 30-architecture/architecture.md
+      - 40-components/components.yaml
+    preconditions: []
+    automated_check: false
+    manual_check: true
+    agent_check: true
+    blocking: false
+    expected_evidence:
+      - logical capability wording
+    remediation_hint: Clarify logical vs deployment-neutral interpretation.
+```
 
 
+# Validation Report
+
+# Validation Report
+
+## Report metadata
+- validated_project: catalog-services
+- validated_spec_version: 0.1
+- rule_set_version: 1.0.0
+- validation_scope: post-hardening
+- validation_mode: automated + agent review + manual semantic review required
+
+## Executive summary
+Hardening layer už není placeholder.
+Canonical contracts, governance a regeneration rules byly doplněny.
+Validation layer je nyní aktivní a obsahuje blocking pravidla pro critical boundary.
+
+## Passed rules
+- STR-001 Required hardening artifact families exist
+- CON-001 Pricing contract is active and normative
+- CON-002 SLA contract is active and normative
+- REG-001 Regeneration zones are explicitly distinguished
+
+## Warnings
+- CMP-001 vyžaduje průběžné manuální hlídání, aby implementační týmy nečetly komponenty jako deployable units.
+- ArchiMate traceability artifacts zůstávají mimo tento hardening wave.
+
+## Blocking failures
+- None at hardening-structure level.
+
+## Manual review findings
+- ES → AG → CS layering zůstává zachováno.
+- Business scope systému nebyl rozšířen.
+- Contracts jsou deployment-neutral a neobsahují fake API design.
+
+## Agent review findings
+- Aggregated SPEC vyžaduje synchronizaci po každé změně source SPEC.
+- Contracts obsahují required inputs, outputs, normative rules a persistence implications.
+- Governance now specifies owner and approval semantics.
+
+## Canonical synchronization status
+- status: synchronized by hardening wave
+- condition: must be revalidated after every source change
+
+## Regeneration readiness status
+- status: conditionally ready
+- conditions:
+  - active contracts retained
+  - validation report kept current
+  - human approval gates respected
+
+## Recommendations
+- Před první plnou regeneration zkouškou znovu spustit validation against current source set.
+- Optional ArchiMate hardening provést v samostatné vlně, ne v této změně.
 
 
+# Regeneration Readiness Checklist
+
+# Regeneration Readiness Checklist
+
+## Purpose
+
+Checklist pro go / no-go rozhodnutí před:
+- předáním SPEC dev-teamu,
+- prvním regeneration testem,
+- změnou stable zones nebo contract-first zones.
+
+## Mandatory checks
+
+- [ ] Aggregated SPEC je synchronizovaný se source SPEC.
+- [ ] Validation layer má neprázdná pravidla a aktuální report.
+- [ ] Pricing contract je active a review-complete.
+- [ ] SLA contract je active a review-complete.
+- [ ] Lifecycle a publication contract jsou active.
+- [ ] Ownership assignments existují pro publishable artifact families.
+- [ ] Stable zones jsou explicitně vyjmenované.
+- [ ] Regenerable zones jsou explicitně vyjmenované.
+- [ ] Contract-first zones jsou explicitně vyjmenované.
+- [ ] Human approval gates jsou explicitně vyjmenované.
+- [ ] Neexistuje blocking finding v validation reportu.
+
+## Decision
+
+### GO
+Použít pouze pokud jsou všechny mandatory checks splněné.
+
+### HOLD
+Použít pokud chybí non-critical evidence, ale nehrozí contract ambiguity.
+
+### NO-GO
+Použít pokud chybí canonical sync, validation layer, pricing/SLA contracts nebo approval governance.
 
 
-
+# Historie
 
 # Historie
 
@@ -1282,8 +3400,3 @@ Založení specifikace
 
 ### Důvod
 ...
-
-
-
-
-

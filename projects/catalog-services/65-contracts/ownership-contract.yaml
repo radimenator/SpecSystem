@@ -1,0 +1,47 @@
+contract:
+  id: ownership-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro přiřazení accountability a stewardship k artifactům a doménám.
+
+role_types:
+  - Business Owner
+  - Technical Owner
+  - Data Steward
+  - Contract Owner
+  - Approval Owner
+  - Integration Owner
+
+required_inputs:
+  - artifact_or_domain_identifier
+  - artifact_family
+  - primary_owner_role
+  - supporting_owner_roles
+  - approval_role
+  - escalation_path
+
+required_outputs:
+  - authoritative_owner_assignment
+  - approval_path
+  - escalation_mapping
+  - stewardship_mapping
+
+normative_rules:
+  - Každý publishable artefakt musí mít primary owner role.
+  - Každý contract musí mít Contract Owner a Approval Owner.
+  - Každý integration boundary artefakt musí mít Integration Owner.
+  - Ownership contract je technology-neutral a neurčuje organizační toolset.
+
+persistence_implications:
+  required_domains:
+    - owner_registry
+    - approval_role_registry
+    - escalation_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: semantic

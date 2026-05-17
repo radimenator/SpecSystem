@@ -1,0 +1,53 @@
+contract:
+  id: import-export-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro import/export artifact families. Contract je deployment-neutral
+    a neurčuje konkrétní payloady ani endpointy.
+
+artifact_families:
+  - ES artifacts
+  - AG artifacts
+  - CS artifacts
+  - pricing profiles
+  - SLA profiles
+  - dependency models
+  - simulation scenarios
+
+required_inputs:
+  - artifact_family_identifier
+  - contract_version
+  - import_or_export_intent
+  - compatibility_mode
+  - lifecycle_context
+  - publication_context
+
+required_outputs:
+  - accepted_contract_version
+  - compatibility_status
+  - validation_expectations
+  - publication_eligibility
+  - traceability_requirements
+
+normative_rules:
+  - Import/export contract musí být verzovaný.
+  - Import nesmí tiše přepsat publikovaná data bez lifecycle pravidel.
+  - Export musí být dohledatelný ke zdrojové verzi artefaktu.
+  - Contract neurčuje konkrétní JSON payload shape, ale určuje požadované boundary a governance.
+
+persistence_implications:
+  required_domains:
+    - contract_family_registry
+    - schema_version_registry
+    - import_history
+    - export_history
+    - compatibility_decisions
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Integration Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking

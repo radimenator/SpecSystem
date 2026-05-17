@@ -1,0 +1,55 @@
+contract:
+  id: validation-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro validation boundary. Definuje typy pravidel, severity,
+    enforcement a execution modes bez vazby na konkrétní validační nástroj.
+
+rule_categories:
+  - structure
+  - semantics
+  - governance
+  - contracts
+  - traceability
+  - regeneration
+
+required_inputs:
+  - validation_target
+  - rule_set_version
+  - artifact_metadata
+  - evidence_inputs
+  - execution_mode
+
+required_outputs:
+  - validation_result
+  - severity_summary
+  - blocking_findings
+  - warnings
+  - evidence_references
+  - recommendation_flags
+
+execution_modes:
+  - automated
+  - agent
+  - manual
+
+normative_rules:
+  - Každé pravidlo musí mít severity a enforcement level.
+  - Blocking pravidlo musí být schopné zastavit publication readiness.
+  - Validation musí odlišovat automated, agent a manual checks.
+  - Validation contract musí být referencí pro consistency-rules.yaml a validation-report.md.
+
+persistence_implications:
+  required_domains:
+    - validation_rule_sets
+    - validation_run_history
+    - finding_registry
+    - evidence_registry
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking

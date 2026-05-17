@@ -1,0 +1,63 @@
+contract:
+  id: pricing-contract
+  version: 1.0.0
+  status: active
+  intent: >-
+    Normativní contract pro pricing boundary. Contract je deployment-neutral a
+    určuje povinné významové vstupy, povinné výstupy, auditovatelnost a
+    persistence expectations pricing výpočtu.
+
+scope:
+  applies_to:
+    - ES raw cost interpretation
+    - AG topology costing interpretation
+    - CS business overhead interpretation
+    - pricing trace and explainability
+  excludes:
+    - API endpoint design
+    - transport protocol
+    - UI workflow design
+    - physical storage engine selection
+
+required_inputs:
+  - pricing_subject_identifier
+  - subject_layer_context
+  - ES cost basis reference
+  - AG composition reference
+  - AG quantity and topology multiplier basis
+  - CS overhead reference when applicable
+  - mandatory service activity cost basis when applicable
+  - pricing profile reference
+  - lifecycle and version context
+
+required_outputs:
+  - pricing_result
+  - pricing_result_unit
+  - pricing_trace
+  - calculation_explainability_markers
+  - source_version_references
+  - calculation_status
+  - pricing_publication_eligibility_flag
+
+normative_rules:
+  - Pricing musí být odvoditelný z ES → AG → CS modelu.
+  - Pricing nesmí zavádět business overhead na AG vrstvě jako samostatný obchodní produkt.
+  - Pricing trace musí umožnit reprodukovat výsledek ze stejných vstupních verzí.
+  - Každý pricing výstup musí být auditovatelný a verzovaný.
+  - Pricing contract nesmí určovat deployment nebo API transport.
+
+persistence_implications:
+  required_domains:
+    - pricing_profiles
+    - pricing_runs
+    - pricing_traces
+    - pricing_publication_state
+    - pricing_version_references
+
+governance:
+  owner_role: Contract Owner
+  supporting_roles:
+    - Business Owner
+    - Data Steward
+  approval_role: Approval Owner
+  change_class_if_broken: contract-breaking
