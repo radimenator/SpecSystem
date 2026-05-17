@@ -1,0 +1,46 @@
+{
+  "entity": "es_location",
+  "schemaVersion": "1.0",
+  "template": {
+    "id": "es_location",
+    "title": "Lokalita",
+    "layer": "elementary",
+    "description": "Šablona elementární služby typu Lokalita.",
+
+    "parameters": [
+      { "name": "template_id", "label": "ID šablony lokality", "type": "text", "required": true },
+      { "name": "template_name", "label": "Název šablony lokality", "type": "text", "required": true },
+      { "name": "location_type", "label": "Typ lokality", "type": "select", "required": true, "options": ["datacentrum", "edge", "cloud_region", "office"] },
+      { "name": "physical_security_level", "label": "Úroveň fyzické bezpečnosti", "type": "select", "options": ["basic", "standard", "high", "critical"] },
+      { "name": "redundant_power", "label": "Redundantní napájení", "type": "boolean" },
+      { "name": "ups_available", "label": "UPS dostupnost", "type": "boolean" },
+      { "name": "generator_available", "label": "Generátor dostupnost", "type": "boolean" },
+      { "name": "cooling_available", "label": "Chlazení dostupnost", "type": "boolean" },
+      { "name": "connectivity_type", "label": "Typ konektivity", "type": "text" },
+      { "name": "max_rack_count", "label": "Maximální počet racků", "type": "number" },
+      { "name": "compliance_profile", "label": "Compliance profil", "type": "multi_select", "options": ["ISO27001", "TIER_III", "TIER_IV"] },
+      { "name": "environment_monitoring", "label": "Monitoring prostředí", "type": "boolean" },
+      { "name": "geo_redundancy_supported", "label": "Podpora geo-redundance", "type": "boolean" },
+      { "name": "lifecycle_status", "label": "Lifecycle status", "type": "select", "options": ["draft", "active", "deprecated", "retired"] },
+      { "name": "pricing_model", "label": "Pricing model", "type": "select", "options": ["fixed", "per_unit"] }
+    ],
+
+    "operations": [
+      { "name": "access_management", "label": "správa přístupů" },
+      { "name": "capacity_management", "label": "správa kapacity" },
+      { "name": "location_audit", "label": "audit lokality" },
+      { "name": "environment_monitoring", "label": "monitoring lokality (IoT)" },
+      { "name": "incident_tracking", "label": "řešení a evidence incidentů" },
+      { "name": "lifecycle_management", "label": "lifecycle management" }
+    ],
+
+    "pricing": [
+      { "name": "base_monthly_price", "label": "základní měsíční cena", "type": "number" },
+      { "name": "maintenance_price", "label": "maintenance cena", "type": "number" },
+      { "name": "support_price", "label": "support cena", "type": "number" },
+      { "name": "energy_price", "label": "energie", "type": "number" },
+      { "name": "cooling_overhead", "label": "cooling overhead", "type": "number" },
+      { "name": "compliance_overhead", "label": "compliance overhead", "type": "number" }
+    ]
+  }
+}
