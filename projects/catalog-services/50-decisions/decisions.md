@@ -401,3 +401,77 @@ Mimo scope MVP zůstává:
 - runtime orchestration,
 - CMDB dependency graph,
 - cloud orchestration model.
+
+## ADR-008 Služby stejné vrstvy nesmí mít runtime závislosti
+
+### Stav
+Schváleno
+
+### Kontext
+
+Během návrhu katalogového modelu vzniklo riziko,
+že služby začnou vytvářet dependency graph
+uvnitř stejné vrstvy.
+
+Příklady:
+- ES → ES
+- AG → AG
+- CS → CS
+
+To by vedlo:
+- k dědičnosti pricingu,
+- k dědičnosti SLA,
+- k dependency graph orchestration,
+- k runtime coupling,
+- ke komplexní CMDB logice,
+- ke shared allocation modelu.
+
+### Rozhodnutí
+
+Služby stejné vrstvy nesmí mít runtime závislosti.
+
+Povolené dependency směry:
+
+- AG → ES
+- CS → AG
+
+Nepovolené dependency směry:
+
+- ES → ES
+- AG → AG
+- CS → CS
+- ES → AG
+- ES → CS
+- AG → CS
+
+Elementární služby jsou atomické.
+
+Agregační služby slouží jako jediná runtime composition vrstva.
+
+### Důsledky
+
+Model zůstává:
+- jednoduchý,
+- acyklický,
+- transparentní,
+- bez dependency recursion,
+- bez inherited pricing,
+- bez orchestrace,
+- bez CMDB graph engine.
+
+Elementární služby mohou:
+- deklarovat capability,
+- deklarovat potřeby,
+- deklarovat provozní požadavky,
+
+ale nesmí vytvářet runtime dependency.
+
+### Explicitně mimo scope MVP
+
+- dependency graph engine
+- orchestrace
+- inherited SLA
+- inherited pricing
+- runtime propagation
+- topology recursion
+- shared allocation model
