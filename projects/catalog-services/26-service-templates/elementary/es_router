@@ -1,0 +1,159 @@
+{
+    "entity": "es_router",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_router",
+        "title": "Router",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Router.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony routeru",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony routeru",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "throughput_mbps",
+                "label": "Propustnost (Mbps)",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "port_count",
+                "label": "Počet portů",
+                "type": "number"
+            },
+            {
+                "name": "routing_protocols",
+                "label": "Podporované routing protokoly",
+                "type": "multi_select",
+                "options": [
+                    "static",
+                    "OSPF",
+                    "BGP",
+                    "IS-IS"
+                ]
+            },
+            {
+                "name": "ha_supported",
+                "label": "Podpora HA",
+                "type": "boolean"
+            },
+            {
+                "name": "vrf_supported",
+                "label": "Podpora VRF",
+                "type": "boolean"
+            },
+            {
+                "name": "nat_supported",
+                "label": "Podpora NAT",
+                "type": "boolean"
+            },
+            {
+                "name": "vpn_supported",
+                "label": "Podpora VPN",
+                "type": "boolean"
+            },
+            {
+                "name": "qos_supported",
+                "label": "Podpora QoS",
+                "type": "boolean"
+            },
+            {
+                "name": "management_type",
+                "label": "Typ správy",
+                "type": "select",
+                "options": [
+                    "managed",
+                    "customer_managed",
+                    "provider_managed"
+                ]
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_unit"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "routing_configuration",
+                "label": "konfigurace routingu"
+            },
+            {
+                "name": "configuration_management",
+                "label": "správa konfigurace"
+            },
+            {
+                "name": "firmware_maintenance",
+                "label": "maintenance firmware"
+            },
+            {
+                "name": "network_monitoring",
+                "label": "monitoring routeru"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            },
+            {
+                "name": "license_price",
+                "label": "licenční cena",
+                "type": "number"
+            },
+            {
+                "name": "network_operations_overhead",
+                "label": "network operations overhead",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            }
+        ]
+    }
+}

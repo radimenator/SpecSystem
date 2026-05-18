@@ -1,0 +1,183 @@
+{
+    "entity": "es_wan_link",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_wan_link",
+        "title": "WAN linka",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu WAN linka.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony WAN linky",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony WAN linky",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "bandwidth_mbps",
+                "label": "Kapacita linky (Mbps)",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "link_type",
+                "label": "Typ linky",
+                "type": "select",
+                "required": true,
+                "options": [
+                    "internet",
+                    "mpls",
+                    "dark_fiber",
+                    "leased_line",
+                    "vpn_overlay"
+                ]
+            },
+            {
+                "name": "redundant_link",
+                "label": "Redundantní linka",
+                "type": "boolean"
+            },
+            {
+                "name": "provider_managed",
+                "label": "Správa operátorem",
+                "type": "boolean"
+            },
+            {
+                "name": "guaranteed_bandwidth",
+                "label": "Garantovaná kapacita",
+                "type": "boolean"
+            },
+            {
+                "name": "latency_class",
+                "label": "Třída latence",
+                "type": "select",
+                "options": [
+                    "standard",
+                    "low",
+                    "critical"
+                ]
+            },
+            {
+                "name": "availability_class",
+                "label": "Třída dostupnosti",
+                "type": "select",
+                "options": [
+                    "basic",
+                    "standard",
+                    "high",
+                    "critical"
+                ]
+            },
+            {
+                "name": "traffic_limit_type",
+                "label": "Typ provozního limitu",
+                "type": "select",
+                "options": [
+                    "unlimited",
+                    "fair_use",
+                    "metered"
+                ]
+            },
+            {
+                "name": "encryption_supported",
+                "label": "Podpora šifrování",
+                "type": "boolean"
+            },
+            {
+                "name": "monitoring_enabled",
+                "label": "Monitoring linky",
+                "type": "boolean"
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_unit",
+                    "bandwidth_based"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "link_monitoring",
+                "label": "monitoring linky"
+            },
+            {
+                "name": "capacity_management",
+                "label": "správa kapacity"
+            },
+            {
+                "name": "provider_coordination",
+                "label": "koordinace s operátorem"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "configuration_management",
+                "label": "správa konfigurace linky"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "connectivity_price",
+                "label": "cena konektivity",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            },
+            {
+                "name": "provider_fee",
+                "label": "poplatek operátora",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            },
+            {
+                "name": "redundancy_overhead",
+                "label": "redundancy overhead",
+                "type": "number"
+            }
+        ]
+    }
+}

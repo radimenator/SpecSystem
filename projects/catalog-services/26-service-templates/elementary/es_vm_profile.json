@@ -1,0 +1,48 @@
+{
+  "entity": "es_vm_profile",
+  "schemaVersion": "1.0",
+  "template": {
+    "id": "es_vm_profile",
+    "title": "VM profil",
+    "layer": "elementary",
+    "description": "Šablona elementární služby typu VM profil.",
+
+    "parameters": [
+      { "name": "template_id", "label": "ID šablony VM profilu", "type": "text", "required": true },
+      { "name": "template_name", "label": "Název šablony VM profilu", "type": "text", "required": true },
+      { "name": "vcpu", "label": "vCPU", "type": "number", "required": true },
+      { "name": "ram_gb", "label": "RAM (GB)", "type": "number", "required": true },
+      { "name": "storage_gb", "label": "Storage (GB)", "type": "number", "required": true },
+      { "name": "storage_tier", "label": "Storage tier", "type": "select", "options": ["standard", "performance", "premium"] },
+      { "name": "os_family", "label": "OS family", "type": "select", "options": ["linux", "windows", "other"] },
+      { "name": "ha_enabled", "label": "HA enabled", "type": "boolean" },
+      { "name": "backup_included", "label": "Backup zahrnut", "type": "boolean" },
+      { "name": "monitoring_enabled", "label": "Monitoring zahrnut", "type": "boolean" },
+      { "name": "performance_tier", "label": "Výkonová třída", "type": "select", "options": ["basic", "standard", "high", "critical"] },
+      { "name": "lifecycle_status", "label": "Lifecycle status", "type": "select", "options": ["draft", "active", "deprecated", "retired"] },
+      { "name": "pricing_model", "label": "Pricing model", "type": "select", "options": ["fixed", "per_unit", "resource_based"] }
+    ],
+
+    "operations": [
+      { "name": "vm_provisioning", "label": "vytvoření VM" },
+      { "name": "vm_resize", "label": "změna velikosti VM" },
+      { "name": "snapshot_management", "label": "správa snapshotů" },
+      { "name": "backup_management", "label": "správa záloh" },
+      { "name": "monitoring", "label": "monitoring VM" },
+      { "name": "patch_management", "label": "patch management" },
+      { "name": "incident_tracking", "label": "řešení a evidence incidentů" },
+      { "name": "lifecycle_management", "label": "lifecycle management" }
+    ],
+
+    "pricing": [
+      { "name": "base_monthly_price", "label": "základní měsíční cena", "type": "number" },
+      { "name": "compute_price", "label": "compute cena", "type": "number" },
+      { "name": "storage_price", "label": "storage cena", "type": "number" },
+      { "name": "maintenance_price", "label": "maintenance cena", "type": "number" },
+      { "name": "support_price", "label": "support cena", "type": "number" },
+      { "name": "os_license_price", "label": "OS licence", "type": "number" },
+      { "name": "backup_overhead", "label": "backup overhead", "type": "number" },
+      { "name": "monitoring_overhead", "label": "monitoring overhead", "type": "number" }
+    ]
+  }
+}

@@ -1,0 +1,160 @@
+{
+    "entity": "es_virtualization",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_virtualization",
+        "title": "Virtualizace",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Virtualizace.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony virtualizace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony virtualizace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "virtualization_platform",
+                "label": "Virtualizační platforma",
+                "type": "select",
+                "options": [
+                    "VMware",
+                    "Hyper-V",
+                    "KVM",
+                    "Proxmox",
+                    "OpenShift Virtualization",
+                    "other"
+                ]
+            },
+            {
+                "name": "host_count",
+                "label": "Počet hostů",
+                "type": "number"
+            },
+            {
+                "name": "ha_supported",
+                "label": "Podpora HA",
+                "type": "boolean"
+            },
+            {
+                "name": "live_migration_supported",
+                "label": "Podpora live migrace",
+                "type": "boolean"
+            },
+            {
+                "name": "shared_storage_required",
+                "label": "Vyžaduje sdílené úložiště",
+                "type": "boolean"
+            },
+            {
+                "name": "resource_overcommit_allowed",
+                "label": "Povolený overcommit zdrojů",
+                "type": "boolean"
+            },
+            {
+                "name": "management_console_included",
+                "label": "Management konzole zahrnuta",
+                "type": "boolean"
+            },
+            {
+                "name": "monitoring_enabled",
+                "label": "Monitoring virtualizace",
+                "type": "boolean"
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_host",
+                    "per_vm",
+                    "resource_based"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "virtualization_platform_management",
+                "label": "správa virtualizační platformy"
+            },
+            {
+                "name": "host_management",
+                "label": "správa hostů"
+            },
+            {
+                "name": "vm_lifecycle_support",
+                "label": "podpora lifecycle VM"
+            },
+            {
+                "name": "capacity_management",
+                "label": "správa kapacity"
+            },
+            {
+                "name": "patch_management",
+                "label": "patch management platformy"
+            },
+            {
+                "name": "monitoring",
+                "label": "monitoring virtualizace"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "platform_license_price",
+                "label": "licence platformy",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            },
+            {
+                "name": "host_operations_overhead",
+                "label": "host operations overhead",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            }
+        ]
+    }
+}

@@ -1,0 +1,164 @@
+{
+    "entity": "es_baremetal_server",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_baremetal_server",
+        "title": "Baremetal server",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Baremetal server.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony baremetal serveru",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony baremetal serveru",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "cpu_count",
+                "label": "Počet CPU",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "cpu_cores_total",
+                "label": "Celkový počet jader",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "ram_gb",
+                "label": "RAM (GB)",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "storage_tb",
+                "label": "Storage (TB)",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "storage_type",
+                "label": "Typ storage",
+                "type": "select",
+                "options": [
+                    "HDD",
+                    "SSD",
+                    "NVMe"
+                ]
+            },
+            {
+                "name": "network_ports",
+                "label": "Počet síťových portů",
+                "type": "number"
+            },
+            {
+                "name": "network_speed_gbps",
+                "label": "Rychlost síťových portů (Gbps)",
+                "type": "number"
+            },
+            {
+                "name": "redundant_power",
+                "label": "Redundantní napájení",
+                "type": "boolean"
+            },
+            {
+                "name": "virtualization_ready",
+                "label": "Připraveno pro virtualizaci",
+                "type": "boolean"
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_unit"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "hardware_provisioning",
+                "label": "provisioning hardware"
+            },
+            {
+                "name": "os_installation",
+                "label": "instalace OS"
+            },
+            {
+                "name": "firmware_maintenance",
+                "label": "maintenance firmware"
+            },
+            {
+                "name": "hardware_monitoring",
+                "label": "monitoring hardware"
+            },
+            {
+                "name": "hardware_replacement",
+                "label": "výměna komponent"
+            },
+            {
+                "name": "patch_management",
+                "label": "patch management"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            },
+            {
+                "name": "hardware_amortization_price",
+                "label": "amortizace hardware",
+                "type": "number"
+            },
+            {
+                "name": "energy_price",
+                "label": "energie",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            }
+        ]
+    }
+}

@@ -1,0 +1,169 @@
+{
+    "entity": "es_containerization",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_containerization",
+        "title": "Kontejnerizace",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Kontejnerizace.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony kontejnerizace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony kontejnerizace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "container_platform",
+                "label": "Kontejnerová platforma",
+                "type": "select",
+                "options": [
+                    "Kubernetes",
+                    "OpenShift",
+                    "Docker",
+                    "Rancher",
+                    "Nomad",
+                    "other"
+                ]
+            },
+            {
+                "name": "worker_node_count",
+                "label": "Počet worker nodů",
+                "type": "number"
+            },
+            {
+                "name": "ha_supported",
+                "label": "Podpora HA",
+                "type": "boolean"
+            },
+            {
+                "name": "registry_included",
+                "label": "Registry zahrnuta",
+                "type": "boolean"
+            },
+            {
+                "name": "ingress_controller_included",
+                "label": "Ingress controller zahrnut",
+                "type": "boolean"
+            },
+            {
+                "name": "network_policy_supported",
+                "label": "Podpora network policy",
+                "type": "boolean"
+            },
+            {
+                "name": "persistent_storage_supported",
+                "label": "Podpora persistent storage",
+                "type": "boolean"
+            },
+            {
+                "name": "monitoring_enabled",
+                "label": "Monitoring kontejnerizace",
+                "type": "boolean"
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_node",
+                    "per_cluster",
+                    "resource_based"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "container_platform_management",
+                "label": "správa kontejnerové platformy"
+            },
+            {
+                "name": "node_management",
+                "label": "správa nodů"
+            },
+            {
+                "name": "registry_management",
+                "label": "správa registry"
+            },
+            {
+                "name": "ingress_management",
+                "label": "správa ingressu"
+            },
+            {
+                "name": "capacity_management",
+                "label": "správa kapacity"
+            },
+            {
+                "name": "patch_management",
+                "label": "patch management platformy"
+            },
+            {
+                "name": "monitoring",
+                "label": "monitoring kontejnerizace"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "platform_license_price",
+                "label": "licence platformy",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            },
+            {
+                "name": "node_operations_overhead",
+                "label": "node operations overhead",
+                "type": "number"
+            },
+            {
+                "name": "registry_overhead",
+                "label": "registry overhead",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            }
+        ]
+    }
+}
