@@ -283,3 +283,121 @@ Model zůstává:
 Agregační služby budou:
 - technickou vrstvou,
 - nikoliv obchodním produktem.
+
+## ADR-007 Aplikace jsou modelovány jako elementární služby
+
+### Stav
+Schváleno
+
+### Kontext
+
+Během návrhu katalogového modelu vznikla otázka,
+zda mají být aplikace modelovány jako:
+
+- agregační služby (`AG`),
+nebo
+- elementární služby (`ES`).
+
+Původní návrh uvažoval:
+- `ag_application`,
+- tedy aplikaci jako agregační službu složenou z:
+  - lokalit,
+  - racků,
+  - serverů,
+  - virtualizace,
+  - síťových služeb.
+
+To však vedlo k několika problémům:
+
+- riziko dvojího účtování infrastruktury,
+- nejasný ownership platformy,
+- nejasná inheritance pricing logiky,
+- potřeba shared resource allocation,
+- potřeba dependency graphu AG → AG,
+- nejasná hranice mezi platformou a workloadem.
+
+Současně architektura UPAAS ukazuje,
+že aplikace:
+- běží NAD sdílenou platformou,
+- ale nejsou samy platformní kompozicí.
+
+Aplikace reprezentují:
+- workload,
+- runtime tenant,
+- business/runtime deployment,
+nikoliv infrastrukturní blueprint.
+
+### Rozhodnutí
+
+Aplikace jsou modelovány jako elementární služby (`ES`).
+
+Canonical entity:
+- `es_application`
+
+Aplikace:
+- nejsou agregační služby,
+- nejsou runtime composition layer,
+- nejsou topology blueprint.
+
+Aplikace reprezentují:
+- aplikační workload,
+- tenant workload,
+- business/runtime deployment jednotku.
+
+Agregační služby zůstávají:
+- technickou kompoziční vrstvou,
+- infrastrukturním blueprintem,
+- runtime/topology vrstvou.
+
+Aplikace mohou:
+- deklarovat potřeby:
+  - monitoring,
+  - logging,
+  - backup,
+  - firewall,
+  - NAT,
+  - load balancing,
+- ale tyto potřeby nejsou automaticky enforceované katalogem.
+
+Jde pouze o:
+- architektonickou deklaraci,
+- guidance pro návrh řešení,
+- podporu návrhu zákaznických služeb.
+
+### Důsledky
+
+Model zůstává:
+- jednodušší,
+- bez AG → AG dependency,
+- bez double pricing,
+- bez shared allocation modelu,
+- bez inherited costing.
+
+Vzniká jasné rozdělení:
+
+#### ES
+- infrastruktura,
+- platform primitives,
+- workloady/aplikace.
+
+#### AG
+- technická kompozice,
+- runtime blueprint,
+- topology layer.
+
+#### CS
+- zákaznické/business služby,
+- obchodní katalog,
+- finální pricing.
+
+### Explicitně mimo scope MVP
+
+Mimo scope MVP zůstává:
+
+- AG → AG dependency graph,
+- shared platform allocation,
+- inherited pricing,
+- inherited SLA,
+- runtime orchestration,
+- CMDB dependency graph,
+- cloud orchestration model.

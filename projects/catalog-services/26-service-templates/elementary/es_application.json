@@ -1,0 +1,277 @@
+{
+    "entity": "es_application",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_application",
+        "title": "Aplikace",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Aplikace provozovaná nad sdílenou platformou nebo prostředím.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony aplikace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony aplikace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "application_code",
+                "label": "Kód aplikace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "application_name",
+                "label": "Název aplikace",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "application_type",
+                "label": "Typ aplikace",
+                "type": "select",
+                "options": [
+                    "web",
+                    "api",
+                    "batch",
+                    "desktop",
+                    "integration",
+                    "database_client",
+                    "mixed"
+                ]
+            },
+            {
+                "name": "environment_type",
+                "label": "Typ prostředí",
+                "type": "select",
+                "options": [
+                    "dev",
+                    "test",
+                    "stage",
+                    "prod"
+                ]
+            },
+            {
+                "name": "runtime_type",
+                "label": "Typ běhu aplikace",
+                "type": "select",
+                "options": [
+                    "vm",
+                    "container",
+                    "baremetal",
+                    "mixed"
+                ]
+            },
+            {
+                "name": "server_count",
+                "label": "Počet serverů / instancí",
+                "type": "number"
+            },
+            {
+                "name": "tenant",
+                "label": "Tenant",
+                "type": "text"
+            },
+            {
+                "name": "vrf",
+                "label": "VRF",
+                "type": "text"
+            },
+            {
+                "name": "network_segment",
+                "label": "Síťový segment",
+                "type": "text"
+            },
+            {
+                "name": "http_enabled",
+                "label": "HTTP povoleno",
+                "type": "boolean"
+            },
+            {
+                "name": "https_enabled",
+                "label": "HTTPS povoleno",
+                "type": "boolean"
+            },
+            {
+                "name": "rdp_enabled",
+                "label": "RDP povoleno",
+                "type": "boolean"
+            },
+            {
+                "name": "load_balancing_need",
+                "label": "Potřeba load balancingu",
+                "type": "select",
+                "options": [
+                    "none",
+                    "standard",
+                    "high"
+                ]
+            },
+            {
+                "name": "firewall_need",
+                "label": "Potřeba firewall pravidel",
+                "type": "select",
+                "options": [
+                    "none",
+                    "standard",
+                    "strict"
+                ]
+            },
+            {
+                "name": "nat_need",
+                "label": "Potřeba NAT",
+                "type": "select",
+                "options": [
+                    "none",
+                    "source_nat",
+                    "destination_nat",
+                    "both"
+                ]
+            },
+            {
+                "name": "monitoring_need",
+                "label": "Potřeba monitoringu",
+                "type": "select",
+                "options": [
+                    "none",
+                    "basic",
+                    "standard",
+                    "enhanced"
+                ]
+            },
+            {
+                "name": "logging_need",
+                "label": "Potřeba logování",
+                "type": "select",
+                "options": [
+                    "none",
+                    "basic",
+                    "standard",
+                    "audit"
+                ]
+            },
+            {
+                "name": "backup_need",
+                "label": "Potřeba zálohování",
+                "type": "select",
+                "options": [
+                    "none",
+                    "standard",
+                    "enhanced",
+                    "critical"
+                ]
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_application",
+                    "resource_based"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "application_runtime_support",
+                "label": "podpora běhu aplikace"
+            },
+            {
+                "name": "application_configuration_support",
+                "label": "podpora konfigurace aplikace"
+            },
+            {
+                "name": "network_policy_coordination",
+                "label": "koordinace síťových pravidel"
+            },
+            {
+                "name": "monitoring_coordination",
+                "label": "koordinace monitoringu"
+            },
+            {
+                "name": "logging_coordination",
+                "label": "koordinace logování"
+            },
+            {
+                "name": "backup_coordination",
+                "label": "koordinace zálohování"
+            },
+            {
+                "name": "patch_coordination",
+                "label": "koordinace patch managementu"
+            },
+            {
+                "name": "incident_tracking",
+                "label": "řešení a evidence incidentů"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "základní měsíční cena",
+                "type": "number"
+            },
+            {
+                "name": "runtime_support_price",
+                "label": "podpora běhu aplikace",
+                "type": "number"
+            },
+            {
+                "name": "configuration_support_price",
+                "label": "podpora konfigurace",
+                "type": "number"
+            },
+            {
+                "name": "network_coordination_price",
+                "label": "koordinace síťových pravidel",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_coordination_price",
+                "label": "koordinace monitoringu",
+                "type": "number"
+            },
+            {
+                "name": "logging_coordination_price",
+                "label": "koordinace logování",
+                "type": "number"
+            },
+            {
+                "name": "backup_coordination_price",
+                "label": "koordinace zálohování",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance cena",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "support cena",
+                "type": "number"
+            }
+        ]
+    }
+}
