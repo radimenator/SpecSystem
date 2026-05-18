@@ -1,0 +1,152 @@
+{
+    "entity": "es_rack",
+    "schemaVersion": "1.0",
+    "template": {
+        "id": "es_rack",
+        "title": "Rack",
+        "layer": "elementary",
+        "description": "Šablona elementární služby typu Rack.",
+        "parameters": [
+            {
+                "name": "template_id",
+                "label": "ID šablony racku",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "template_name",
+                "label": "Název šablony racku",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "rack_units",
+                "label": "Počet rack units (RU)",
+                "type": "number",
+                "required": true
+            },
+            {
+                "name": "max_power_kw",
+                "label": "Maximální příkon (kW)",
+                "type": "number"
+            },
+            {
+                "name": "redundant_power",
+                "label": "Redundantní napájení",
+                "type": "boolean"
+            },
+            {
+                "name": "security_zone",
+                "label": "Bezpečnostní zóna",
+                "type": "select",
+                "options": [
+                    "basic",
+                    "standard",
+                    "high",
+                    "critical"
+                ]
+            },
+            {
+                "name": "power_monitoring",
+                "label": "Monitoring napájení",
+                "type": "boolean"
+            },
+            {
+                "name": "temperature_monitoring",
+                "label": "Monitoring teploty",
+                "type": "boolean"
+            },
+            {
+                "name": "lifecycle_status",
+                "label": "Lifecycle status",
+                "type": "select",
+                "options": [
+                    "draft",
+                    "active",
+                    "deprecated",
+                    "retired"
+                ]
+            },
+            {
+                "name": "pricing_model",
+                "label": "Pricing model",
+                "type": "select",
+                "options": [
+                    "fixed",
+                    "per_unit"
+                ]
+            }
+        ],
+        "operations": [
+            {
+                "name": "device_installation",
+                "label": "instalace zařízení"
+            },
+            {
+                "name": "device_removal",
+                "label": "odebrání zařízení"
+            },
+            {
+                "name": "cabling_management",
+                "label": "správa kabeláže"
+            },
+            {
+                "name": "capacity_monitoring",
+                "label": "monitoring kapacity"
+            },
+            {
+                "name": "power_monitoring",
+                "label": "monitoring napájení"
+            },
+            {
+                "name": "temperature_monitoring",
+                "label": "monitoring teploty"
+            },
+            {
+                "name": "occupancy_audit",
+                "label": "audit obsazenosti"
+            },
+            {
+                "name": "lifecycle_management",
+                "label": "lifecycle management"
+            }
+        ],
+        "pricing": [
+            {
+                "name": "base_monthly_price",
+                "label": "měsíční cena racku",
+                "type": "number"
+            },
+            {
+                "name": "energy_price",
+                "label": "energie",
+                "type": "number"
+            },
+            {
+                "name": "cooling_overhead",
+                "label": "cooling overhead",
+                "type": "number"
+            },
+            {
+                "name": "maintenance_price",
+                "label": "maintenance racku",
+                "type": "number"
+            },
+            {
+                "name": "support_price",
+                "label": "podpora racku",
+                "type": "number"
+            },
+            {
+                "name": "network_uplink_overhead",
+                "label": "network uplink overhead",
+                "type": "number"
+            },
+            {
+                "name": "monitoring_overhead",
+                "label": "monitoring overhead",
+                "type": "number"
+            }
+        ]
+    }
+}
