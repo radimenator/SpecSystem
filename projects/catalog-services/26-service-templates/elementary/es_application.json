@@ -20,18 +20,6 @@
                 "required": true
             },
             {
-                "name": "application_code",
-                "label": "Kód aplikace",
-                "type": "text",
-                "required": true
-            },
-            {
-                "name": "application_name",
-                "label": "Název aplikace",
-                "type": "text",
-                "required": true
-            },
-            {
                 "name": "application_type",
                 "label": "Typ aplikace",
                 "type": "select",
