@@ -82,16 +82,16 @@
                 "label": "koordinace releasů"
             },
             {
-                "name": "monitoring_coordination",
-                "label": "koordinace monitoringu"
+                "name": "enhanced_monitoring",
+                "label": "rozšířený monitoring"
             },
             {
-                "name": "logging_coordination",
-                "label": "koordinace logování"
+                "name": "enhanced_logging",
+                "label": "rozšířené logování"
             },
             {
-                "name": "backup_coordination",
-                "label": "koordinace zálohování"
+                "name": "enhanced_backup",
+                "label": "rozšířené zálohování"
             },
             {
                 "name": "incident_tracking",
@@ -120,18 +120,18 @@
                 "type": "number"
             },
             {
-                "name": "monitoring_coordination_price",
-                "label": "koordinace monitoringu",
+                "name": "enhanced_monitoring_price",
+                "label": "rozšířený monitoring",
                 "type": "number"
             },
             {
-                "name": "logging_coordination_price",
-                "label": "koordinace logování",
+                "name": "enhanced_logging_price",
+                "label": "rozšířené logování",
                 "type": "number"
             },
             {
-                "name": "backup_coordination_price",
-                "label": "koordinace zálohování",
+                "name": "enhanced_backup_price",
+                "label": "rozšířené zálohování",
                 "type": "number"
             },
             {
